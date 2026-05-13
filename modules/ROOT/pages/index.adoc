@@ -1,22 +1,29 @@
-= An Example Quick Course
+=  Java Architecture and Core Concepts
 :navtitle: Home
 
 == Introduction
 
-Course Title: Course title FIXME
+Course Title:  Java Architecture and Core Concepts
 
 Description:
 Course description FIXME
 
 Duration: FIXME hours
 
-== Objectives
+== Topics covered in this course
 
-On completing this course, you should be able to:
 
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+*  Object-Oriented Programming (OOP) Principles
+
+*  Java Platform Components: JDK, JRE, and JVM
+
+*  Java Development and Monitoring Tools
+
+*  Hands-on Lab: Java Development Workflow
+
+*  Enterprise Java and Specifications
+
+
 
 == Prerequisites
 

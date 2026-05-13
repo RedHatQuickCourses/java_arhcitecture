@@ -1,0 +1,190 @@
+#  Object Structure: Objects consist of data (instance fields) and responsibilities (methods).
+
+[[object-structure]]
+= Object Structure: Data and Responsibilities
+
+In object-oriented programming (OOP), an *object* is a fundamental building block, serving as a self-contained entity that encapsulates both data and the behavior that operates on that data. Understanding the internal structure of an object is crucial for grasping how Java applications work.
+
+An object's structure can be primarily divided into two key components:
+
+*   *Data* (Instance Fields/Attributes)
+*   *Responsibilities* (Methods/Behaviors)
+
+== Detailed Technical Explanation
+
+=== Data: Instance Fields and Attributes
+
+Every object holds specific data that defines its current state. This data is stored in what are known as *instance fields* or *attributes*. These are variables declared within a class but outside any method, constructor, or block. Each instance of the class (each object) will have its own copy of these fields, allowing objects of the same class to maintain different states.
+
+As highlighted in our foundational understanding of objects, an object's "structure... is able to store some data in the instance space" (context lines 18-20). This data gives the object its unique characteristics.
+
+For example, consider a `Car` object. It might have instance fields like `color`, `make`, `model`, and `currentSpeed`. Each individual `Car` object you create will have its own distinct set of values for these fields (e.g., one car could be "red", a "Toyota", "Camry", with a `currentSpeed` of 60, while another is "blue", a "Honda", "Civic", with a `currentSpeed` of 45). These fields define the `Car` object's specific state at any given moment.
+
+=== Responsibilities: Methods and Behaviors
+
+Beyond holding data, an object also possesses *responsibilities*, which are the actions it can perform or the services it can provide. These responsibilities are implemented through *methods*. Methods are blocks of code that define the behavior of an object. They encapsulate the logic for how an object behaves, how it interacts with its own data, and how it communicates with other objects.
+
+The context clearly defines responsibilities: "the responsibilities we can say about this, what we can say, the methods, what process that object can perform on the data hold by that object" (context lines 21-24). Methods are the "task performer" (context lines 28-29) within an object. They allow objects to act upon or modify their internal state.
+
+Continuing with the `Car` example, methods might include `startEngine()`, `accelerate(int speedIncrease)`, `brake(int speedDecrease)`, or `changeGear(int newGear)`. These methods operate on the `Car` object's data (e.g., `accelerate()` would modify the `currentSpeed` field), defining what the car *can do*.
+
+=== The Symbiotic Relationship
+
+The true power of an object lies in the symbiotic relationship between its data and its methods. Methods are inherently designed to operate on the object's own instance fields, ensuring that the object's state is managed consistently and encapsulated effectively. This bundling of data and methods together within a single unit is a core principle of encapsulation, where the internal workings of an object are hidden from the outside, and interactions occur only through well-defined methods. This design promotes modularity, maintainability, and reusability in software development.
+
+---
+
+[[lab-object-structure]]
+== Hands-on Activity: Defining Object Structure
+
+In this activity, you will define a simple Java class to illustrate how instance fields store data and methods define responsibilities.
+
+=== Step 1: Create a Java Class for a `Book`
+
+Create a new Java file named `Book.java`. This class will represent a book object, defining its data and responsibilities.
+
+[source,java]
+----
+public class Book {
+    // Instance Fields (Data/Attributes)
+    String title;
+    String author;
+    int pageCount;
+    boolean isAvailable;
+
+    // Constructor to initialize the object's instance fields
+    public Book(String title, String author, int pageCount) {
+        this.title = title; // 'this' refers to the current object's instance field
+        this.author = author;
+        this.pageCount = pageCount;
+        this.isAvailable = true; // By default, a newly created book is available
+    }
+
+    // Methods (Responsibilities/Behaviors)
+    // This method displays the current state of the book object
+    public void displayBookInfo() {
+        System.out.println("Title: " + this.title);
+        System.out.println("Author: " + this.author);
+        System.out.println("Pages: " + this.pageCount);
+        System.out.println("Available: " + (this.isAvailable ? "Yes" : "No"));
+    }
+
+    // This method changes the 'isAvailable' state to indicate borrowing
+    public void borrowBook() {
+        if (this.isAvailable) {
+            this.isAvailable = false; // Update the object's internal state
+            System.out.println("Book '" + this.title + "' has been borrowed.");
+        } else {
+            System.out.println("Book '" + this.title + "' is currently not available.");
+        }
+    }
+
+    // This method changes the 'isAvailable' state to indicate returning
+    public void returnBook() {
+        if (!this.isAvailable) {
+            this.isAvailable = true; // Update the object's internal state
+            System.out.println("Book '" + this.title + "' has been returned.");
+        } else {
+            System.out.println("Book '" + this.title + "' was already available.");
+        }
+    }
+}
+----
+
+=== Step 2: Create a Main Class to Use `Book` Objects
+
+Create another Java file named `LibraryApp.java` to demonstrate how `Book` objects are created, how their instance fields hold data, and how their methods are invoked to interact with that data.
+
+[source,java]
+----
+public class LibraryApp {
+    public static void main(String[] args) {
+        // Create Book objects (instances of the Book class)
+        // Each object has its own set of instance fields (title, author, etc.)
+        Book book1 = new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 193);
+        Book book2 = new Book("Pride and Prejudice", "Jane Austen", 279);
+
+        System.out.println("--- Initial Book States ---");
+        // Invoke a method to display book1's info
+        book1.displayBookInfo();
+        System.out.println("---------------------------");
+        // Invoke a method to display book2's info
+        book2.displayBookInfo();
+        System.out.println("\n");
+
+        // Interact with book1 using its methods
+        System.out.println("--- Interacting with Book 1 ---");
+        book1.borrowBook(); // Invokes the borrowBook method on book1
+        book1.displayBookInfo();
+        book1.borrowBook(); // Try to borrow again (demonstrates state-dependent behavior)
+        System.out.println("\n");
+
+        // Interact with book2 using its methods
+        System.out.println("--- Interacting with Book 2 ---");
+        book2.displayBookInfo();
+        book2.borrowBook(); // Invokes the borrowBook method on book2
+        book2.returnBook(); // Invokes the returnBook method on book2
+        book2.displayBookInfo();
+    }
+}
+----
+
+=== Step 3: Compile and Run the Code
+
+1.  Open your terminal or command prompt.
+2.  Navigate to the directory where you saved `Book.java` and `LibraryApp.java`.
+3.  Compile both Java files using the `javac` compiler:
+    ```bash
+    javac Book.java LibraryApp.java
+    ```
+4.  Run the `LibraryApp` to see the objects in action:
+    ```bash
+    java LibraryApp
+    ```
+
+=== Expected Output
+
+You will observe output similar to this, demonstrating how the instance fields hold different data for each book and how methods change the state (`isAvailable`) and display information:
+
+```text
+--- Initial Book States ---
+Title: The Hitchhiker's Guide to the Galaxy
+Author: Douglas Adams
+Pages: 193
+Available: Yes
+---------------------------
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes
+
+
+--- Interacting with Book 1 ---
+Book 'The Hitchhiker's Guide to the Galaxy' has been borrowed.
+Title: The Hitchhiker's Guide to the Galaxy
+Author: Douglas Adams
+Pages: 193
+Available: No
+Book 'The Hitchhiker's Guide to the Galaxy' is currently not available.
+
+
+--- Interacting with Book 2 ---
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes
+Book 'Pride and Prejudice' has been borrowed.
+Book 'Pride and Prejudice' has been returned.
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes
+```
+
+=== Reflection
+
+This hands-on activity clearly demonstrates:
+
+*   How `Book` objects are defined with specific `title`, `author`, `pageCount`, and `isAvailable` *instance fields*, which constitute the object's *data* or *state*.
+*   How *methods* like `displayBookInfo()`, `borrowBook()`, and `returnBook()` define the object's *responsibilities* and interact with its internal data (`isAvailable`) to change its state.
+*   That each `Book` object created (e.g., `book1` and `book2`) maintains its own independent set of instance field values, proving that objects are self-contained entities.

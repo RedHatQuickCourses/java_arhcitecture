@@ -1,0 +1,39 @@
+#  Java Platform Components: JDK, JRE, and JVM
+
+=== Java Platform Components: JDK, JRE, and JVM
+
+These are the core components that enable Java development and execution.
+
+*   **Java Development Kit (JDK)**
+    *   The outermost layer and a superset containing all tools necessary for Java development.
+    *   It includes the JRE, JVM, and development tools like `javac` (compiler) and `java` (application launcher).
+    *   Used to compile Java source code (`.java` files) into bytecode (`.class` files).
+
+*   **Java Runtime Environment (JRE)**
+    *   Located inside the JDK, providing libraries (e.g., `java.lang`, `java.io`) and other components needed to run Java programs.
+    *   It contains the JVM, class loaders, and bytecode verifiers.
+    *   Needed to execute already compiled Java applications.
+
+*   **Java Virtual Machine (JVM)**
+    *   The innermost component and the actual executor of Java bytecode.
+    *   It is platform-dependent, meaning a specific JVM version is required for each operating system (e.g., Windows, Linux, macOS).
+    *   Translates bytecode into native machine instructions for the underlying operating system.
+    *   Includes components like the Java interpreter, Just-In-Time (JIT) compiler, and garbage collector.
+
+==== Hands-on
+
+To understand the compilation and execution flow:
+
+.  **Compile Java Source Code**: Use the `javac` tool (part of JDK) to compile a `.java` file into a `.class` file (bytecode).
++
+[source, bash]
+----
+$ javac MyProgram.java
+----
+
+.  **Execute Compiled Java Code**: Use the `java` application launcher (part of JDK/JRE) to run the `.class` file. The JRE provides the necessary runtime environment, and the JVM executes the bytecode.
++
+[source, bash]
+----
+$ java MyProgram
+----

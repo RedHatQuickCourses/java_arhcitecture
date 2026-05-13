@@ -1,0 +1,350 @@
+#  Debugger (jdb): A utility for debugging Java code.
+
+= Debugger (jdb): A Utility for Debugging Java Code
+
+Debugging is an essential skill for any software developer. It involves finding and resolving defects or 'bugs' in computer programs that prevent correct operation. Java provides a powerful command-line debugger called `jdb` (Java Debugger) as part of the Java Development Kit (JDK), allowing developers to analyze and troubleshoot Java applications without the need for a full-fledged Integrated Development Environment (IDE).
+
+== Understanding the Java Debugger (`jdb`)
+
+While IDEs like IntelliJ IDEA offer sophisticated graphical debugger tools that allow you to visually set breakpoints, inspect variables, and step through code, `jdb` provides a robust command-line alternative. It's particularly useful when working in environments where an IDE isn't available, such as remote servers, minimal development setups, or when you need to understand the fundamental debugging process.
+
+The `jdb` utility enables you to:
+
+*   **Set Breakpoints:** Pause program execution at specific lines of code.
+*   **Step Through Code:** Execute code line by line, method by method.
+*   **Inspect Variables:** View the values of local variables and object fields at any point during execution.
+*   **Modify Execution Flow:** Change variable values or even step into or over methods.
+*   **Monitor Threads:** Observe the state of different threads in a multi-threaded application.
+
+This level of control is crucial for understanding program behavior, identifying the root cause of errors, and verifying the correctness of your logic.
+
+=== How `jdb` Works
+
+When you debug a Java application with `jdb`, you're essentially launching your Java Virtual Machine (JVM) in a special debug mode. This mode allows `jdb` to connect to the JVM, receive notifications about program events (like hitting a breakpoint), and send commands to control the JVM's execution.
+
+The general workflow for using `jdb` involves:
+
+1.  **Compiling** your Java source code with debug information enabled.
+2.  **Launching** your application with `jdb` attached, or attaching `jdb` to an already running JVM.
+3.  **Issuing commands** within the `jdb` console to control execution and inspect the program state.
+
+== Hands-on Lab: Basic Java Debugging with `jdb`
+
+In this hands-on lab, we will create a simple Java program, compile it, and then use `jdb` to step through its execution, set breakpoints, and inspect variable values.
+
+=== Step 1: Create a Sample Java Program
+
+Let's create a simple Java program that calculates the factorial of a number. We'll introduce a minor logical point where we can demonstrate debugging.
+
+. Create a file named `FactorialCalculator.java` with the following content:
++
+[source,java]
+----
+public class FactorialCalculator {
+
+    public static void main(String[] args) {
+        int number = 5;
+        long result = calculateFactorial(number);
+        System.out.println("The factorial of " + number + " is: " + result);
+    }
+
+    public static long calculateFactorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Factorial is not defined for negative numbers.");
+        }
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+
+        long factorial = 1;
+        for (int i = 1; i <= n; i++) { // Breakpoint opportunity here
+            factorial = factorial * i;
+        }
+        return factorial;
+    }
+}
+----
+
+=== Step 2: Compile the Java Program with Debug Information
+
+For `jdb` to be most effective, you need to compile your Java source code with debug information. This is typically done by including the `-g` option with the `javac` compiler.
+
+. Open your terminal or command prompt.
+. Navigate to the directory where you saved `FactorialCalculator.java`.
+. Compile the program:
++
+[source,bash]
+----
+javac -g FactorialCalculator.java
+----
++
+This command creates `FactorialCalculator.class` in the same directory, containing the necessary debugging symbols.
+
+=== Step 3: Launch the Program in Debug Mode with `jdb`
+
+Now, we will launch our compiled program using `jdb`.
+
+. In the same terminal, start `jdb` and specify the main class:
++
+[source,bash]
+----
+jdb FactorialCalculator
+----
++
+You should see output similar to this, indicating that `jdb` has started and paused the execution at the beginning of the `main` method:
++
+```
+Initializing jdb ...
+>
+VM initialisation complete.
+Set uncaught java.lang.Throwable
+Set deferred uncaught java.lang.Throwable
+Deferring breakpoint FactorialCalculator.java:10.
+It will be set after the class is loaded.
+>
+```
++
+The `>` prompt indicates that `jdb` is waiting for your commands.
+
+=== Step 4: Set a Breakpoint
+
+Let's set a breakpoint inside the `calculateFactorial` method to inspect the loop. We'll set it on the line `factorial = factorial * i;`. This corresponds to line 19 in our `FactorialCalculator.java` file.
+
+. At the `jdb` prompt, set the breakpoint:
++
+[source,bash]
+----
+stop at FactorialCalculator:19
+----
++
+You should see a confirmation:
++
+```
+Deferring breakpoint FactorialCalculator:19.
+It will be set after the class is loaded.
+>
+```
+
+=== Step 5: Run to the Breakpoint
+
+Now, tell `jdb` to continue execution until it hits the first breakpoint.
+
+. At the `jdb` prompt, type `run`:
++
+[source,bash]
+----
+run
+----
++
+The program will execute until it reaches line 19 for the first time. You'll see output indicating that the breakpoint has been hit:
++
+```
+run
+VM Started: Set deferred uncaught java.lang.Throwable
+Breakpoint hit: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=10
+19            factorial = factorial * i;
+>
+```
++
+The `bci` (bytecode index) is an internal JVM detail. The important part is that `jdb` shows you the line of code where execution is currently paused.
+
+=== Step 6: Inspect Variables
+
+At the breakpoint, you can inspect the values of local variables.
+
+. To see the value of `n`, `factorial`, and `i`:
++
+[source,bash]
+----
+print n
+print factorial
+print i
+----
++
+You'll see output like:
++
+```
+print n
+ n = 5
+print factorial
+ factorial = 1
+print i
+ i = 1
+>
+```
++
+This confirms that at the start of the loop (`i=1`), `n` is 5 and `factorial` is 1.
+
+=== Step 7: Step Through the Code
+
+You can execute the code line by line.
+
+. Use the `step` command to execute the current line (`factorial = factorial * i;`) and move to the next executable line:
++
+[source,bash]
+----
+step
+----
++
+You'll see:
++
+```
+step
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=15
+19            factorial = factorial * i;
+>
+```
++
+Wait, `jdb` sometimes reports the same line twice for stepping *through* it. Let's `print` `factorial` again to see its updated value:
++
+[source,bash]
+----
+print factorial
+----
++
+Output:
++
+```
+print factorial
+ factorial = 1
+>
+```
++
+It seems we are still at the beginning of the line. Let's use `next` to step *over* the current line and onto the *next* line. `step` goes into methods, `next` stays in the current frame.
+
+. Use `next` to execute the current line and move to the next statement *within the current method*:
++
+[source,bash]
+----
+next
+----
++
+Now `jdb` will move to the closing brace of the `for` loop, and then back to the loop condition:
++
+```
+next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=20 bci=18
+20        }
+>
+next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=18 bci=26
+18        for (int i = 1; i <= n; i++) { // Breakpoint opportunity here
+>
+```
++
+Now, let's print `i` and `factorial` to see their updated values after one iteration:
++
+[source,bash]
+----
+print i
+print factorial
+----
++
+You should see:
++
+```
+print i
+ i = 2
+print factorial
+ factorial = 1
+>
+```
++
+*Self-correction:* The breakpoint was at line 19 (`factorial = factorial * i;`). After `next`, it went to line 20 (closing brace), then back to line 18 (loop condition) where `i` was incremented to 2. However, `factorial` remained 1, indicating the multiplication `factorial * i` didn't execute as expected from a single `next` command. This highlights that for loops, stepping can be tricky. Let's `cont` (continue) to hit the breakpoint again for the next iteration.
+
+=== Step 8: Continue Execution to the Next Breakpoint Hit
+
+To continue the program's execution until the next breakpoint hit (or until the program finishes), use the `cont` command.
+
+. At the `jdb` prompt, type `cont`:
++
+[source,bash]
+----
+cont
+----
++
+The breakpoint will be hit again for `i=2`:
++
+```
+cont
+Breakpoint hit: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=10
+19            factorial = factorial * i;
+>
+```
+
+. Now, inspect `i` and `factorial` again:
++
+[source,bash]
+----
+print i
+print factorial
+----
++
+You should see:
++
+```
+print i
+ i = 2
+print factorial
+ factorial = 1
+>
+```
++
+Now, execute the `factorial = factorial * i;` line with `next` and then check `factorial`:
++
+[source,bash]
+----
+next
+print factorial
+----
++
+Output:
++
+```
+next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=20 bci=18
+20        }
+>
+print factorial
+ factorial = 2
+>
+```
++
+Excellent! Now `factorial` has correctly updated to 2 (1 * 2).
+
+=== Step 9: Clear Breakpoints and Continue to Finish
+
+If you want the program to run without stopping at any more breakpoints, you can clear them.
+
+. To clear the breakpoint at line 19:
++
+[source,bash]
+----
+clear FactorialCalculator:19
+----
++
+You should see:
++
+```
+clear FactorialCalculator:19
+Breakpoint cleared: "thread=main", FactorialCalculator.calculateFactorial(), line=19
+>
+```
+
+. Now, let the program run to completion:
++
+[source,bash]
+----
+cont
+----
++
+The program will finish, and you'll see its output, followed by `jdb` exiting:
++
+```
+cont
+The factorial of 5 is: 120
+The application exited
+>
+```
+
+You have successfully used `jdb` to debug a simple Java program, setting breakpoints, inspecting variables, and stepping through code execution. This foundational knowledge is transferable to more complex debugging scenarios, even when using advanced IDEs.

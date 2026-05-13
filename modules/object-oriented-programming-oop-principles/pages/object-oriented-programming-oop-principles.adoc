@@ -1,0 +1,21 @@
+#  Object-Oriented Programming (OOP) Principles
+
+== Object-Oriented Programming (OOP) Principles
+
+Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which can contain data and code. Key principles include:
+
+*   *Abstraction*:: Collecting required elements while ignoring unnecessary details.
+*   *Encapsulation*:: Bundling data and methods inside an object.
+*   *Inheritance*:: Inheriting properties from parent classes.
+*   *Polymorphism*:: Using one name for multiple actions.
+
+=== Object Structure
+
+Objects consist of:
+
+*   *Data*:: Stored in instance fields.
+*   *Responsibilities*:: Defined by methods that perform actions on the object's data.
+
+=== Java's Nature
+
+Java is considered *partially object-oriented* because it supports primitive data types (e.g., `int`, `float`) alongside objects. A purely object-oriented language would not support primitives.

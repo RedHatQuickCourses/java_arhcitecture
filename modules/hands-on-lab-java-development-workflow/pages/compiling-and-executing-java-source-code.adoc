@@ -1,0 +1,135 @@
+#  Compiling and Executing Java Source Code
+
+[[java-dev-workflow-compile-execute]]
+= Compiling and Executing Java Source Code
+
+Java's "write once, run anywhere" philosophy is a cornerstone of its design, enabling applications to run across diverse operating systems and hardware. This remarkable capability is powered by a unique two-step process: compilation into an intermediate format called *bytecode*, and subsequent execution by a *Java Virtual Machine* (JVM). This section dives deep into these fundamental steps, elucidating the roles of the key tools involved.
+
+== The Java Compilation Process: From Source Code to Bytecode
+
+The initial phase of transforming your Java application begins with compilation. This is where your human-readable Java source files are translated into a machine-agnostic format.
+
+=== The `javac` Compiler
+
+The `javac` (Java Compiler) tool is an indispensable component provided by the Java Development Kit (JDK). Its primary function is to process Java source code files, which typically have a `.java` extension, and convert them into `.class` files. These `.class` files contain *Java bytecode*.
+
+Let's consider a simple example:
+
+[source,java]
+.Example: A basic Java source file (`MyFirstProgram.java`)
+----
+public class MyFirstProgram {
+    public static void main(String[] args) {
+        System.out.println("Compiling and executing Java is fun!");
+    }
+}
+----
+
+When you invoke `javac` on `MyFirstProgram.java`, the compiler performs a thorough analysis of the code. This includes syntax checks, type verification, and ensuring adherence to Java language specifications. If the code is syntactically correct and type-safe, `javac` successfully generates `MyFirstProgram.class`. This `.class` file is not directly executable by your computer's operating system; instead, it contains instructions for the JVM.
+
+[NOTE]
+====
+As outlined in the Java Platform Components, the *Java Development Kit (JDK)* acts as a superset, encapsulating all the tools essential for Java development, including `javac`. Consequently, having the JDK installed is a prerequisite for compiling Java source code.
+====
+
+== The Java Execution Process: Running Bytecode on the JVM
+
+Once the Java source code has been successfully compiled into bytecode, it is ready to be executed. This is where the Java Runtime Environment (JRE) and, more specifically, the Java Virtual Machine (JVM), play their critical roles.
+
+=== The `java` Application Launcher
+
+The `java` application launcher (often invoked simply as the `java` command) is responsible for initiating a Java Virtual Machine instance and loading a specified `.class` file for execution. When you run a Java application, the `java` command takes the name of the compiled class (without the `.class` extension) and passes it to the JVM.
+
+The execution sequence is a carefully orchestrated process:
+
+.  A developer crafts `.java` source code using a text editor or IDE.
+.  The `javac` compiler (part of the JDK) translates the `.java` file into a `.class` file containing bytecode.
+.  The `java` command (part of the JDK/JRE) is invoked, which launches a JVM instance.
+.  The JVM's ClassLoader loads the required `.class` files into memory.
+.  The JVM's Bytecode Verifier scrutinizes the loaded bytecode for security and format integrity.
+.  The JVM's Interpreter or Just-In-Time (JIT) compiler translates the bytecode into native machine instructions specific to the underlying operating system and hardware.
+.  The program's instructions are then executed on the host operating system.
+
+This multi-layered approach allows Java applications to maintain their portability, as the bytecode acts as a universal intermediate language, and the JVM acts as an abstraction layer between the bytecode and the native operating system.
+
+[NOTE]
+====
+While `javac` is solely a JDK tool, the `java` command is found in both the JDK (for developers) and the JRE (for end-users who only need to run applications). The JRE provides the necessary runtime libraries and the JVM to execute compiled Java programs efficiently and securely.
+====
+
+== Hands-on Lab: Compiling and Executing Your First Java Program
+
+This lab provides a practical, step-by-step experience in the core Java development workflow: writing a simple program, compiling it into bytecode, and then executing it using the Java runtime.
+
+=== Prerequisites
+
+*   A properly installed Java Development Kit (JDK) on your system.
+*   A text editor of your choice (e.g., VS Code, Sublime Text, Notepad++, or command-line editors like `nano` or `vi`).
+*   Access to a command-line interface (CLI) or terminal.
+
+=== Lab Steps
+
+.  **Set Up Your Project Directory**
+   Open your terminal or command prompt and create a dedicated directory for this lab. Navigate into it:
+   [source,bash]
+   ----
+   mkdir java-first-app
+   cd java-first-app
+   ----
+
+.  **Write Your Java Source Code**
+   Using your preferred text editor, create a new file named `Greeting.java` within the `java-first-app` directory. Copy and paste the following Java code into the file:
+   [source,java]
+   ----
+   // Greeting.java
+   public class Greeting {
+       public static void main(String[] args) {
+           System.out.println("Hello from the Java Development Workflow Lab!");
+           System.out.println("This is my first compiled and executed Java program!");
+       }
+   }
+   ----
+   Save the file. It is crucial that the filename (`Greeting.java`) precisely matches the public class name (`Greeting`).
+
+.  **Compile the Java Source Code**
+   Return to your terminal, ensuring you are still within the `java-first-app` directory where `Greeting.java` is saved. Execute the `javac` command, providing the filename as an argument:
+   [source,bash]
+   ----
+   javac Greeting.java
+   ----
+   If the compilation is successful, `javac` will typically not display any output. However, it will create a new file named `Greeting.class` in the same directory. This `Greeting.class` file contains the Java bytecode.
+
+   To confirm the creation of the `.class` file, you can list the directory contents:
+   [source,bash]
+   ----
+   ls
+   ----
+   You should now see both `Greeting.java` and `Greeting.class` listed.
+
+   [TIP]
+   ====
+   If `javac` reports errors, carefully inspect your `Greeting.java` file for any typographical errors, missing semicolons, incorrect casing, or mismatched class/filename. Pay close attention to error messages provided by the compiler, as they often pinpoint the exact issue and line number.
+   ====
+
+.  **Execute the Compiled Java Program**
+   With the `Greeting.class` file (bytecode) now available, you can execute it using the `java` application launcher. In your terminal, enter:
+   [source,bash]
+   ----
+   java Greeting
+   ----
+   Notice a critical detail: when using the `java` command, you specify the class name (`Greeting`) but *omit* the `.class` extension. The JVM handles the lookup of the `.class` file internally.
+
+=== Expected Output
+
+Upon successful execution of `java Greeting`, your terminal should display the following output:
+
+[source,plaintext]
+----
+Hello from the Java Development Workflow Lab!
+This is my first compiled and executed Java program!
+----
+
+=== Explanation
+
+*   The `javac Greeting.java` command invoked the Java compiler, which read your `Greeting.java` source file. It parsed the code, checked for errors, and translated the human-readable Java instructions into platform-independent bytecode, which it then stored in `Greeting.class`.
+*   The `java Greeting` command initiated a Java Virtual Machine (JVM) instance. This JVM located and loaded the `Greeting.class` file. It then executed the bytecode within the `main` method, causing the `System.out.println()` statements to print their respective messages to your console. This hands-on experience demonstrates the fundamental lifecycle of a Java program, from source code creation to compilation and finally to runtime execution within the Java ecosystem.

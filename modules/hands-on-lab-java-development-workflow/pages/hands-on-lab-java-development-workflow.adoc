@@ -1,0 +1,12 @@
+#  Hands-on Lab: Java Development Workflow
+
+
+[discrete]
+== Hands-on Lab: Java Development Workflow
+
+This lab provides practical experience with essential Java development tools and processes.
+
+*   xref:java-architecture.adoc#compiling-and-executing-java-source-code[Compiling and Executing Java Source Code]: Use `javac` to compile `.java` files into bytecode (`.class`) and `java` to execute the compiled code.
+*   xref:java-architecture.adoc#inspecting-bytecode-with-javap[Inspecting Bytecode with `javap`]: Utilize the `javap` decompiler to view the internal structure and details of `.class` files.
+*   xref:java-architecture.adoc#creating-and-managing-jar-files[Creating and Managing JAR Files]: Learn to use the `jar` utility to bundle multiple compiled files into a single archive for distribution or unpack existing ones.
+*   xref:java-architecture.adoc#monitoring-java-applications-with-jconsole[Monitoring Java Applications with JConsole]: Explore JConsole to observe critical application metrics such as memory usage, thread activity, and overall process performance.

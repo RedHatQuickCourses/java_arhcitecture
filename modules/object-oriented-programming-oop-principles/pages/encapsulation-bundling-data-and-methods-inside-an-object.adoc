@@ -1,0 +1,183 @@
+#  Encapsulation: Bundling data and methods inside an object.
+
+= Encapsulation: Bundling Data and Methods
+
+Encapsulation, a fundamental principle of Object-Oriented Programming (OOP), is the mechanism of bundling data (instance fields) and the methods (functions) that operate on that data into a single unit, known as an object. This concept ensures that an object's internal state is hidden from external access, and can only be modified or accessed through the object's well-defined public interface.
+
+As highlighted in the core concepts, "Encapsulation is bundling the things inside something, inside your object." (Refer to Java Architecture and Core Concepts: Object-Oriented Programming (OOP) Principles). An object is designed with a specific structure and behavior. Its structure allows it to store data using instance fields, while its behavior is defined by its methods, which perform operations on the data contained within that object (Context lines 16-26).
+
+== Why Encapsulation Matters: Benefits and Rationale
+
+The primary goal of encapsulation is to achieve *data hiding* or *information hiding*, thereby protecting an object's internal state from unintended or unauthorized external modifications.
+
+Let's explore the key benefits:
+
+*   **Data Security and Integrity:** By making data fields private, you prevent direct manipulation from outside the object. Instead, data can only be accessed or modified via public methods (getters and setters), which can include validation logic to ensure data remains in a consistent and valid state. For example, a `setAge()` method could prevent setting a negative age.
+*   **Improved Maintainability and Flexibility:** Encapsulation allows you to change the internal implementation details of a class without affecting the code that uses the class. As long as the public interface (the methods) remains consistent, consumers of the class don't need to be aware of internal changes. This makes systems easier to evolve and refactor.
+*   **Reduced Complexity:** Objects present a simpler view to the outside world. Users of an object only need to know how to interact with its public methods, rather than understanding its intricate internal workings. This simplifies development and reduces the chances of errors.
+*   **Easier Debugging:** When issues arise, the encapsulated nature of objects often helps confine problems to a specific unit. Since data modification is controlled, tracing the source of an incorrect state becomes more straightforward.
+
+== How Encapsulation is Implemented in Java
+
+In Java, encapsulation is primarily achieved using:
+
+1.  **Classes:** A class acts as the blueprint for objects, defining both the data members (instance fields) and the member functions (methods) that operate on that data.
+2.  **Access Modifiers:** These keywords (`private`, `public`, `protected`, `default`) control the visibility and accessibility of classes, fields, constructors, and methods.
+    *   ``private``: The most crucial modifier for encapsulation. `private` members (fields or methods) are only accessible from within the same class. This is how data hiding is enforced.
+    *   ``public``: `public` members are accessible from any other class. These are typically used for methods that form the public interface of the object, allowing controlled interaction with its internal state.
+    *   ``protected``: Members are accessible within the same class, by subclasses, and by classes within the same package.
+    *   ``default (no modifier)``: Members are accessible only within the same package.
+3.  **Getters and Setters:** These are `public` methods specifically designed to provide controlled access to `private` instance fields.
+    *   **Getter (Accessor) Methods:** Used to retrieve the value of a private field. They typically follow the naming convention `getFieldName()`.
+    *   **Setter (Mutator) Methods:** Used to modify the value of a private field. They often include validation logic and follow the naming convention `setFieldName(newValue)`.
+
+By combining `private` fields with `public` getters and setters, you create a robust, encapsulated class where data integrity is maintained, and interaction is well-defined.
+
+[[lab-java-encapsulation]]
+== Hands-on Lab: Implementing Encapsulation
+
+This lab activity demonstrates how to implement encapsulation in Java by creating a `BankAccount` class with private data fields and public methods to interact with them.
+
+=== Objective
+
+*   Understand how to declare private instance variables.
+*   Learn to create public getter and setter methods to control access to private data.
+*   Observe the compile-time error when attempting to access private fields directly.
+
+=== Steps
+
+.  **Create the `BankAccount` Class**
+
+    Create a file named `BankAccount.java` and add the following code. This class encapsulates an account number and balance, providing controlled access through methods.
+
+    [source,java]
+    ----
+    public class BankAccount {
+        // Private instance variables (data fields)
+        private String accountNumber;
+        private double balance;
+
+        // Constructor to initialize the account
+        public BankAccount(String accountNumber, double initialBalance) {
+            this.accountNumber = accountNumber;
+            // Ensure initial balance is not negative
+            if (initialBalance >= 0) {
+                this.balance = initialBalance;
+            } else {
+                this.balance = 0; // Default to 0 if negative initial balance
+                System.out.println("Initial balance cannot be negative. Setting to 0.");
+            }
+        }
+
+        // Public getter method for accountNumber
+        public String getAccountNumber() {
+            return accountNumber;
+        }
+
+        // Public getter method for balance
+        public double getBalance() {
+            return balance;
+        }
+
+        // Public method to deposit funds (setter with logic)
+        public void deposit(double amount) {
+            if (amount > 0) {
+                this.balance += amount;
+                System.out.println("Deposited: " + amount + ". New balance: " + this.balance);
+            } else {
+                System.out.println("Deposit amount must be positive.");
+            }
+        }
+
+        // Public method to withdraw funds (setter with logic)
+        public void withdraw(double amount) {
+            if (amount > 0 && this.balance >= amount) {
+                this.balance -= amount;
+                System.out.println("Withdrew: " + amount + ". New balance: " + this.balance);
+            } else if (amount <= 0) {
+                System.out.println("Withdrawal amount must be positive.");
+            } else {
+                System.out.println("Insufficient funds. Current balance: " + this.balance);
+            }
+        }
+    }
+    ----
+
+.  **Create the `BankApp` (Main Application) Class**
+
+    Create a file named `BankApp.java` in the *same directory* as `BankAccount.java`. This class will demonstrate how to interact with the `BankAccount` object using its public methods.
+
+    [source,java]
+    ----
+    public class BankApp {
+        public static void main(String[] args) {
+            // Create a BankAccount object
+            BankAccount myAccount = new BankAccount("12345-67890", 1000.00);
+
+            System.out.println("--- Account Information ---");
+            System.out.println("Account Number: " + myAccount.getAccountNumber());
+            System.out.println("Current Balance: $" + myAccount.getBalance());
+
+            // Perform operations using public methods
+            myAccount.deposit(500.00);
+            myAccount.withdraw(200.00);
+            myAccount.deposit(100.00);
+            myAccount.withdraw(1500.00); // Attempt to overdraw
+
+            System.out.println("\n--- Final Account Information ---");
+            System.out.println("Account Number: " + myAccount.getAccountNumber());
+            System.out.println("Final Balance: $" + myAccount.getBalance());
+
+            // Attempting to directly access private fields will cause a compile-time error <1>
+            // myAccount.balance = 5000.00; // Uncommenting this line will cause an error
+            // System.out.println("New Balance (direct access): $" + myAccount.balance); // Uncommenting this line will cause an error
+        }
+    }
+    ----
+    <1> These lines are commented out to allow successful compilation. If you uncomment them, your Java compiler will report an error, demonstrating that private fields cannot be accessed directly from outside the class.
+
+.  **Compile the Java Code**
+
+    Open your terminal or command prompt, navigate to the directory where you saved `BankAccount.java` and `BankApp.java`, and compile them:
+
+    ```bash
+    javac BankAccount.java BankApp.java
+    ```
+
+    If you uncommented the lines in `BankApp.java` that attempt direct access to `myAccount.balance`, you would see a compile-time error similar to:
+    ```
+    BankApp.java:18: error: balance has private access in BankAccount
+            myAccount.balance = 5000.00;
+                     ^
+    BankApp.java:19: error: balance has private access in BankAccount
+            System.out.println("New Balance (direct access): $" + myAccount.balance);
+                                                                ^
+    2 errors
+    ```
+    This error explicitly demonstrates the enforcement of encapsulation by the Java compiler.
+
+.  **Execute the Application**
+
+    After successful compilation, run the `BankApp`:
+
+    ```bash
+    java BankApp
+    ```
+
+=== Expected Output
+
+```plaintext
+--- Account Information ---
+Account Number: 12345-67890
+Current Balance: $1000.0
+Deposited: 500.0. New balance: 1500.0
+Withdrew: 200.0. New balance: 1300.0
+Deposited: 100.0. New balance: 1400.0
+Insufficient funds. Current balance: 1400.0
+
+--- Final Account Information ---
+Account Number: 12345-67890
+Final Balance: $1400.0
+```
+
+This lab clearly illustrates how encapsulation protects the internal state of an object, allowing modifications only through controlled methods, which can enforce business rules and maintain data integrity. This is a cornerstone for building robust and maintainable Java applications.

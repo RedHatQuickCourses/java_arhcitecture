@@ -1,0 +1,95 @@
+#  Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.
+
+[[java-runtime-environment]]
+= Java Runtime Environment (JRE)
+
+The Java Runtime Environment (JRE) serves as the dedicated environment for executing compiled Java programs. It is a crucial component within the larger Java ecosystem, specifically designed to *run* applications rather than *develop* them. Think of the JRE as the engine that powers your Java applications once they've been built.
+
+== What is JRE?
+
+The JRE is a software package that provides the minimum requirements for executing a Java application. It includes the Java Virtual Machine (JVM), core libraries, and other supporting files necessary for running Java bytecode. Its primary role is to provide a runtime environment where Java bytecode can be executed safely and efficiently (Context: 608-609).
+
+== JRE's Place in the Java Ecosystem
+
+The JRE is located *inside* the Java Development Kit (JDK) (Context: 94). This hierarchical structure means that if you install the JDK, you automatically get the JRE, which in turn contains the JVM.
+
+*   **JDK** (Java Development Kit): The superset, containing tools for development *and* execution.
+*   **JRE** (Java Runtime Environment): Inside the JDK, providing the environment and libraries for execution.
+*   **JVM** (Java Virtual Machine): The innermost component, the actual executor of bytecode, contained within the JRE.
+
+This means if you've developed a Java application using the JDK, and you simply want to run it on another machine, that machine only needs the JRE (and by extension, the JVM) to execute your compiled `.class` files (Context: 88).
+
+== Core Components and Functionality
+
+The JRE's primary function is to provide all the necessary components for a Java application to run. Key aspects of its functionality include:
+
+=== Providing Runtime Libraries
+
+One of the most significant roles of the JRE is to bundle essential runtime libraries. These libraries contain pre-written code that Java applications frequently need. Without them, developers would have to write many fundamental functionalities from scratch.
+
+Notable examples of these libraries include:
+
+*   `java.lang`: This package contains fundamental classes and interfaces that are part of the Java language itself. It includes classes like `Object`, `String`, `System`, `Thread`, and many others that are essential for almost any Java program. It's so fundamental that it's automatically imported into every Java source file.
+*   `java.io`: This package provides classes for system input and output operations, such as reading from and writing to files, network streams, and the console.
+
+These common packages are provided by the JRE, making them readily available to Java applications and reducing the need for explicit imports of these core functionalities (Context: 124-128).
+
+=== Including the Java Virtual Machine (JVM)
+
+At its core, the JRE contains the Java Virtual Machine (JVM). The JVM is responsible for taking the platform-independent Java bytecode (`.class` files) and translating it into machine-specific instructions for the underlying operating system. The JRE acts as the wrapper that provides everything the JVM needs to perform its execution tasks.
+
+=== Supporting the Class Loader
+
+While the JVM directly executes the bytecode, the process of getting that bytecode into the JVM is managed by the Class Loader. The Class Loader, which is part of the JRE, performs three main tasks: loading, linking, and initialization of Java classes (Context: 110, 621-626). This ensures that all necessary classes are available and correctly prepared for execution by the JVM.
+
+== Hands-on Activity: Understanding JRE's Role in Execution
+
+While the JRE itself is not a tool you directly interact with like `javac` or `java`, its presence is fundamental to running any Java program. This activity demonstrates how a Java program is executed, implicitly leveraging the JRE.
+
+For this activity, you will need a Java Development Kit (JDK) installed, as it includes the JRE and necessary tools.
+
+=== Objective
+
+*   To understand that compiling a Java program requires the JDK, but running the compiled bytecode primarily relies on the JRE (which includes the JVM).
+
+=== Steps
+
+.  **Create a Simple Java Program:**
+    Open a text editor and create a file named `HelloWorld.java`.
+
+    [source,java]
+    ----
+    public class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, JRE!");
+        }
+    }
+    ----
+
+.  **Compile the Java Program (using JDK):**
+    Open your terminal or command prompt, navigate to the directory where you saved `HelloWorld.java`, and compile the code using the `javac` compiler (part of the JDK):
+
+    ```bash
+    javac HelloWorld.java
+    ```
+
+    *Expected Output:* If successful, this command will generate a `HelloWorld.class` file in the same directory. This `.class` file contains the platform-independent Java bytecode.
+
+.  **Execute the Compiled Program (using JRE/JVM):**
+    Now, execute the compiled bytecode using the `java` application launcher. This command implicitly invokes the JRE and its contained JVM to run your program.
+
+    ```bash
+    java HelloWorld
+    ```
+
+    *Expected Output:*
+    ```
+    Hello, JRE!
+    ```
+
+    *Explanation:* When you run `java HelloWorld`, the JRE:
+    *   Uses its Class Loader to load the `HelloWorld.class` file into the JVM.
+    *   Makes the `java.lang.System` class (part of the JRE's core libraries) available to your program.
+    *   The JVM then executes the `main` method, leading to the output.
+
+This simple workflow demonstrates how the JRE provides the necessary runtime environment and libraries for your compiled Java applications to come to life.

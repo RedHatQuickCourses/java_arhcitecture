@@ -1,0 +1,5 @@
+* xref:hands-on-lab-java-development-workflow.adoc[]
+** xref:compiling-and-executing-java-source-code.adoc[]
+** xref:inspecting-bytecode-with-javap.adoc[]
+** xref:creating-and-managing-jar-files.adoc[]
+** xref:monitoring-java-applications-with-jconsole.adoc[]

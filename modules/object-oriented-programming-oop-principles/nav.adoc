@@ -1,0 +1,7 @@
+* xref:object-oriented-programming-oop-principles.adoc[]
+** xref:abstraction-collecting-required-elements-while-ignoring-unnecessary-details.adoc[]
+** xref:encapsulation-bundling-data-and-methods-inside-an-object.adoc[]
+** xref:inheritance-inheriting-properties-from-parent-classes.adoc[]
+** xref:polymorphism-using-one-name-for-multiple-actions.adoc[]
+** xref:object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.adoc[]
+** xref:javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.adoc[]

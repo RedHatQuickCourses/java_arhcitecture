@@ -1,0 +1,12 @@
+#  Enterprise Java and Specifications
+
+A *specification* defines a set of guidelines or rules that outline *what* needs to be done without detailing *how* it should be implemented. Vendors then provide their own implementations of these specifications, ensuring interoperability while allowing for unique approaches.
+
+*Key points:*
+
+*   *Purpose:* Specifications ensure consistency and compatibility across different implementations of enterprise-level Java technologies.
+*   *Examples of Specifications:* JDBC, JNDI, JAX-RS, JAX-WS, and Jakarta EE are prominent Java specifications.
+*   *Implementations:* Companies like Red Hat (with JBoss Enterprise Application Platform - EAP) and Oracle (with WebLogic) develop application servers that are concrete implementations of these specifications.
+*   *JBoss EAP Versioning:*
+    ** JBoss EAP 8 supports JDK versions 11, 17, and 21. It *does not* support JDK 8.
+    ** JBoss EAP 7.4 (an older version) supported JDK 8.

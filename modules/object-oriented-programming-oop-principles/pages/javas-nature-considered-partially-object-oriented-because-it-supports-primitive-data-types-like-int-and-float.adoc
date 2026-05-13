@@ -1,0 +1,91 @@
+#  Java's Nature: Considered partially object-oriented because it supports primitive data types like int and float.
+
+[[java-partial-oop-nature]]
+=== Java's Partially Object-Oriented Nature
+
+While Java is a cornerstone of object-oriented programming (OOP) and adheres to many of its core principles, it is fundamentally considered a *partially object-oriented* language rather than a *purely object-oriented* one. This distinction is crucial for understanding Java's design philosophy and its performance characteristics.
+
+A language is often termed *purely object-oriented* if *everything* within it, including fundamental data types like numbers and characters, is treated as an object. In such a paradigm, every piece of data would be an instance of a class, possessing its own state (data/fields) and behavior (methods).
+
+Java, however, deviates from this pure model by incorporating both robust object-oriented features and simpler, more performant primitive data types. As noted in the provided context (lines 36-46), Java explicitly supports primitive data types such as `int`, `float`, `boolean`, `char`, `byte`, `short`, `long`, and `double`.
+
+These primitive types are not objects:
+*   They do not inherit from the `java.lang.Object` class.
+*   They do not have methods that can be invoked on them.
+*   Their values are stored directly in memory, rather than as references to objects on the heap. This direct storage contributes significantly to performance efficiency for common arithmetic and logical operations.
+
+For example, when you declare `int age = 30;`, the variable `age` directly holds the value `30`. In contrast, if you use its corresponding wrapper class, `Integer ageObject = new Integer(30);` (or `Integer.valueOf(30)`), `ageObject` is a reference to an `Integer` object on the heap, which itself encapsulates the primitive `int` value `30` and provides various methods (e.g., `intValue()`, `toString()`).
+
+.Why Java is Partially Object-Oriented
+*   **Primitive Data Type Support**: The existence of primitive data types (`int`, `float`, `boolean`, `char`, etc.) is the primary reason. These types handle fundamental values directly, without the overhead of object creation or method dispatch.
+*   **Performance Optimization**: Primitives are inherently more memory-efficient and faster to process than objects. Using them for common operations avoids the overhead associated with object management, such as memory allocation on the heap and garbage collection, thereby improving application performance for basic computations.
+*   **Simplicity and Readability**: For basic data manipulation, using primitives can lead to cleaner, more concise code, reducing boilerplate associated with object instantiation for simple values.
+
+This architectural decision to blend object-orientation with primitive types allows Java to offer the best of both worlds: powerful abstraction and modularity through objects, alongside efficient execution for low-level data handling.
+
+==== Hands-on Activity: Differentiating Primitives and Objects
+
+This activity demonstrates the fundamental difference between how Java treats primitive data types and object types, highlighting why it's considered partially object-oriented.
+
+.Create a new Java file named `DataTypeContrast.java`.
+[source,java]
+----
+public class DataTypeContrast {
+    public static void main(String[] args) {
+        // 1. Primitive data type: 'int'
+        //    Stores the value directly. No methods can be called on it.
+        int primitiveNumber = 100;
+        System.out.println("Primitive int value: " + primitiveNumber);
+
+        // 2. Object data type: 'Integer' (wrapper class for int)
+        //    'Integer' is an object that wraps an 'int' value.
+        //    Methods can be called on it.
+        Integer objectNumber = Integer.valueOf(200); // Autoboxing would also work: Integer objectNumber = 200;
+        System.out.println("Object Integer value: " + objectNumber);
+
+        // Demonstrating the difference:
+        // Try to call a method on a primitive data type.
+        // Uncommenting the line below will result in a compile-time error
+        // because 'int' is not an object and has no methods.
+        // primitiveNumber.toString(); // ERROR: int cannot be dereferenced
+
+        // Call a method on an object data type.
+        // The Integer object has methods like toString().
+        String objectNumberAsString = objectNumber.toString();
+        System.out.println("Object Integer as String: " + objectNumberAsString);
+
+        // Demonstrate a simple operation with primitives
+        int sum = primitiveNumber + 50;
+        System.out.println("Primitive sum: " + sum);
+
+        // Demonstrate operation with objects (autounboxing/autoboxing handles this seamlessly)
+        Integer sumObject = objectNumber + 50; // objectNumber is unboxed to int, sum computed, then reboxed to Integer
+        System.out.println("Object sum: " + sumObject);
+    }
+}
+----
+
+.Compile the `DataTypeContrast.java` file.
+[source,bash]
+----
+javac DataTypeContrast.java
+----
+
+.Execute the compiled Java program.
+[source,bash]
+----
+java DataTypeContrast
+----
+
+.Expected Output
+[source,text]
+----
+Primitive int value: 100
+Object Integer value: 200
+Object Integer as String: 200
+Primitive sum: 150
+Object sum: 250
+----
+
+.Analysis
+The output clearly shows that while both `primitiveNumber` and `objectNumber` store numerical values, only `objectNumber` (an instance of `Integer`) allows method invocations like `toString()`. Attempting `primitiveNumber.toString()` would trigger a compilation error, reinforcing that `int` is a raw value type, not an object. This distinction is fundamental to Java's partially object-oriented nature, providing developers with both the efficiency of primitives and the powerful abstractions of objects.

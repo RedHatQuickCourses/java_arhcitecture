@@ -1,0 +1,5 @@
+* xref:java-platform-components-jdk-jre-and-jvm.adoc[]
+** xref:java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.adoc[]
+** xref:java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.adoc[]
+** xref:java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.adoc[]
+** xref:compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.adoc[]
