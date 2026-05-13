@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Encapsulation: Bundling data and methods inside an object. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">
+    <link rel="next" href="inheritance-inheriting-properties-from-parent-classes.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
+    <li><a href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Encapsulation: Bundling data and methods inside an object.</h1>
+<h1 id="_encapsulation_bundling_data_and_methods" class="sect0"><a class="anchor" href="#_encapsulation_bundling_data_and_methods"></a>Encapsulation: Bundling Data and Methods</h1>
+<div class="paragraph">
+<p>Encapsulation, a fundamental principle of Object-Oriented Programming (OOP), is the mechanism of bundling data (instance fields) and the methods (functions) that operate on that data into a single unit, known as an object. This concept ensures that an object&#8217;s internal state is hidden from external access, and can only be modified or accessed through the object&#8217;s well-defined public interface.</p>
+</div>
+<div class="paragraph">
+<p>As highlighted in the core concepts, "Encapsulation is bundling the things inside something, inside your object." (Refer to Java Architecture and Core Concepts: Object-Oriented Programming (OOP) Principles). An object is designed with a specific structure and behavior. Its structure allows it to store data using instance fields, while its behavior is defined by its methods, which perform operations on the data contained within that object (Context lines 16-26).</p>
+</div>
+<div class="sect1">
+<h2 id="_why_encapsulation_matters_benefits_and_rationale"><a class="anchor" href="#_why_encapsulation_matters_benefits_and_rationale"></a>Why Encapsulation Matters: Benefits and Rationale</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The primary goal of encapsulation is to achieve <strong>data hiding</strong> or <strong>information hiding</strong>, thereby protecting an object&#8217;s internal state from unintended or unauthorized external modifications.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s explore the key benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data Security and Integrity:</strong> By making data fields private, you prevent direct manipulation from outside the object. Instead, data can only be accessed or modified via public methods (getters and setters), which can include validation logic to ensure data remains in a consistent and valid state. For example, a <code>setAge()</code> method could prevent setting a negative age.</p>
+</li>
+<li>
+<p><strong>Improved Maintainability and Flexibility:</strong> Encapsulation allows you to change the internal implementation details of a class without affecting the code that uses the class. As long as the public interface (the methods) remains consistent, consumers of the class don&#8217;t need to be aware of internal changes. This makes systems easier to evolve and refactor.</p>
+</li>
+<li>
+<p><strong>Reduced Complexity:</strong> Objects present a simpler view to the outside world. Users of an object only need to know how to interact with its public methods, rather than understanding its intricate internal workings. This simplifies development and reduces the chances of errors.</p>
+</li>
+<li>
+<p><strong>Easier Debugging:</strong> When issues arise, the encapsulated nature of objects often helps confine problems to a specific unit. Since data modification is controlled, tracing the source of an incorrect state becomes more straightforward.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_encapsulation_is_implemented_in_java"><a class="anchor" href="#_how_encapsulation_is_implemented_in_java"></a>How Encapsulation is Implemented in Java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Java, encapsulation is primarily achieved using:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Classes:</strong> A class acts as the blueprint for objects, defining both the data members (instance fields) and the member functions (methods) that operate on that data.</p>
+</li>
+<li>
+<p><strong>Access Modifiers:</strong> These keywords (<code>private</code>, <code>public</code>, <code>protected</code>, <code>default</code>) control the visibility and accessibility of classes, fields, constructors, and methods.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>private</code>: The most crucial modifier for encapsulation. <code>private</code> members (fields or methods) are only accessible from within the same class. This is how data hiding is enforced.</p>
+</li>
+<li>
+<p><code>public</code>: <code>public</code> members are accessible from any other class. These are typically used for methods that form the public interface of the object, allowing controlled interaction with its internal state.</p>
+</li>
+<li>
+<p><code>protected</code>: Members are accessible within the same class, by subclasses, and by classes within the same package.</p>
+</li>
+<li>
+<p><code>default (no modifier)</code>: Members are accessible only within the same package.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Getters and Setters:</strong> These are <code>public</code> methods specifically designed to provide controlled access to <code>private</code> instance fields.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Getter (Accessor) Methods:</strong> Used to retrieve the value of a private field. They typically follow the naming convention <code>getFieldName()</code>.</p>
+</li>
+<li>
+<p><strong>Setter (Mutator) Methods:</strong> Used to modify the value of a private field. They often include validation logic and follow the naming convention <code>setFieldName(newValue)</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>By combining <code>private</code> fields with <code>public</code> getters and setters, you create a robust, encapsulated class where data integrity is maintained, and interaction is well-defined.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lab-java-encapsulation"><a class="anchor" href="#lab-java-encapsulation"></a>Hands-on Lab: Implementing Encapsulation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This lab activity demonstrates how to implement encapsulation in Java by creating a <code>BankAccount</code> class with private data fields and public methods to interact with them.</p>
+</div>
+<div class="sect2">
+<h3 id="_objective"><a class="anchor" href="#_objective"></a>Objective</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Understand how to declare private instance variables.</p>
+</li>
+<li>
+<p>Learn to create public getter and setter methods to control access to private data.</p>
+</li>
+<li>
+<p>Observe the compile-time error when attempting to access private fields directly.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create the <code>BankAccount</code> Class</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Create a file named `BankAccount.java` and add the following code. This class encapsulates an account number and balance, providing controlled access through methods.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[source,java]
+----
+public class BankAccount {
+    // Private instance variables (data fields)
+    private String accountNumber;
+    private double balance;</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// Constructor to initialize the account
+public BankAccount(String accountNumber, double initialBalance) {
+    this.accountNumber = accountNumber;
+    // Ensure initial balance is not negative
+    if (initialBalance &gt;= 0) {
+        this.balance = initialBalance;
+    } else {
+        this.balance = 0; // Default to 0 if negative initial balance
+        System.out.println("Initial balance cannot be negative. Setting to 0.");
+    }
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// Public getter method for accountNumber
+public String getAccountNumber() {
+    return accountNumber;
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// Public getter method for balance
+public double getBalance() {
+    return balance;
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// Public method to deposit funds (setter with logic)
+public void deposit(double amount) {
+    if (amount &gt; 0) {
+        this.balance += amount;
+        System.out.println("Deposited: " + amount + ". New balance: " + this.balance);
+    } else {
+        System.out.println("Deposit amount must be positive.");
+    }
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    // Public method to withdraw funds (setter with logic)
+    public void withdraw(double amount) {
+        if (amount &gt; 0 &amp;&amp; this.balance &gt;= amount) {
+            this.balance -= amount;
+            System.out.println("Withdrew: " + amount + ". New balance: " + this.balance);
+        } else if (amount &lt;= 0) {
+            System.out.println("Withdrawal amount must be positive.");
+        } else {
+            System.out.println("Insufficient funds. Current balance: " + this.balance);
+        }
+    }
+}
+----</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Create the <code>BankApp</code> (Main Application) Class</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Create a file named `BankApp.java` in the *same directory* as `BankAccount.java`. This class will demonstrate how to interact with the `BankAccount` object using its public methods.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[source,java]
+----
+public class BankApp {
+    public static void main(String[] args) {
+        // Create a BankAccount object
+        BankAccount myAccount = new BankAccount("12345-67890", 1000.00);</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>System.out.println("--- Account Information ---");
+System.out.println("Account Number: " + myAccount.getAccountNumber());
+System.out.println("Current Balance: $" + myAccount.getBalance());</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// Perform operations using public methods
+myAccount.deposit(500.00);
+myAccount.withdraw(200.00);
+myAccount.deposit(100.00);
+myAccount.withdraw(1500.00); // Attempt to overdraw</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>System.out.println("\n--- Final Account Information ---");
+System.out.println("Account Number: " + myAccount.getAccountNumber());
+System.out.println("Final Balance: $" + myAccount.getBalance());</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>        // Attempting to directly access private fields will cause a compile-time error <i class="conum" data-value="1"></i><b>(1)</b>
+        // myAccount.balance = 5000.00; // Uncommenting this line will cause an error
+        // System.out.println("New Balance (direct access): $" + myAccount.balance); // Uncommenting this line will cause an error
+    }
+}
+----
+&lt;1&gt; These lines are commented out to allow successful compilation. If you uncomment them, your Java compiler will report an error, demonstrating that private fields cannot be accessed directly from outside the class.</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Compile the Java Code</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Open your terminal or command prompt, navigate to the directory where you saved `BankAccount.java` and `BankApp.java`, and compile them:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>```bash
+javac BankAccount.java BankApp.java
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>If you uncommented the lines in `BankApp.java` that attempt direct access to `myAccount.balance`, you would see a compile-time error similar to:
+```
+BankApp.java:18: error: balance has private access in BankAccount
+        myAccount.balance = 5000.00;
+                 ^
+BankApp.java:19: error: balance has private access in BankAccount
+        System.out.println("New Balance (direct access): $" + myAccount.balance);
+                                                            ^
+2 errors
+```
+This error explicitly demonstrates the enforcement of encapsulation by the Java compiler.</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Execute the Application</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>After successful compilation, run the `BankApp`:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>```bash
+java BankApp
+```</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_expected_output"><a class="anchor" href="#_expected_output"></a>Expected Output</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">--- Account Information ---
+Account Number: 12345-67890
+Current Balance: $1000.0
+Deposited: 500.0. New balance: 1500.0
+Withdrew: 200.0. New balance: 1300.0
+Deposited: 100.0. New balance: 1400.0
+Insufficient funds. Current balance: 1400.0
+
+--- Final Account Information ---
+Account Number: 12345-67890
+Final Balance: $1400.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This lab clearly illustrates how encapsulation protects the internal state of an object, allowing modifications only through controlled methods, which can enforce business rules and maintain data integrity. This is a cornerstone for building robust and maintainable Java applications.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a></span>
+  <span class="next"><a href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

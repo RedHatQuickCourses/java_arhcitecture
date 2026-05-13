@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Polymorphism: Using one name for multiple actions. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="inheritance-inheriting-properties-from-parent-classes.html">
+    <link rel="next" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
+    <li><a href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Polymorphism: Using one name for multiple actions.</h1>
+<div class="paragraph">
+<p>Here is the detailed educational content on Polymorphism, presented in Antora AsciiDoc format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">= Java Architecture and Core Concepts
+
+== Object-Oriented Programming (OOP) Principles
+
+=== Polymorphism: Using One Name for Multiple Actions
+
+In the realm of Object-Oriented Programming (OOP), *polymorphism* is a fundamental principle that allows objects to take on many forms. The term "polymorphism" is derived from Greek words: "poly" meaning many, and "morph" meaning forms. In Java, this translates to the ability to use "one name for multiple actions," as highlighted in our objectives.
+
+Polymorphism enables a single interface to represent different underlying forms or data types. This significantly enhances the flexibility, extensibility, and maintainability of your code by promoting generic programming and reducing code coupling.
+
+Java primarily supports two types of polymorphism:
+
+. *Compile-time Polymorphism (Method Overloading)*
+. *Runtime Polymorphism (Method Overriding)*
+
+==== Compile-time Polymorphism: Method Overloading
+
+Compile-time polymorphism, also known as static polymorphism, is achieved through *method overloading*. Method overloading allows a class to have multiple methods with the same name, provided they have different *method signatures*. A method signature is defined by the method's name and the number, type, and order of its parameters. The return type of the method is not part of the method signature and therefore cannot be used to differentiate overloaded methods.
+
+During compilation, the Java compiler determines which overloaded method to invoke based on the arguments provided in the method call. This decision is made statically at compile time, hence the name "compile-time polymorphism."
+
+*Key characteristics of Method Overloading:*
+
+*   **Same Method Name:** All overloaded methods share the same name within the same class.
+*   **Different Method Signatures:** The parameter list must differ in at least one of these ways:
+    *   Number of parameters.
+    *   Data type of parameters.
+    *   Order of parameters (if types are different).
+*   **Return Type:** The return type *can be different* but is not sufficient to distinguish overloaded methods. If only the return type differs, it will result in a compile-time error.
+
+.Example of Method Overloading
+Consider a `Calculator` class that needs to perform addition on various data types or with a different number of operands.
+
+[source,java]
+----
+class Calculator {
+    // Method to add two integers
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Overloaded method to add three integers
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Overloaded method to add two doubles
+    public double add(double a, double b) {
+        return a + b;
+    }
+
+    // Overloaded method to concatenate two strings (conceptual addition)
+    public String add(String s1, String s2) {
+        return s1 + s2;
+    }
+}
+
+public class OverloadingDemo {
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+
+        System.out.println("Adding two integers: " + calc.add(10, 20));
+        System.out.println("Adding three integers: " + calc.add(10, 20, 30));
+        System.out.println("Adding two doubles: " + calc.add(10.5, 20.3));
+        System.out.println("Concatenating strings: " + calc.add("Hello", " World"));
+    }
+}
+----
+
+In the example above, the `add` method is overloaded four times. The compiler correctly identifies and calls the appropriate `add` method based on the arguments passed during the `main` method execution.
+
+==== Runtime Polymorphism: Method Overriding
+
+Runtime polymorphism, also known as dynamic polymorphism, is achieved through *method overriding*. Method overriding occurs when a subclass (child class) provides a specific implementation for a method that is already defined in its superclass (parent class). When a method is overridden, the method call is resolved at runtime based on the actual object type, not the reference type.
+
+*Key characteristics of Method Overriding:*
+
+*   **Inheritance:** Method overriding can only occur in an inheritance hierarchy, where a subclass extends a superclass.
+*   **Same Method Signature:** The overriding method in the subclass *must* have the exact same method name, return type, and parameter list as the method in the superclass.
+*   **`@Override` Annotation:** It is good practice to use the `@Override` annotation in the subclass. This annotation helps the compiler verify that the method is indeed an override, preventing common errors like typos in method names or incorrect parameter lists.
+*   **Access Modifier:** The access modifier of the overriding method must be the same or have broader access than the overridden method in the superclass (e.g., `protected` to `public` is allowed, but `public` to `private` is not).
+
+The power of runtime polymorphism lies in *upcasting*. When a superclass reference variable refers to an object of a subclass, calling an overridden method through that reference will execute the subclass's version of the method. This allows you to write generic code that can work with objects of different classes that share a common superclass, without needing to know their specific type at compile time.
+
+.Example of Method Overriding
+Consider a `Shape` class with a `draw()` method. Different shapes (like `Circle` and `Rectangle`) will have their own way of drawing themselves.
+
+[source,java]
+----
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a generic shape.");
+    }
+}
+
+class Circle extends Shape {
+    @Override // Good practice to include this annotation
+    public void draw() {
+        System.out.println("Drawing a Circle.");
+    }
+}
+
+class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle.");
+    }
+}
+
+public class OverridingDemo {
+    public static void main(String[] args) {
+        Shape s1 = new Circle(); // Upcasting: Shape reference to Circle object
+        Shape s2 = new Rectangle(); // Upcasting: Shape reference to Rectangle object
+        Shape s3 = new Shape(); // Shape reference to Shape object
+
+        s1.draw(); // Calls Circle's draw() method
+        s2.draw(); // Calls Rectangle's draw() method
+        s3.draw(); // Calls Shape's draw() method
+
+        // Demonstrating an array of shapes
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Circle();
+        shapes[1] = new Rectangle();
+        shapes[2] = new Shape();
+
+        System.out.println("\nDrawing shapes from an array:");
+        for (Shape shape : shapes) {
+            shape.draw(); // Each call executes the appropriate draw() method
+        }
+    }
+}
+----
+
+In this example, even though `s1` and `s2` are declared as `Shape` type references, the actual methods invoked for `s1.draw()` and `s2.draw()` are determined at runtime based on the *actual object* they refer to (`Circle` and `Rectangle` respectively). This is runtime polymorphism in action.
+
+==== Benefits of Polymorphism
+
+Polymorphism is a powerful OOP concept that offers several advantages:
+
+*   **Flexibility and Extensibility:** New classes can be added without modifying existing code, as long as they adhere to the common interface or extend the same base class. This makes applications easier to extend and adapt to changing requirements.
+*   **Code Reusability:** Generic code can be written to work with objects of different classes, promoting reusability and reducing redundant code.
+*   **Improved Readability and Maintainability:** By abstracting away specific implementations, code becomes cleaner and easier to understand. Changes to specific implementations only affect that subclass, not the generic code that uses it.
+*   **Decoupling:** It helps decouple code, meaning components are less dependent on each other, which simplifies testing and development.
+
+---
+
+### Hands-on Lab: Exploring Polymorphism
+
+In this lab, you will implement and observe both method overloading and method overriding in Java.
+
+==== Activity 1: Method Overloading with a `Greeter` Class
+
+In this activity, you'll create a simple `Greeter` class that uses method overloading to greet people in different ways.
+
+.Objectives
+*   Create a class with overloaded methods.
+*   Understand how the compiler selects the correct method based on arguments.
+
+.Instructions
+
+.   Create a new directory for your lab:
+    ```bash
+    mkdir polymorphism-lab
+    cd polymorphism-lab
+    ```
+
+.   Create a file named `Greeter.java` and populate it with the following code:
+    [source,java]
+    ----
+    // Greeter.java
+    class Greeter {
+        // Greet with a default message
+        public void sayHello() {
+            System.out.println("Hello there!");
+        }
+
+        // Greet a specific person by name
+        public void sayHello(String name) {
+            System.out.println("Hello, " + name + "!");
+        }
+
+        // Greet a specific person a given number of times
+        public void sayHello(String name, int times) {
+            for (int i = 0; i &lt; times; i++) {
+                System.out.println("Hello, " + name + "!");
+            }
+        }
+
+        // Greet multiple people (an array of names)
+        public void sayHello(String[] names) {
+            System.out.println("--- Greeting a group ---");
+            for (String name : names) {
+                System.out.println("Hello, " + name + "!");
+            }
+            System.out.println("------------------------");
+        }
+    }
+
+    // Main class to test the Greeter
+    public class OverloadingLab {
+        public static void main(String[] args) {
+            Greeter myGreeter = new Greeter();
+
+            System.out.println("--- Demonstrating Method Overloading ---");
+
+            myGreeter.sayHello(); // Calls sayHello() with no arguments
+            myGreeter.sayHello("Alice"); // Calls sayHello(String name)
+            myGreeter.sayHello("Bob", 3); // Calls sayHello(String name, int times)
+
+            String[] teamMembers = {"Charlie", "David", "Eve"};
+            myGreeter.sayHello(teamMembers); // Calls sayHello(String[] names)
+
+            System.out.println("\nOverloading demonstration complete.");
+        }
+    }
+    ----
+
+.   Compile your Java code:
+    ```bash
+    javac Greeter.java OverloadingLab.java
+    ```
+
+.   Execute the compiled code:
+    ```bash
+    java OverloadingLab
+    ```
+
+.Expected Output</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>--- Demonstrating Method Overloading ---
+Hello there!
+Hello, Alice!
+Hello, Bob!
+Hello, Bob!
+Hello, Bob!
+--- Greeting a group ---
+Hello, Charlie!
+Hello, David!
+Hello, Eve!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Overloading demonstration complete.
+```
+
+.Review
+Observe how the `sayHello` method is invoked with different arguments, and the Java compiler correctly selects the appropriate version of the method based on the parameter list. This showcases compile-time polymorphism.
+
+==== Activity 2: Method Overriding with `Vehicle` and Subclasses
+
+In this activity, you will implement method overriding to demonstrate runtime polymorphism using a `Vehicle` hierarchy.
+
+.Objectives
+*   Create a superclass and multiple subclasses.
+*   Override a method in the subclasses.
+*   Observe runtime polymorphism through upcasting.
+
+.Instructions
+
+.   Stay in your `polymorphism-lab` directory.
+
+.   Create a file named `Vehicle.java` and add the superclass definition:
+    [source,java]
+    ----
+    // Vehicle.java
+    class Vehicle {
+        public void startEngine() {
+            System.out.println("Vehicle engine starts with a generic sound.");
+        }
+
+        public void drive() {
+            System.out.println("Vehicle is driving on the road.");
+        }
+    }
+    ----
+
+.   Create a file named `Car.java` and add the `Car` subclass definition:
+    [source,java]
+    ----
+    // Car.java
+    class Car extends Vehicle {
+        @Override
+        public void startEngine() {
+            System.out.println("Car engine starts with a smooth purr.");
+        }
+
+        @Override
+        public void drive() {
+            System.out.println("Car is cruising comfortably.");
+        }
+
+        public void honk() { // Car-specific method
+            System.out.println("Honk! Honk!");
+        }
+    }
+    ----
+
+.   Create a file named `Motorcycle.java` and add the `Motorcycle` subclass definition:
+    [source,java]
+    ----
+    // Motorcycle.java
+    class Motorcycle extends Vehicle {
+        @Override
+        public void startEngine() {
+            System.out.println("Motorcycle engine roars to life!");
+        }
+
+        @Override
+        public void drive() {
+            System.out.println("Motorcycle is zipping through traffic.");
+        }
+
+        public void wheelie() { // Motorcycle-specific method
+            System.out.println("Pop a wheelie!");
+        }
+    }
+    ----
+
+.   Create a file named `OverridingLab.java` to test the classes:
+    [source,java]
+    ----
+    // OverridingLab.java
+    public class OverridingLab {
+        public static void main(String[] args) {
+            System.out.println("--- Demonstrating Method Overriding ---");
+
+            // Creating objects with their specific types
+            Vehicle genericVehicle = new Vehicle();
+            Car myCar = new Car();
+            Motorcycle myMotorcycle = new Motorcycle();
+
+            System.out.println("\n--- Calling methods on specific types ---");
+            genericVehicle.startEngine();
+            genericVehicle.drive();
+
+            myCar.startEngine();
+            myCar.drive();
+            myCar.honk(); // Specific method call
+
+            myMotorcycle.startEngine();
+            myMotorcycle.drive();
+            myMotorcycle.wheelie(); // Specific method call
+
+            System.out.println("\n--- Demonstrating Runtime Polymorphism (Upcasting) ---");
+
+            // Using Vehicle references to hold subclass objects
+            Vehicle v1 = new Car();         // Vehicle reference, Car object
+            Vehicle v2 = new Motorcycle();  // Vehicle reference, Motorcycle object
+            Vehicle v3 = new Vehicle();     // Vehicle reference, Vehicle object
+
+            v1.startEngine(); // Invokes Car's startEngine()
+            v1.drive();       // Invokes Car's drive()
+            // v1.honk();     // This would cause a compile-time error!
+                              // 'honk()' is not defined in Vehicle, only in Car.
+                              // The compiler only sees the 'Vehicle' reference type.
+
+            v2.startEngine(); // Invokes Motorcycle's startEngine()
+            v2.drive();       // Invokes Motorcycle's drive()
+
+            v3.startEngine(); // Invokes Vehicle's startEngine()
+            v3.drive();       // Invokes Vehicle's drive()
+
+            System.out.println("\n--- Polymorphism with an array of Vehicles ---");
+            Vehicle[] vehicles = new Vehicle[3];
+            vehicles[0] = new Car();
+            vehicles[1] = new Motorcycle();
+            vehicles[2] = new Vehicle();
+
+            for (Vehicle v : vehicles) {
+                System.out.println("\nProcessing a vehicle:");
+                v.startEngine(); // Runtime decision: calls Car, Motorcycle, or Vehicle method
+                v.drive();       // Runtime decision: calls Car, Motorcycle, or Vehicle method
+            }
+
+            System.out.println("\nOverriding demonstration complete.");
+        }
+    }
+    ----
+
+.   Compile all Java files:
+    ```bash
+    javac *.java
+    ```
+
+.   Execute the main class:
+    ```bash
+    java OverridingLab
+    ```
+
+.Expected Output
+```
+--- Demonstrating Method Overriding ---
+
+--- Calling methods on specific types ---
+Vehicle engine starts with a generic sound.
+Vehicle is driving on the road.
+Car engine starts with a smooth purr.
+Car is cruising comfortably.
+Honk! Honk!
+Motorcycle engine roars to life!
+Motorcycle is zipping through traffic.
+Pop a wheelie!
+
+--- Demonstrating Runtime Polymorphism (Upcasting) ---
+Car engine starts with a smooth purr.
+Car is cruising comfortably.
+Motorcycle engine roars to life!
+Motorcycle is zipping through traffic.
+Vehicle engine starts with a generic sound.
+Vehicle is driving on the road.
+
+--- Polymorphism with an array of Vehicles ---
+
+Processing a vehicle:
+Car engine starts with a smooth purr.
+Car is cruising comfortably.
+
+Processing a vehicle:
+Motorcycle engine roars to life!
+Motorcycle is zipping through traffic.
+
+Processing a vehicle:
+Vehicle engine starts with a generic sound.
+Vehicle is driving on the road.
+
+Overriding demonstration complete.
+```
+
+.Review
+Notice how when `startEngine()` or `drive()` is called through a `Vehicle` reference (e.g., `v1.startEngine()`), the JVM correctly identifies the actual object type (`Car` or `Motorcycle`) at runtime and executes its overridden method. This is the essence of runtime polymorphism, allowing you to treat different objects uniformly through a common interface.
+
+---
+```</pre>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a></span>
+  <span class="next"><a href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

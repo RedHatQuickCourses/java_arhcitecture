@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">
+    <link rel="next" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a></li>
+    <li><a href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</h1>
+<div class="sect2">
+<h3 id="java-flight-recorder"><a class="anchor" href="#java-flight-recorder"></a>Java Flight Recorder (JFR)</h3>
+<div class="paragraph">
+<p>Java Flight Recorder (JFR) is an integral profiling and event collection framework embedded directly within the Java Virtual Machine (JVM). Its primary purpose is to provide deep insights and facilitate the diagnosis and troubleshooting of complex issues in Java applications, particularly in production environments, while maintaining an exceptionally low performance overhead.</p>
+</div>
+<div class="sect3">
+<h4 id="_detailed_technical_explanation"><a class="anchor" href="#_detailed_technical_explanation"></a>Detailed Technical Explanation</h4>
+<div class="paragraph">
+<p>JFR functions by continuously collecting detailed data about the JVM and the application running on it. Unlike many traditional profiling tools that can introduce significant performance penalties, JFR is engineered to operate with minimal impact—typically less than 1% overhead. This characteristic makes it an ideal solution for continuous, "always-on" data collection in live production systems without degrading application performance.</p>
+</div>
+<div class="paragraph">
+<p>The fundamental principle behind JFR is its event-driven architecture. It captures data based on specific events that occur within the JVM and the application, storing this information over predefined time intervals or when specific conditions are met. This collected dataset, known as a "flight recording," offers a comprehensive view of the application&#8217;s runtime behavior, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>JVM Internal Operations</strong>: Detailed information on garbage collection cycles, heap memory utilization, thread contention, class loading, and JIT compilation activity.</p>
+</li>
+<li>
+<p><strong>Application-Specific Events</strong>: Insights into method invocations, exceptions thrown, I/O operations (file, network), and various locking events within the application code.</p>
+</li>
+<li>
+<p><strong>Operating System Interactions</strong>: Data related to CPU usage, memory consumption at the OS level, and network activity associated with the Java process.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This granular and extensive data collection capability is invaluable for several critical tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Root Cause Analysis</strong>: Pinpointing the exact sequence of events or conditions that lead to performance bottlenecks, application slowdowns, or crashes.</p>
+</li>
+<li>
+<p><strong>Performance Optimization</strong>: Identifying areas within the application or JVM where resources are heavily consumed or time is spent inefficiently, guiding targeted optimizations.</p>
+</li>
+<li>
+<p><strong>Debugging Complex Issues</strong>: As highlighted in the provided context, JFR is "very much useful when you are debugging something" (context lines 391, 399). It provides crucial historical context for intermittent, hard-to-reproduce problems that traditional debuggers might miss. It captures data over intervals (context line 395), providing a timeline view of events.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>JFR can be conceptualized as a "black box" recorder specific to Java. It captures a rich stream of runtime information that goes far beyond simple heap or thread dumps. The collected data is stored in a highly optimized binary format, typically with a <code>.jfr</code> file extension. This file can then be analyzed using specialized tools like Java Mission Control (JMC).</p>
+</div>
+<div class="sect4">
+<h5 id="_how_jfr_works"><a class="anchor" href="#_how_jfr_works"></a>How JFR Works</h5>
+<div class="paragraph">
+<p>JFR operates by instrumenting the JVM to emit events. These events are categorized (e.g., CPU load, garbage collection, method calls) and can be selectively enabled or disabled through configuration. When a recording is active, the emitted events are first written to an efficient in-memory buffer. To minimize impact on the running application, this buffered data is periodically and asynchronously written to a <code>.jfr</code> file on disk, or upon an explicit request to dump the recording.</p>
+</div>
+<div class="paragraph">
+<p>Key operational characteristics of JFR include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Event-Driven</strong>: Data collection is triggered by actual events occurring in the JVM and application, providing precise timing and context.</p>
+</li>
+<li>
+<p><strong>Low Overhead Design</strong>: Achieved through advanced buffering techniques, asynchronous disk I/O, and careful selection of data points, ensuring minimal interference with application performance.</p>
+</li>
+<li>
+<p><strong>Highly Configurable</strong>: Users have fine-grained control over which events to record, the thresholds for event collection, and the duration or size limits of the recording.</p>
+</li>
+<li>
+<p><strong>JVM Integration</strong>: JFR is built directly into the HotSpot JVM (open-sourced since JDK 11), eliminating the need for external agents or complex setup.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_expert_insight_jfr_vs_other_monitoring_tools"><a class="anchor" href="#_expert_insight_jfr_vs_other_monitoring_tools"></a>Expert Insight: JFR vs. Other Monitoring Tools</h5>
+<div class="paragraph">
+<p>While tools like <code>jstack</code> provide snapshot thread dumps, <code>jmap</code> offers heap dumps, and <code>JConsole</code> (context lines 323-347, 355) or <code>JVisualVM</code> provide real-time monitoring of various metrics, JFR offers a unique, holistic, and <strong>historical</strong> view of the JVM and application behavior over a period. This capability is crucial for diagnosing intermittent performance issues, memory leaks that evolve over hours, or thread contention problems that only manifest under specific load conditions.</p>
+</div>
+<div class="paragraph">
+<p>JFR&#8217;s ability to correlate diverse events—such as garbage collection pauses, CPU spikes, and application method invocations—within a precise timeline is a significant advantage for deep-dive analysis into complex application behavior and troubleshooting "complex issues" (context line 394).</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hands_on_activity_basic_jfr_recording"><a class="anchor" href="#_hands_on_activity_basic_jfr_recording"></a>Hands-on Activity: Basic JFR Recording</h4>
+<div class="paragraph">
+<p>This hands-on activity demonstrates how to initiate a basic Java Flight Recorder session and generate a recording file. For a comprehensive analysis, the generated <code>.jfr</code> file is typically opened and explored using Java Mission Control (JMC).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Prerequisites</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java Development Kit (JDK) 11 or later installed.</p>
+</li>
+<li>
+<p>A command-line terminal or prompt.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Step 1: Create a Sample Java Application</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Create a new file named `JfrDemoApp.java` with the following content. This simple application performs some light computation and simulates pauses to generate interesting JFR events.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[source,java]
+----
+public class JfrDemoApp {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Starting JFR Demo Application...");
+        long startTime = System.currentTimeMillis();
+        // Run for approximately 15 seconds to generate some activity
+        while (System.currentTimeMillis() - startTime &lt; 15000) {
+            // Simulate some CPU-bound work
+            double result = Math.sqrt(Math.random()) * Math.sin(Math.random());
+            // Occasionally simulate I/O or locking by pausing
+            if (result &gt; 0.8) {
+                System.out.println("Simulating a brief pause...");
+                Thread.sleep(20); // Pause for 20 milliseconds
+            }
+        }
+        System.out.println("JFR Demo Application finished.");
+    }
+}
+----</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Step 2: Compile the Java Application</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Open your terminal or command prompt. Navigate to the directory where you saved `JfrDemoApp.java`. Compile the application using `javac`:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[source,bash]
+----
+javac JfrDemoApp.java
+----</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Step 3: Run the Application with JFR Enabled and Record Data</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>You can directly enable JFR and configure a recording when launching your Java application using JVM arguments. The following command will start `JfrDemoApp`, record data for 15 seconds (matching the application's runtime), and save the recording to `my_jfr_recording.jfr` in the current directory.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[source,bash]
+----
+java -XX:StartFlightRecording=duration=15s,filename=my_jfr_recording.jfr JfrDemoApp
+----</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Let's break down the JFR arguments:
+*   `-XX:StartFlightRecording`: This JVM argument activates Java Flight Recorder.
+*   `duration=15s`: Specifies that the recording session should automatically stop after 15 seconds.
+*   `filename=my_jfr_recording.jfr`: Defines the name and path for the output `.jfr` file.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Observe the application's output in the terminal. Once the application completes, a file named `my_jfr_recording.jfr` will be created in the same directory.</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Step 4: (Optional) Attaching JFR to a Running Java Process</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>For applications that are already running or require a recording to be started and stopped on demand, you can use the `jcmd` utility (part of the JDK) to manage JFR sessions.</pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Start a Java Application without JFR</strong>:
+First, start the <code>JfrDemoApp</code> without any JFR arguments in a separate terminal or background process:
+[source,bash]
+----
+java JfrDemoApp &amp; # Runs in background on Linux/macOS
+# On Windows, just 'java JfrDemoApp' in a new terminal window
+----</p>
+</li>
+<li>
+<p><strong>Find the Process ID (PID)</strong>:
+Use the <code>jps</code> (Java Virtual Machine Process Status Tool) command to list running Java processes and their PIDs.
+[source,bash]
+----
+jps -l
+----
+Identify the PID corresponding to <code>JfrDemoApp</code> (e.g., <code>12345</code>).</p>
+</li>
+<li>
+<p><strong>Start a JFR Recording on the Running Process</strong>:
+Using the PID (replace <code>12345</code> with your actual PID), start a recording session for a specified duration (e.g., 20 seconds) and output file.
+[source,bash]
+----
+jcmd 12345 JFR.start duration=20s filename=live_attached_recording.jfr
+----</p>
+</li>
+<li>
+<p><strong>Dump or Stop a Recording Manually</strong>:
+You can also dump the current state of an ongoing recording or stop it entirely using <code>jcmd</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To dump the current recording data to a file without stopping the session:
+[source,bash]
+----
+jcmd 12345 JFR.dump filename=snapshot_attached_recording.jfr
+----</p>
+</li>
+<li>
+<p>To stop the recording session and save all collected data to a final file:
+[source,bash]
+----
+jcmd 12345 JFR.stop filename=final_attached_recording.jfr
+----</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Step 5: (Optional) Inspect the Recording with Java Mission Control (JMC)</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>While the previous steps focused on *creating* JFR recordings, analyzing these `.jfr` files is done using Java Mission Control (JMC). JMC is a powerful graphical tool that provides rich visualizations and detailed analysis capabilities for the data collected by JFR.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>To view your generated `my_jfr_recording.jfr` file:
+1.  Launch JMC (typically by typing `jmc` in your terminal if it's included in your JDK's `bin` path).
+2.  From within JMC, open the `.jfr` file you created. JMC will then display various dashboards and tabs showing thread activity, memory usage, garbage collection details, CPU consumption, and more, all correlated in a timeline view.</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Prior to JDK 11, Java Flight Recorder (JFR) and Java Mission Control (JMC) were proprietary commercial features. However, with the release of JDK 11, both tools were open-sourced and are now freely available as part of the OpenJDK distribution, making them accessible to all Java developers for advanced profiling and troubleshooting.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a></span>
+  <span class="next"><a href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

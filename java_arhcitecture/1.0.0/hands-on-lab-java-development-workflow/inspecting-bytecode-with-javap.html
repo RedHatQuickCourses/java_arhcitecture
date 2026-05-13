@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Inspecting Bytecode with javap :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="compiling-and-executing-java-source-code.html">
+    <link rel="next" href="creating-and-managing-jar-files.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a></li>
+    <li><a href="inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Inspecting Bytecode with <code>javap</code></h1>
+<div class="paragraph">
+<p>As a Content Architect, I&#8217;ve developed the following Antora AsciiDoc content for inspecting bytecode with <code>javap</code>, fulfilling the objectives of technical accuracy, engagement, and hands-on learning.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">[[_inspecting_bytecode_with_javap]]
+= Inspecting Bytecode with `javap`
+
+As Java developers, we primarily work with human-readable source code. However, the Java Virtual Machine (JVM) doesn't directly execute this source code. Instead, it operates on a special intermediate format known as *bytecode*. Understanding bytecode and how to inspect it is a powerful skill for debugging, optimizing, and gaining deeper insights into how Java programs behave at a lower level.
+
+== Understanding Java Bytecode
+
+When you compile a Java source file (`.java`) using the `javac` compiler, the output is not machine-specific executable code. Instead, `javac` produces one or more `.class` files, which contain Java bytecode. This bytecode is a set of instructions designed to be executed by a Java Virtual Machine (JVM).
+
+The key characteristics of Java bytecode are:
+
+*   **Platform Independence:** Bytecode is platform-agnostic. The same `.class` file can run on any operating system (Windows, Linux, macOS, etc.) that has a compatible JVM. This "write once, run anywhere" capability is a cornerstone of Java.
+*   **Intermediate Representation:** It acts as an intermediate layer between the Java source code and the native machine code. This abstraction allows Java applications to achieve portability without requiring recompilation for each target platform.
+*   **JVM Execution:** The JVM's role is to interpret and execute these bytecode instructions. Modern JVMs often use Just-In-Time (JIT) compilation to convert frequently executed bytecode into native machine code at runtime, optimizing performance.
+
+While you don't typically write bytecode directly, being able to read and understand its structure helps in:
+
+*   **Debugging Complex Issues:** When traditional debugging fails to reveal the root cause, inspecting the bytecode can expose subtle compiler behaviors or runtime optimizations.
+*   **Performance Tuning:** Understanding the bytecode generated for certain operations can guide you in writing more efficient Java code.
+*   **Security Analysis:** Analyzing bytecode can help identify potential vulnerabilities or malicious code in third-party libraries.
+
+== Introducing `javap`: The Java Class File Disassembler
+
+The `javap` tool, part of the Java Development Kit (JDK), is a command-line utility used to disassemble `.class` files. Essentially, it takes a compiled Java class file and prints a human-readable representation of its contents, including fields, methods, and the bytecode instructions themselves. It acts as a *decompiler* in the sense that it reverses the compilation process to show you the low-level details that `javac` produced.
+
+You can use `javap` to:
+
+*   View the public interfaces of a compiled class.
+*   Inspect the signatures of methods and constructors.
+*   Examine the actual bytecode instructions for methods, which are crucial for understanding the execution flow at a granular level.
+*   See the constant pool, stack size, local variable table, and other attributes within the class file.
+
+This utility is invaluable for anyone who wants to dive deeper into the Java platform and understand how their code is translated and executed by the JVM.
+
+[[_hands_on_activity_inspecting_bytecode]]
+=== Hands-on Activity: Inspecting Bytecode with `javap`
+
+In this hands-on lab, you will write a simple Java program, compile it, and then use `javap` to inspect its generated bytecode.
+
+==== Prerequisites
+
+*   A working Java Development Kit (JDK) installed on your system.
+*   A text editor (e.g., VS Code, Notepad++, Sublime Text) or an IDE.
+*   A command-line terminal.
+
+==== Steps
+
+.   **Create a Java Source File:**
+    Open your text editor and create a new file named `Calculator.java` with the following content:
+
+    ```java
+    // Calculator.java
+    public class Calculator {
+        private int result;
+
+        public Calculator() {
+            this.result = 0;
+        }
+
+        public int add(int a, int b) {
+            return a + b;
+        }
+
+        public void incrementResult(int value) {
+            this.result += value;
+        }
+
+        public int getResult() {
+            return this.result;
+        }
+
+        public static void main(String[] args) {
+            Calculator calc = new Calculator();
+            int sum = calc.add(5, 7);
+            System.out.println("Sum: " + sum); // Expected: 12
+
+            calc.incrementResult(10);
+            System.out.println("Current result: " + calc.getResult()); // Expected: 10
+
+            calc.incrementResult(5);
+            System.out.println("Final result: " + calc.getResult()); // Expected: 15
+        }
+    }
+    ```
+
+.   **Compile the Java Source File:**
+    Open your command-line terminal, navigate to the directory where you saved `Calculator.java`, and compile it using `javac`:
+
+    ```bash
+    javac Calculator.java
+    ```
+    This command will create a `Calculator.class` file in the same directory. This is your compiled bytecode file.
+
+.   **Inspect the Class File with Basic `javap`:**
+    Now, use `javap` to get a basic overview of the compiled class.
+
+    ```bash
+    javap Calculator.class
+    ```
+
+    You should see output similar to this (some details might vary slightly depending on your JDK version):
+
+    ```
+    Compiled from "Calculator.java"
+    public class Calculator {
+      public Calculator();
+      public int add(int, int);
+      public void incrementResult(int);
+      public int getResult();
+      public static void main(java.lang.String[]);
+    }
+    ```
+    *Observation:* This output shows the class name, its constructors, and its public methods. It doesn't show private fields or the method implementations themselves by default.
+
+.   **Inspect with Verbose Output (`-v`):**
+    To get more detailed information, including stack sizes, local variable tables, and the constant pool, use the `-v` (verbose) option:
+
+    ```bash
+    javap -v Calculator.class
+    ```
+
+    This will produce a much longer output. Pay attention to sections like:
+
+    *   `Constant pool`: Lists all the constants (string literals, class references, method references, field references) used by the class.
+    *   `{ ... }` for each method: Contains details like `stack`, `locals`, `args_size`, and the actual bytecode instructions.
+
+    *Observation:* The verbose output provides a deeper look into the metadata stored in the `.class` file, which the JVM uses during loading and execution.
+
+.   **Inspect Bytecode Instructions (`-c`):**
+    To see the actual disassembled bytecode instructions for each method, use the `-c` option. This is where you can see the low-level operations the JVM performs.
+
+    ```bash
+    javap -c Calculator.class
+    ```
+
+    Scroll through the output. For example, look at the `add` method:
+
+    ```
+      public int add(int, int);
+        descriptor: (II)I
+        flags: (0x0001) ACC_PUBLIC
+        Code:
+          stack=2, locals=3, args_size=3
+             0: iload_1       // Load local variable 1 (first argument 'a') onto stack
+             1: iload_2       // Load local variable 2 (second argument 'b') onto stack
+             2: iadd          // Add the two integers on top of the stack
+             3: ireturn       // Return the integer result
+          LineNumberTable:
+            line 11: 0
+          LocalVariableTable:
+            Start  Length  Slot  Name   Signature
+                0       4     0  this   LCalculator;
+                0       4     1     a   I
+                0       4     2     b   I
+    ```
+
+    *Observation:*
+    *   Each line in the `Code:` section represents a bytecode instruction.
+    *   `iload_1`, `iload_2`: Load integer values from local variable slots onto the operand stack.
+    *   `iadd`: Pops two integer values from the stack, adds them, and pushes the result back onto the stack.
+    *   `ireturn`: Pops the integer result from the stack and returns it from the method.
+    *   The `LineNumberTable` maps bytecode offsets back to source code lines, which is useful for debugging.
+    *   The `LocalVariableTable` provides information about the local variables within the method.
+
+    Similarly, examine the `incrementResult` method's bytecode:
+
+    ```
+      public void incrementResult(int);
+        descriptor: (I)V
+        flags: (0x0001) ACC_PUBLIC
+        Code:
+          stack=3, locals=2, args_size=2
+             0: aload_0       // Load 'this' reference onto stack
+             1: dup           // Duplicate 'this'
+             2: getfield      #14                 // Field Calculator.result:I
+             5: iload_1       // Load local variable 1 (argument 'value')
+             6: iadd          // Add the field value and argument value
+             7: putfield      #14                 // Field Calculator.result:I
+            10: return        // Void return
+          LineNumberTable:
+            line 15: 0
+          LocalVariableTable:
+            Start  Length  Slot  Name   Signature
+                0      11     0  this   LCalculator;
+                0      11     1 value   I
+    ```
+    *Observation:* Here you see `getfield` and `putfield` instructions, which are used to access and modify instance fields (`this.result`).
+
+.   **Inspect with Signatures (`-s`):**
+    The `-s` option prints the internal type signatures of fields and methods. This can be combined with `-p` to include private members.
+
+    ```bash
+    javap -s -p Calculator.class
+    ```
+    Partial output for `Calculator`:
+
+    ```
+    Compiled from "Calculator.java"
+    public class Calculator {
+      private int result;
+        descriptor: I
+
+      public Calculator();
+        descriptor: ()V
+
+      public int add(int, int);
+        descriptor: (II)I
+
+      public void incrementResult(int);
+        descriptor: (I)V
+
+      public int getResult();
+        descriptor: ()I
+
+      public static void main(java.lang.String[]);
+        descriptor: ([Ljava/lang/String;)V
+    }
+    ```
+    *Observation:*
+    *   `I` represents `int`.
+    *   `V` represents `void`.
+    *   `(` `II` `)` `I` means a method that takes two `int`s and returns an `int`.
+    *   `(` `[Ljava/lang/String;` `)` `V` means a method that takes an array of `String` objects and returns `void`.
+    *   The private `result` field is now visible due to the `-p` option.
+
+==== Summary
+
+By performing these steps, you've gained practical experience with `javap` and observed how your high-level Java code is translated into the low-level bytecode instructions that the JVM understands. This foundational understanding is crucial for any serious Java developer looking to master the platform.</code></pre>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a></span>
+  <span class="next"><a href="creating-and-managing-jar-files.html">Creating and Managing JAR Files</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">
+    <link rel="next" href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a></li>
+    <li><a href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</h1>
+<h1 id="_monitoring_java_applications" class="sect0"><a class="anchor" href="#_monitoring_java_applications"></a>Monitoring Java Applications</h1>
+<div class="paragraph">
+<p>Monitoring tools are indispensable in the Java ecosystem, providing deep insights into the runtime behavior of applications. They help developers and administrators identify performance bottlenecks, diagnose issues, and ensure the stability and efficiency of Java processes. This section delves into <code>JConsole</code> and <code>JVisualVM</code>, two powerful tools included with the Java Development Kit (JDK), alongside an introduction to Java Flight Recorder (JFR).</p>
+</div>
+<div class="sect1">
+<h2 id="_jconsole_the_java_monitoring_and_management_console"><a class="anchor" href="#_jconsole_the_java_monitoring_and_management_console"></a>JConsole: The Java Monitoring and Management Console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>JConsole</code> is a graphical monitoring tool that allows you to observe the performance and resource consumption of a running Java Virtual Machine (JVM). It provides a wealth of information about memory usage, thread activity, CPU utilization, loaded classes, and various MBeans (Managed Beans) exposed by the JVM and application.</p>
+</div>
+<div class="paragraph">
+<p>When you start any Java program, it runs as a process on your operating system, each with a unique Process ID (PID). JConsole leverages this to connect to and monitor active Java processes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As noted in the provided context, <code>JConsole</code> is a part of the JDK and provides consistent features across different machines and operating systems. For instance, running <code>JConsole</code> on a Windows machine will show the same features as running it on a Linux machine. While the core <code>JConsole</code> tool is standard, specific enterprise application servers like JBoss EAP might provide wrappers around <code>JConsole</code> that offer additional, application-specific data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_key_capabilities_of_jconsole"><a class="anchor" href="#_key_capabilities_of_jconsole"></a>Key Capabilities of JConsole</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Memory Management:</strong> Monitors heap and non-heap memory usage, including garbage collection statistics. You can see how much memory has been allocated and how it&#8217;s being utilized.</p>
+</li>
+<li>
+<p><strong>Thread Management:</strong> Displays details about active threads, their states (e.g., Running, Waiting, Blocked), and can help identify deadlocks or thread contention issues.</p>
+</li>
+<li>
+<p><strong>Class Loading:</strong> Shows the number of classes loaded and unloaded.</p>
+</li>
+<li>
+<p><strong>CPU Usage:</strong> Provides an overview of the CPU utilization by the JVM.</p>
+</li>
+<li>
+<p><strong>MBeans (Managed Beans):</strong> Allows you to interact with MBeans exposed by the JVM or your application, enabling runtime configuration changes and access to operational data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hands_on_activity_monitoring_a_java_application_with_jconsole"><a class="anchor" href="#_hands_on_activity_monitoring_a_java_application_with_jconsole"></a>Hands-on Activity: Monitoring a Java Application with JConsole</h3>
+<div class="paragraph">
+<p>In this activity, you will compile and run a simple Java application and then use <code>JConsole</code> to monitor its performance.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>A Java Development Kit (JDK) installed on your system.</p>
+</li>
+<li>
+<p>A text editor or IDE.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_step_1_create_a_simple_java_application"><a class="anchor" href="#_step_1_create_a_simple_java_application"></a>Step 1: Create a Simple Java Application</h4>
+<div class="paragraph">
+<p>Let&#8217;s create a Java application that simulates some memory and CPU activity.</p>
+</div>
+<div class="listingblock">
+<div class="title">Create a file named <code>MemoryEater.java</code> with the following content:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// MemoryEater.java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class MemoryEater {
+    private static List&lt;byte[]&gt; memoryLeak = new ArrayList&lt;&gt;();
+    private static final int MEMORY_CHUNK_SIZE = 1024 * 1024; // 1MB
+    private static Random random = new Random();
+
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Starting MemoryEater application...");
+        System.out.println("Process ID (PID) can be found using jps or your OS task manager.");
+
+        // Simulate memory consumption
+        new Thread(() -&gt; {
+            try {
+                while (true) {
+                    byte[] chunk = new byte[MEMORY_CHUNK_SIZE];
+                    random.nextBytes(chunk); // Fill with some random data
+                    memoryLeak.add(chunk);
+                    System.out.println("Allocated " + memoryLeak.size() + " MB");
+                    Thread.sleep(1000); // Allocate 1MB every second
+                }
+            } catch (OutOfMemoryError e) {
+                System.err.println("Out of Memory Error occurred in memory simulation: " + e.getMessage());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Memory simulation interrupted.");
+            }
+        }, "MemoryAllocatorThread").start();
+
+        // Simulate CPU consumption
+        new Thread(() -&gt; {
+            try {
+                while (true) {
+                    long result = 0;
+                    for (int i = 0; i &lt; 100000000; i++) {
+                        result += Math.sqrt(i); // CPU intensive operation
+                    }
+                    System.out.println("CPU cycle finished, result: " + result);
+                    Thread.sleep(500); // Pause briefly
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("CPU simulation interrupted.");
+            }
+        }, "CPUEaterThread").start();
+
+        // Keep the main thread alive
+        while (true) {
+            Thread.sleep(5000); // Main thread sleeps
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_step_2_compile_and_run_the_java_application"><a class="anchor" href="#_step_2_compile_and_run_the_java_application"></a>Step 2: Compile and Run the Java Application</h4>
+<div class="listingblock">
+<div class="title">Compile the Java code using <code>javac</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">javac MemoryEater.java</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Run the compiled application:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java MemoryEater</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Leave this terminal window open; the application needs to keep running for <code>JConsole</code> to connect to it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_step_3_launch_jconsole_and_connect_to_the_application"><a class="anchor" href="#_step_3_launch_jconsole_and_connect_to_the_application"></a>Step 3: Launch JConsole and Connect to the Application</h4>
+<div class="listingblock">
+<div class="title">Launch <code>JConsole</code> by simply typing <code>jconsole</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jconsole</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Look for <code>MemoryEater</code> in the list of local processes. Select it and click <strong>Connect</strong>.</div>
+<p>+</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If <code>MemoryEater</code> does not appear, you might need to find its Process ID (PID) manually. You can do this by running <code>jps</code> (Java Virtual Machine Process Status Tool) in your terminal. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jps -l</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command lists the PIDs and full package names of all running Java processes. Note down the PID for <code>MemoryEater</code> and enter it into the "Remote Process" field in <code>JConsole</code> if direct selection fails (though for local processes, it usually works).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_step_4_explore_jconsole"><a class="anchor" href="#_step_4_explore_jconsole"></a>Step 4: Explore JConsole</h4>
+<div class="paragraph">
+<p>Once connected, you will see various tabs displaying monitoring information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Overview:</strong> Provides a summary of heap memory usage, thread count, classes loaded, and CPU usage. Observe how the heap memory graph gradually increases as the <code>MemoryEater</code> allocates more memory.</p>
+</li>
+<li>
+<p><strong>Memory:</strong> Dive deeper into memory pools (e.g., Heap, Non-Heap, Eden Space, Old Gen). You can even manually trigger garbage collection by clicking the "Perform GC" button.</p>
+</li>
+<li>
+<p><strong>Threads:</strong> View a list of all active threads, including our "MemoryAllocatorThread" and "CPUEaterThread". Select a thread to see its stack trace and state. You might observe threads frequently entering <code>WAITING</code> states due to <code>Thread.sleep()</code>.</p>
+</li>
+<li>
+<p><strong>Classes:</strong> Monitor the number of loaded and unloaded classes.</p>
+</li>
+<li>
+<p><strong>VM Summary:</strong> Provides general JVM information, including command-line arguments and uptime.</p>
+</li>
+<li>
+<p><strong>MBeans:</strong> Explore the MBeans exposed by the JVM. For instance, navigate to <code>java.lang</code> &#8594; <code>OperatingSystem</code> &#8594; <code>Attributes</code> to see detailed CPU load information.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Take some time to explore the different tabs and observe how the metrics change as <code>MemoryEater</code> continues to run and consume resources. When you are finished, close <code>JConsole</code> and stop the <code>MemoryEater</code> application (Ctrl+C in its terminal).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jvisualvm_visual_monitoring_and_profiling"><a class="anchor" href="#_jvisualvm_visual_monitoring_and_profiling"></a>JVisualVM: Visual Monitoring and Profiling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>JVisualVM</code> (Java VisualVM) is another powerful all-in-one diagnostic tool that comes with the JDK. It builds upon the capabilities of JConsole by integrating various command-line JDK tools and offering advanced profiling features.</p>
+</div>
+<div class="paragraph">
+<p>While <code>JConsole</code> excels at real-time monitoring of basic metrics, <code>JVisualVM</code> provides deeper insights into application behavior, making it invaluable for performance tuning and troubleshooting complex issues.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The context explicitly mentions <code>Java Visual VM</code> as one of the other available development tools, alongside <code>JMC</code> and <code>JFR</code>. While the older context snippet expresses some uncertainty about its inclusion in Java 7 (<code>I think it&#8217;s not there in Java. I think it&#8217;s provided in 7p notes</code>), it is a standard tool in modern JDKs.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_key_capabilities_of_jvisualvm"><a class="anchor" href="#_key_capabilities_of_jvisualvm"></a>Key Capabilities of JVisualVM</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Resource Monitoring:</strong> Similar to JConsole, it monitors CPU, memory, threads, and classes.</p>
+</li>
+<li>
+<p><strong>Profiling:</strong> Offers powerful CPU and memory profilers to identify bottlenecks, memory leaks, and excessive object creation.</p>
+</li>
+<li>
+<p><strong>Heap Dumps:</strong> Can take snapshots of the heap to analyze object distribution and identify memory leak culprits.</p>
+</li>
+<li>
+<p><strong>Thread Dumps:</strong> Generates thread dumps, which are crucial for diagnosing deadlocks and analyzing thread contention.</p>
+</li>
+<li>
+<p><strong>MBeans Browser:</strong> Like JConsole, it allows browsing and interacting with MBeans.</p>
+</li>
+<li>
+<p><strong>Snapshot and Comparison:</strong> Can take snapshots of application state and compare them over time to track changes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_jvisualvm_conceptual"><a class="anchor" href="#_using_jvisualvm_conceptual"></a>Using JVisualVM (Conceptual)</h3>
+<div class="paragraph">
+<p>Launching <code>JVisualVM</code> is similar to <code>JConsole</code>; simply type <code>jvisualvm</code> in your terminal. It presents a more comprehensive GUI where you can connect to local or remote Java processes.</p>
+</div>
+<div class="paragraph">
+<p>While a detailed hands-on for <code>JVisualVM</code> would require a more complex application scenario, understanding its advanced capabilities is key:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Start a Java Application:</strong> Run any Java application.</p>
+</li>
+<li>
+<p><strong>Launch JVisualVM:</strong> <code>jvisualvm</code></p>
+</li>
+<li>
+<p><strong>Connect:</strong> In the <code>JVisualVM</code> interface, double-click on the running local application under "Local".</p>
+</li>
+<li>
+<p><strong>Explore Tabs:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Monitor:</strong> Provides real-time graphs for CPU, Heap, Classes, and Threads.</p>
+</li>
+<li>
+<p><strong>Threads:</strong> Detailed view of threads and their states, with the ability to take a "Thread Dump".</p>
+</li>
+<li>
+<p><strong>Sampler (CPU/Memory):</strong> Allows you to sample CPU usage and memory allocations over time to pinpoint hot spots and memory hogs.</p>
+</li>
+<li>
+<p><strong>Profiler (CPU/Memory):</strong> Offers more detailed and overhead-intensive profiling, showing exact method calls and object allocations.</p>
+</li>
+<li>
+<p><strong>Snapshots:</strong> You can take "Heap Dumps" and "Thread Dumps" for offline analysis.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>JVisualVM</code> is often the go-to tool when `JConsole&#8217;s basic metrics aren&#8217;t sufficient to pinpoint the root cause of a performance issue.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_java_flight_recorder_jfr"><a class="anchor" href="#_java_flight_recorder_jfr"></a>Java Flight Recorder (JFR)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java Flight Recorder (<code>JFR</code>) is a powerful profiling and event collection framework built into the JVM. It is designed for troubleshooting complex issues in production environments with very low overhead. Unlike <code>JConsole</code> or <code>JVisualVM</code> which provide real-time interactive monitoring, <code>JFR</code> is primarily used for continuous data collection, storing diagnostic and profiling data over intervals.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The context highlights <code>JFR</code> (<code>Java Flight Recorder</code>) as "very much useful when you are debugging something" by storing data over intervals, making it excellent for on-the-way diagnostics during complex Java operations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_key_characteristics_of_jfr"><a class="anchor" href="#_key_characteristics_of_jfr"></a>Key Characteristics of JFR</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Low Overhead:</strong> <code>JFR</code> is engineered to have minimal impact on application performance, making it suitable for continuous use in production.</p>
+</li>
+<li>
+<p><strong>Event-Based:</strong> It captures events from the JVM, JDK, and application, such as garbage collection, thread activity, I/O operations, method calls, and more.</p>
+</li>
+<li>
+<p><strong>Data Persistence:</strong> Records data to a file, which can then be analyzed offline using <code>JMC</code> (Java Mission Control) or other tools.</p>
+</li>
+<li>
+<p><strong>Diagnostic Power:</strong> Provides extremely detailed information that can be used to diagnose intermittent issues, performance regressions, and complex concurrency problems that are hard to catch with real-time monitoring.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While <code>JFR</code> is typically configured and analyzed using <code>JMC</code>, understanding its role as a robust, low-overhead data collection mechanism is crucial for advanced Java troubleshooting.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a></span>
+  <span class="next"><a href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

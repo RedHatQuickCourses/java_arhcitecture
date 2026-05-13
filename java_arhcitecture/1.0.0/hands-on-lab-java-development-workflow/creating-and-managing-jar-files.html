@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Creating and Managing JAR Files :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="inspecting-bytecode-with-javap.html">
+    <link rel="next" href="monitoring-java-applications-with-jconsole.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a></li>
+    <li><a href="creating-and-managing-jar-files.html">Creating and Managing JAR Files</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Creating and Managing JAR Files</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>:java-architecture:creating-and-managing-jar-files.adoc
+= Creating and Managing JAR Files</p>
+</div>
+<div class="paragraph">
+<p>The Java Archive (JAR) file format is a package file format used to aggregate many Java class files, associated metadata, and resources (text, images, etc.) into a single file for distribution. JAR files are fundamental to Java development, simplifying deployment and distribution of Java applications and libraries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_jar_files"><a class="anchor" href="#_understanding_jar_files"></a>Understanding JAR Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A JAR file is essentially a ZIP file with a <code>.jar</code> extension that contains compiled Java bytecode (<code>.class</code> files), along with a <code>META-INF</code> directory that includes a <code>MANIFEST.MF</code> file. This manifest file contains important metadata about the JAR, such as version information, entry points for executable JARs, and digital signatures.</p>
+</div>
+<div class="paragraph">
+<p>JAR files serve several critical purposes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bundling Applications:</strong> They allow developers to bundle an entire application, including all its classes and resources, into a single file. This simplifies distribution, as users only need to download one file.</p>
+</li>
+<li>
+<p><strong>Library Distribution:</strong> Java libraries are commonly distributed as JAR files, making it easy to include external code in projects.</p>
+</li>
+<li>
+<p><strong>Space Saving:</strong> By compressing multiple files into one, JARs help save disk space and reduce transfer times.</p>
+</li>
+<li>
+<p><strong>Security:</strong> JAR files can be digitally signed, providing a way to verify the authenticity and integrity of the code.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The JDK provides a command-line utility, <code>jar</code>, which is used to create, view, and extract contents from JAR archives. This tool functions much like standard archive utilities such as <code>zip</code> or <code>tar</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_jar_utility_functions"><a class="anchor" href="#_jar_utility_functions"></a><code>jar</code> Utility Functions</h3>
+<div class="paragraph">
+<p>The <code>jar</code> utility offers several key functionalities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Creating JAR files (<code>jar cf</code>):</strong> This command is used to combine multiple files into a new JAR archive. For example, <code>jar cf myapp.jar *.class</code> would create a JAR named <code>myapp.jar</code> containing all <code>.class</code> files in the current directory.</p>
+</li>
+<li>
+<p><strong>Listing JAR file contents (<code>jar tf</code>):</strong> This command allows you to view the table of contents of an existing JAR file, listing all the files and directories contained within it. For example, <code>jar tf myapp.jar</code> would display the list of files inside <code>myapp.jar</code>.</p>
+</li>
+<li>
+<p><strong>Extracting JAR file contents (<code>jar xf</code>):</strong> This command is used to extract all or selected files from a JAR archive to a specified directory. For example, <code>jar xf myapp.jar</code> would extract all contents of <code>myapp.jar</code> into the current directory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Leveraging the <code>jar</code> utility simplifies the management and deployment of Java applications, making it an indispensable tool in the Java development workflow.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_lab_creating_and_managing_jar_files"><a class="anchor" href="#_hands_on_lab_creating_and_managing_jar_files"></a>Hands-on Lab: Creating and Managing JAR Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this lab, you will learn how to create, inspect, and extract contents from Java Archive (JAR) files using the <code>jar</code> utility.</p>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="paragraph">
+<p>Ensure you have the Java Development Kit (JDK) installed and configured correctly on your system. You should be able to execute <code>javac</code> and <code>java</code> commands from your terminal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_activity_step_by_step_jar_file_management"><a class="anchor" href="#_activity_step_by_step_jar_file_management"></a>Activity: Step-by-Step JAR File Management</h3>
+<div class="paragraph">
+<p>Follow these steps to practice creating and managing JAR files.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create Sample Java Source Files</p>
+<div class="paragraph">
+<p>Open a text editor and create two simple Java files: <code>HelloWorld.java</code> and <code>MyUtility.java</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello from the JAR file!");
+        MyUtility.printMessage();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// MyUtility.java
+public class MyUtility {
+    public static void printMessage() {
+        System.out.println("This is a utility message.");
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Compile the Java Source Files</p>
+<div class="paragraph">
+<p>Navigate to the directory where you saved your Java files using your terminal or command prompt. Compile both files into bytecode (<code>.class</code> files) using the <code>javac</code> compiler:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">javac HelloWorld.java MyUtility.java</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After compilation, you should see <code>HelloWorld.class</code> and <code>MyUtility.class</code> in your directory.</p>
+</div>
+</li>
+<li>
+<p>Create a JAR Archive</p>
+<div class="paragraph">
+<p>Now, create a JAR file named <code>my_application.jar</code> that contains both compiled <code>.class</code> files. The <code>jar cf</code> command is used for this, where <code>c</code> means "create" and <code>f</code> means "file" (specifying the output JAR file name).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jar cf my_application.jar HelloWorld.class MyUtility.class</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also specify a directory and include all <code>.class</code> files within it using a wildcard:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Assuming you want to jar all .class files in the current directory
+jar cf my_application.jar *.class</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that <code>my_application.jar</code> has been created in your current directory.</p>
+</div>
+</li>
+<li>
+<p>Inspect the Contents of the JAR File</p>
+<div class="paragraph">
+<p>To view the contents of the <code>my_application.jar</code> file, use the <code>jar tf</code> command, where <code>t</code> stands for "table of contents" and <code>f</code> specifies the input JAR file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jar tf my_application.jar</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">META-INF/
+META-INF/MANIFEST.MF
+HelloWorld.class
+MyUtility.class</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a list of files inside the JAR, including your compiled classes and the <code>MANIFEST.MF</code> file, which is automatically generated.</p>
+</div>
+</li>
+<li>
+<p>Extract Contents from the JAR File</p>
+<div class="paragraph">
+<p>To extract the contents of <code>my_application.jar</code>, first, create a new directory to keep the extracted files organized. Then, use the <code>jar xf</code> command, where <code>x</code> means "extract".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir extracted_content
+cd extracted_content
+jar xf ../my_application.jar</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ls -F</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">HelloWorld.class
+META-INF/
+MyUtility.class</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should now find the <code>HelloWorld.class</code>, <code>MyUtility.class</code>, and <code>META-INF/</code> directory within your <code>extracted_content</code> folder. This demonstrates how to retrieve files from a JAR archive.</p>
+</div>
+</li>
+<li>
+<p>Clean Up (Optional)</p>
+<div class="paragraph">
+<p>You can remove the created files and directories if you wish to clean your workspace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ..
+rm HelloWorld.java MyUtility.java HelloWorld.class MyUtility.class my_application.jar
+rm -rf extracted_content</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>By completing this lab, you have gained practical experience in creating, inspecting, and extracting content from JAR files, which are essential skills for any Java developer.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a></span>
+  <span class="next"><a href="monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

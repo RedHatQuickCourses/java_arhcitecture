@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">
+    <link rel="next" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a></li>
+    <li><a href="compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</h1>
+<h1 id="_the_java_compilation_and_execution_flow" class="sect0"><a class="anchor" href="#_the_java_compilation_and_execution_flow"></a>The Java Compilation and Execution Flow</h1>
+<div class="paragraph">
+<p>The journey of a Java program from human-readable source code to executable instructions involves a meticulously designed multi-stage process known as the compilation and execution flow. This process is fundamental to understanding how Java achieves its "write once, run anywhere" capability. At its core, Java source code is compiled into platform-independent bytecode by the Java Development Kit (JDK) and then executed by the platform-specific Java Virtual Machine (JVM).</p>
+</div>
+<div class="sect1">
+<h2 id="_detailed_technical_explanation"><a class="anchor" href="#_detailed_technical_explanation"></a>Detailed Technical Explanation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s break down the various stages of this flow, highlighting the roles of the JDK, JRE, and JVM.</p>
+</div>
+<div class="sect2">
+<h3 id="_1_writing_java_source_code"><a class="anchor" href="#_1_writing_java_source_code"></a>1. Writing Java Source Code</h3>
+<div class="paragraph">
+<p>The first step is always to write the program in Java source code, which is human-readable text. Java source files typically have a <code>.java</code> extension. These files contain classes, interfaces, enums, and other programming constructs that define the application&#8217;s logic.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java World!");
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_compilation_by_the_jdk_javac"><a class="anchor" href="#_2_compilation_by_the_jdk_javac"></a>2. Compilation by the JDK (javac)</h3>
+<div class="paragraph">
+<p>Once the source code is written, it needs to be translated into a format that the computer can understand. This is where the Java Development Kit (JDK) comes into play. The JDK is a superset of all tools necessary for Java development, including the compiler (context 79-86, 121-123).</p>
+</div>
+<div class="paragraph">
+<p>The primary tool for compilation within the JDK is <code>javac</code>, the Java compiler. When you invoke <code>javac</code> on a <code>.java</code> file, it performs the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Syntax Checking:</strong> It first checks the source code for any syntax errors according to Java language specifications. If errors are found, compilation fails, and error messages are reported.</p>
+</li>
+<li>
+<p><strong>Translation to Bytecode:</strong> If the syntax is correct, <code>javac</code> translates the human-readable Java source code into an intermediate representation called <strong>bytecode</strong>. Bytecode files have a <code>.class</code> extension. These <code>.class</code> files are not native machine code but a set of instructions for the Java Virtual Machine.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The bytecode is designed to be platform-independent. This means a <code>.class</code> file generated on a Windows machine can be run on Linux or macOS, provided those platforms have a compatible Java Runtime Environment (JRE) installed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The compilation step is explicitly performed by the JDK (context 106-108). Without the JDK, you cannot compile Java source code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_loading_and_verification_by_the_jre_class_loader"><a class="anchor" href="#_3_loading_and_verification_by_the_jre_class_loader"></a>3. Loading and Verification by the JRE (Class Loader)</h3>
+<div class="paragraph">
+<p>After compilation, the <code>.class</code> files (bytecode) are ready for execution. This is where the Java Runtime Environment (JRE) and Java Virtual Machine (JVM) become central. The JRE contains the libraries needed to run Java programs (context 124-128), and the JVM is the actual executor (context 130).</p>
+</div>
+<div class="paragraph">
+<p>Before execution, the bytecode must be loaded into the JVM. This is handled by the <strong>Class Loader</strong>, which is a crucial component of the JRE (context 109-111). The Class Loader performs several critical tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Loading:</strong> It loads the <code>.class</code> files into memory.</p>
+</li>
+<li>
+<p><strong>Linking:</strong> It links the loaded classes with other classes and resolves dependencies. This stage includes:</p>
+</li>
+<li>
+<p><strong>Verification:</strong> A <strong>bytecode verifier</strong> (context 111) checks the loaded bytecode for security and structural correctness. This ensures that the bytecode doesn&#8217;t violate Java&#8217;s security restrictions or tamper with the JVM&#8217;s integrity.</p>
+</li>
+<li>
+<p><strong>Preparation:</strong> Static variables are allocated memory and initialized to default values.</p>
+</li>
+<li>
+<p><strong>Resolution:</strong> Symbolic references (like method names or variable names) are replaced with direct references.</p>
+</li>
+<li>
+<p><strong>Initialization:</strong> Static initializers are executed, and static fields are assigned their final values.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_execution_by_the_jvm_java"><a class="anchor" href="#_4_execution_by_the_jvm_java"></a>4. Execution by the JVM (java)</h3>
+<div class="paragraph">
+<p>Once the bytecode is loaded, verified, and prepared, the Java Virtual Machine (JVM) takes over to execute the program (context 112-113, 130). The JVM is the innermost component of the Java platform (context 92).</p>
+</div>
+<div class="paragraph">
+<p>The execution process within the JVM involves:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Interpretation:</strong> The JVM contains a Java interpreter (context 131) that reads the bytecode instructions one by one and executes them.</p>
+</li>
+<li>
+<p><strong>Just-In-Time (JIT) Compilation:</strong> For performance optimization, modern JVMs incorporate a Just-In-Time (JIT) compiler (context 132). The JIT compiler identifies frequently executed sections of bytecode ("hot spots") and compiles them into native machine code directly for the underlying operating system. This native code can then be executed much faster than interpreted bytecode.</p>
+</li>
+<li>
+<p><strong>Garbage Collection:</strong> The JVM also manages memory automatically through its garbage collector (context 133), freeing up memory occupied by objects that are no longer referenced by the program.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It&#8217;s crucial to remember that while the bytecode is platform-independent, the JVM itself is <strong>platform-dependent</strong> (context 74, 104-105, 115). This means you need a specific JVM tailored for your operating system (e.g., Windows JVM, Linux JVM, macOS JVM) to run Java applications. The <code>java</code> application launcher (context 122) is used to invoke the JVM and start the execution of a compiled <code>.class</code> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_of_the_flow"><a class="anchor" href="#_summary_of_the_flow"></a>Summary of the Flow</h3>
+<div class="paragraph">
+<p>The typical Java development workflow proceeds as follows (context 69-73):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You write your Java source code in a <code>.java</code> file.</p>
+</li>
+<li>
+<p>You compile the <code>.java</code> file using the <code>javac</code> compiler (provided by the JDK), which produces <code>.class</code> files (bytecode).</p>
+</li>
+<li>
+<p>You run the <code>.class</code> files using the <code>java</code> application launcher, which starts a JVM that loads, verifies, and executes the bytecode on the native operating system.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>digraph JavaFlow {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightblue];
+
+    "Java Source Code (.java)" -&gt; "JDK (javac Compiler)" [label="Compile"];
+    "JDK (javac Compiler)" -&gt; "Java Bytecode (.class)" [label="Generates"];
+    "Java Bytecode (.class)" -&gt; "JRE (Class Loader)" [label="Loads &amp; Verifies"];
+    "JRE (Class Loader)" -&gt; "JVM (Interpreter/JIT)" [label="Passes to"];
+    "JVM (Interpreter/JIT)" -&gt; "Native OS" [label="Executes on"];
+
+    "JDK (javac Compiler)" [shape=circle, fillcolor=lightgreen, label="JDK\n(javac)"];
+    "JRE (Class Loader)" [shape=circle, fillcolor=yellow, label="JRE\n(Class Loader)"];
+    "JVM (Interpreter/JIT)" [shape=circle, fillcolor=orange, label="JVM\n(Interpreter/JIT)"];
+    "Native OS" [shape=folder, fillcolor=lightgrey];
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_activity_java_development_workflow"><a class="anchor" href="#_hands_on_activity_java_development_workflow"></a>Hands-on Activity: Java Development Workflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s put this knowledge into practice by compiling and executing a simple "Hello, Java World!" program.</p>
+</div>
+<div class="sect2">
+<h3 id="_objective"><a class="anchor" href="#_objective"></a>Objective</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Write a basic Java program.</p>
+</li>
+<li>
+<p>Compile the Java source code into bytecode using <code>javac</code>.</p>
+</li>
+<li>
+<p>Execute the bytecode using the <code>java</code> application launcher.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A text editor (e.g., VS Code, Notepad++, Sublime Text, or a simple text editor).</p>
+</li>
+<li>
+<p>A Java Development Kit (JDK) installed on your system. You can verify your JDK installation by opening a terminal or command prompt and typing <code>javac -version</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create the Java Source File:</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Open your preferred text editor.</p>
+</li>
+<li>
+<p>Type the following Java code:
+[source,java]
+----
+// MyFirstProgram.java
+public class MyFirstProgram {
+    public static void main(String[] args) {
+        System.out.println("Hello from the Java Compilation Flow Lab!");
+    }
+}
+----</p>
+</li>
+<li>
+<p>Save the file as <code>MyFirstProgram.java</code> in a directory of your choice (e.g., <code>C:\javalabs</code> on Windows or <code>~/javalabs</code> on Linux/macOS). Ensure the filename exactly matches the public class name.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Open a Terminal/Command Prompt:</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Navigate to the directory where you saved <code>MyFirstProgram.java</code> using the <code>cd</code> command.
+[source,bash]
+----
+# On Linux/macOS
+cd ~/javalabs</p>
+<div class="literalblock">
+<div class="content">
+<pre># On Windows
+cd C:\javalabs
+----</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Compile the Java Source Code:</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Use the <code>javac</code> command to compile your <code>.java</code> file into a <code>.class</code> file.
+[source,bash]
+----
+javac MyFirstProgram.java
+----</p>
+</li>
+<li>
+<p>If compilation is successful, you will see no output. A file named <code>MyFirstProgram.class</code> will be created in the same directory. This is your Java bytecode. If you encounter errors, carefully review your <code>MyFirstProgram.java</code> file for typos, especially case sensitivity, and correct them before recompiling.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Execute the Java Bytecode:</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Use the <code>java</code> command followed by the name of your class (without the <code>.class</code> extension) to execute the bytecode.
+[source,bash]
+----
+java MyFirstProgram
+----</p>
+</li>
+<li>
+<p>You should see the output printed to your terminal:
+[source,text]
+----
+Hello from the Java Compilation Flow Lab!
+----</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This hands-on exercise demonstrates the fundamental two-step process: <code>javac</code> for compilation and <code>java</code> for execution, forming the core of the Java development workflow.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a></span>
+  <span class="next"><a href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

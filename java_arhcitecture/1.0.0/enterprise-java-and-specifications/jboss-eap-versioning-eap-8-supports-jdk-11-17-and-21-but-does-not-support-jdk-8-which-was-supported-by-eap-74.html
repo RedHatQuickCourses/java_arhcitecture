@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4). :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">
+    <link rel="next" href="../appendix/appendix.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="enterprise-java-and-specifications.html">Enterprise Java and Specifications</a></li>
+    <li><a href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</h1>
+<h1 id="_java_architecture_and_core_concepts_jboss_eap_versioning" class="sect0"><a class="anchor" href="#_java_architecture_and_core_concepts_jboss_eap_versioning"></a>Java Architecture and Core Concepts: JBoss EAP Versioning</h1>
+<div class="paragraph">
+<p>This section delves into the critical aspect of JBoss Enterprise Application Platform (EAP) versioning and its compatibility with various Java Development Kit (JDK) versions. Understanding these compatibility matrices is essential for development, deployment, and troubleshooting Java applications on EAP, especially when considering migration or support requirements.</p>
+</div>
+<div class="sect1">
+<h2 id="_jboss_eap_and_jdk_compatibility"><a class="anchor" href="#_jboss_eap_and_jdk_compatibility"></a>JBoss EAP and JDK Compatibility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The JBoss Enterprise Application Platform (EAP) is an open-source Java EE (now Jakarta EE) application server developed by Red Hat. It provides a robust, high-performance platform for building, deploying, and hosting Java applications and services. The compatibility between JBoss EAP versions and JDK versions is crucial for ensuring application stability, performance, and access to support.</p>
+</div>
+<div class="sect2">
+<h3 id="_jboss_eap_8_jdk_support"><a class="anchor" href="#_jboss_eap_8_jdk_support"></a>JBoss EAP 8 JDK Support</h3>
+<div class="paragraph">
+<p>JBoss EAP 8 represents a significant evolution, introducing support for modern JDK versions. It is designed to leverage the latest features and performance enhancements offered by newer Java releases.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Supported JDK Versions</strong>: JBoss EAP 8 officially supports the following Long-Term Support (LTS) JDK releases:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>JDK 11</p>
+</li>
+<li>
+<p>JDK 17</p>
+</li>
+<li>
+<p>JDK 21</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Unsupported JDK Versions</strong>: It is important to note the specific JDK versions that are <strong>not</strong> supported by EAP 8:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>JDK 8: Unlike previous EAP versions, JDK 8 is explicitly <strong>not</strong> supported for JBoss EAP 8. <a href="#1.2.3" class="xref unresolved">See context lines 269-270</a></p>
+</li>
+<li>
+<p>JDK 25: While the range of supported JDKs extends, JDK 25 is specifically mentioned as <strong>not</strong> supported. <a href="#1.2.3" class="xref unresolved">See context lines 251-252</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Understanding this support matrix is vital for planning application development and migration strategies. Running EAP 8 on an unsupported JDK version can lead to unpredictable behavior, performance issues, and lack of official support from Red Hat.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jboss_eap_7_4_jdk_support"><a class="anchor" href="#_jboss_eap_7_4_jdk_support"></a>JBoss EAP 7.4 JDK Support</h3>
+<div class="paragraph">
+<p>JBoss EAP 7.4 is a previous major version of the platform. It has a different set of supported JDK versions compared to EAP 8, reflecting the JDK landscape at the time of its development and release.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Supported JDK Versions</strong>: JBoss EAP 7.4 supports:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>JDK 8: This was a primary supported JDK for EAP 7.4. <a href="#1.2.3" class="xref unresolved">See context line 256</a></p>
+</li>
+<li>
+<p>JDK 11: EAP 7.4 also extended support to JDK 11. <a href="#1.2.3" class="xref unresolved">See context line 268</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While EAP 7.4 still receives maintenance updates, it&#8217;s crucial for customers using this version to be aware of its specific support lifecycle and JDK compatibility.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Comparison of JBoss EAP and JDK Support</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JBoss EAP Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported JDKs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unsupported JDKs (for this EAP version)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JBoss EAP 8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 11, JDK 17, JDK 21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 8, JDK 25</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JBoss EAP 7.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 8, JDK 11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 17, JDK 21 (and newer)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The exact support for specific JDK versions can sometimes evolve with maintenance releases (e.g., EAP 7.4.x), but the general major version compatibility remains consistent. Always consult the official Red Hat documentation for the most up-to-date and granular compatibility information.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_enterprise_java_and_specifications"><a class="anchor" href="#_enterprise_java_and_specifications"></a>Enterprise Java and Specifications</h3>
+<div class="paragraph">
+<p>JBoss EAP, like other application servers, implements various <strong>specifications</strong>. A specification in Enterprise Java defines a set of guidelines or rules outlining what should be done without prescribing the exact implementation. For example, the Jakarta EE (formerly Java EE) specifications define APIs and behaviors for enterprise applications.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Implementation</strong>: Red Hat implements these specifications through JBoss EAP. Other vendors like Oracle implement them through products like WebLogic. These implementations adhere to the specifications while providing their own unique features and optimizations. <a href="#1.2.3" class="xref unresolved">See context section "Enterprise Java and Specifications"</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The support for different JDK versions in JBoss EAP is closely tied to its implementation of these specifications and the underlying Java platform capabilities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_lab_verifying_jboss_eap_and_jdk_compatibility_in_support_scenarios"><a class="anchor" href="#_hands_on_lab_verifying_jboss_eap_and_jdk_compatibility_in_support_scenarios"></a>Hands-on Lab: Verifying JBoss EAP and JDK Compatibility in Support Scenarios</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a real-world support or development environment, understanding EAP and JDK compatibility is not just theoretical; it&#8217;s a practical necessity. This lab activity simulates a common scenario faced by support engineers or developers.</p>
+</div>
+<div class="sect2">
+<h3 id="_scenario_customer_compatibility_inquiry"><a class="anchor" href="#_scenario_customer_compatibility_inquiry"></a>Scenario: Customer Compatibility Inquiry</h3>
+<div class="paragraph">
+<p>Imagine you are a support engineer, and a customer has opened a ticket with the following details:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Customer Issue</strong>: "My application, deployed on JBoss EAP, is behaving unexpectedly after I upgraded my server&#8217;s Java version. I&#8217;m running EAP version 7.4."</p>
+</li>
+<li>
+<p><strong>Initial Customer-Provided Information</strong>: "I updated Java to JDK 17 because I heard it&#8217;s faster."</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Your task is to analyze the situation based on the compatibility information you&#8217;ve learned and provide initial guidance.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Familiarity with the JBoss EAP and JDK compatibility matrix.</p>
+</li>
+<li>
+<p>Access to information about Red Hat&#8217;s EAP support policies.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p><strong>Review the Customer&#8217;s Setup</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The customer is using JBoss EAP 7.4.</p>
+</li>
+<li>
+<p>The customer has upgraded their JDK to JDK 17.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consult the Compatibility Matrix</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refer to the table provided in <a href="#jboss-eap-and-jdk-compatibility">JBoss EAP and JDK Compatibility</a>.</p>
+</li>
+<li>
+<p>For JBoss EAP 7.4, the supported JDK versions are JDK 8 and JDK 11.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Identify the Incompatibility</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based on your findings, running JBoss EAP 7.4 on JDK 17 is an <strong>unsupported configuration</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Formulate Initial Guidance</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Draft a response to the customer explaining the incompatibility.</p>
+</li>
+<li>
+<p>Suggest immediate troubleshooting steps and potential long-term solutions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Expected Outcome</div>
+<p>Your response should highlight the incompatibility and provide clear steps.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Dear Customer,
+
+Thank you for reaching out. We understand you're experiencing unexpected behavior with your application on JBoss EAP 7.4 after updating your Java version to JDK 17.
+
+Upon reviewing your setup against the official JBoss EAP 7.4 compatibility matrix, we've identified a potential root cause:
+
+*   JBoss EAP 7.4 officially supports JDK 8 and JDK 11.
+*   Running JBoss EAP 7.4 on JDK 17 is an unsupported configuration. This can lead to the "unexpected behavior" you are observing.
+
+To resolve this immediately, we recommend reverting your Java environment to a supported JDK version for EAP 7.4, either JDK 8 or JDK 11. Please try this and let us know if the issue persists.
+
+For future planning, if you wish to leverage newer JDK versions like JDK 17 or JDK 21, you would need to upgrade your JBoss EAP instance to JBoss EAP 8, which supports these newer JDKs. We can provide resources and guidance for an EAP upgrade path if that's a direction you'd like to explore.
+
+Please let us know your findings after reverting the JDK version.
+
+Sincerely,
+[Your Name/Support Team]</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When dealing with older EAP versions, such as EAP 7, customers might require a specific <strong>subscription</strong> to receive full support. <a href="#1.2.3" class="xref unresolved">See context lines 261-267</a> As a support engineer, always verify the customer&#8217;s subscription status for older products, as this impacts the level of support that can be provided. This often means checking if they have a "separate kind of subscription that customer need to purchase for getting support on EAP 7." <a href="#1.2.3" class="xref unresolved">See context lines 261-263</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

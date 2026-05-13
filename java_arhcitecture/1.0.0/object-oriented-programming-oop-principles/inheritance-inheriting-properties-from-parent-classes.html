@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Inheritance: Inheriting properties from parent classes. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="encapsulation-bundling-data-and-methods-inside-an-object.html">
+    <link rel="next" href="polymorphism-using-one-name-for-multiple-actions.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
+    <li><a href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Inheritance: Inheriting properties from parent classes.</h1>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">== Inheritance: Inheriting Properties from Parent Classes
+
+[role="summary"]
+Inheritance is a fundamental Object-Oriented Programming (OOP) principle in Java that enables classes to acquire properties and behaviors from other classes, promoting code reuse and establishing hierarchical relationships. This section details how inheritance works, its benefits, and provides a hands-on activity to solidify your understanding.
+
+=== Understanding Inheritance in Java
+
+Inheritance is a mechanism where one class acquires the properties (fields) and behaviors (methods) of another class. This allows for code reusability and the creation of a natural "is-a" relationship between different types of objects. For instance, a `Car` *is a* `Vehicle`, and a `Motorcycle` *is a* `Vehicle`.
+
+In Java, the class that is being inherited from is called the *superclass*, *parent class*, or *base class*. The class that inherits the properties and behaviors is called the *subclass*, *child class*, or *derived class*.
+
+The core idea is to extend the functionality of an existing class without having to rewrite its code. A child class can use the methods and fields defined in its parent, and it can also:
+
+*   Add new fields and methods specific to its own type.
+*   Override inherited methods to provide a specialized implementation for its own context.
+
+[.tabs]
+====
+[.tab.java-inheritance#inheritance-benefits]
+--
+*Benefits of Inheritance*
+
+Inheritance provides several key advantages in software design and development:
+
+*   *Code Reusability:* The most significant benefit is the ability to reuse code. Common logic, fields, and methods can be defined once in a superclass and then inherited by multiple subclasses, reducing redundancy and making the codebase easier to maintain.
+*   *Polymorphism:* Inheritance is a prerequisite for achieving runtime polymorphism through method overriding. This allows objects of different subclasses to be treated as objects of their common superclass, enabling flexible and extensible designs.
+*   *Hierarchical Classification:* It helps to establish a clear and logical hierarchy among classes, mirroring real-world categorizations. This makes the system more organized and understandable.
+*   *Extensibility:* New features or variations can be introduced by creating new subclasses that extend existing ones. This allows for adding functionality without modifying the core logic of the parent class, adhering to the Open/Closed Principle (open for extension, closed for modification).
+--
+[.tab.java-inheritance#inheritance-types]
+--
+*Types of Inheritance in Java*
+
+Java supports specific types of inheritance between classes, and a form of multiple inheritance through interfaces:
+
+*   *Single Inheritance:* A class inherits from only one parent class. This is the most straightforward and common form of inheritance.
++
+[cols="1",options="header"]
+|===
+| Parent Class -&gt; Child Class
+|===
+
+*   *Multilevel Inheritance:* A subclass inherits from a parent class, which itself is a subclass of another class. This creates a chain of inheritance.
++
+[cols="1",options="header"]
+|===
+| Grandparent Class -&gt; Parent Class -&gt; Child Class
+|===
+
+*   *Hierarchical Inheritance:* Multiple subclasses inherit from a single parent class. This models a situation where several specialized classes stem from a common generalized class.
++
+[cols="1",options="header"]
+|===
+|         Parent Class
+|        /          \
+| Child Class 1    Child Class 2
+|===
+
+*   *Multiple Inheritance (via Interfaces):* Java does *not* support multiple inheritance of *classes* (a class cannot `extends` more than one class) to avoid complex issues like the "diamond problem." However, it allows a class to implement multiple *interfaces*. While interfaces only define abstract methods (or default/static methods since Java 8), this mechanism provides a way for a class to inherit multiple type behaviors.
+--
+====
+
+=== Technical Explanation: How Inheritance Works
+
+In Java, the `extends` keyword is used to declare that a class is a subclass of another class. When a class `B` `extends` class `A`, class `B` inherits all non-private fields and methods from class `A`. Private members of the superclass are not directly accessible by the subclass but can be accessed indirectly through public or protected methods provided by the superclass.
+
+Consider the following example demonstrating a `Vehicle` superclass and a `Car` subclass:
+
+[source,java]
+----
+// Vehicle.java (Superclass)
+class Vehicle {
+    protected String brand = "Generic"; // Using 'protected' for direct subclass access
+    int numberOfWheels; // Default (package-private) access
+
+    public Vehicle(int wheels) {
+        this.numberOfWheels = wheels;
+    }
+
+    public void honk() {
+        System.out.println("Tuut, tuut!");
+    }
+
+    public void drive() {
+        System.out.println("A " + brand + " vehicle with " + numberOfWheels + " wheels is moving.");
+    }
+
+    // A method to get the brand, accessible by subclasses and outside
+    public String getBrand() {
+        return brand;
+    }
+}
+
+// Car.java (Subclass)
+class Car extends Vehicle { // Car inherits from Vehicle
+    String modelName = "Sedan";
+    String fuelType;
+
+    public Car(String brand, String modelName, String fuelType) {
+        super(4); // Call the superclass constructor, a car typically has 4 wheels
+        this.brand = brand; // Inherited protected field can be directly accessed
+        this.modelName = modelName;
+        this.fuelType = fuelType;
+    }
+
+    public void displayCarInfo() {
+        System.out.println("Brand: " + getBrand()); // Accessing inherited method
+        System.out.println("Model: " + modelName);
+        System.out.println("Fuel Type: " + fuelType);
+        honk(); // Calling inherited method
+    }
+
+    // Method Overriding: Providing a specialized implementation for an inherited method
+    @Override // Annotation to indicate method overriding (good practice)
+    public void drive() {
+        System.out.println("The " + brand + " " + modelName + " car, running on " + fuelType + ", is driving smoothly on the road.");
+    }
+
+    public void activateWipers() {
+        System.out.println("Wipers activated for the " + modelName + ".");
+    }
+}
+
+// InheritanceDemo.java (Main class to demonstrate)
+public class InheritanceDemo {
+    public static void main(String[] args) {
+        System.out.println("--- Demonstrating Inheritance ---");
+
+        // Create a Vehicle object
+        Vehicle genericVehicle = new Vehicle(6); // A truck perhaps
+        System.out.println("\n== Generic Vehicle ==");
+        System.out.println("Vehicle brand: " + genericVehicle.getBrand());
+        genericVehicle.honk();
+        genericVehicle.drive();
+
+        // Create a Car object
+        Car myCar = new Car("Tesla", "Model 3", "Electric");
+        System.out.println("\n== My Car ==");
+        myCar.displayCarInfo(); // Calls Car's own method, which uses inherited getBrand() and honk()
+        myCar.drive();          // Calls Car's overridden drive() method
+        myCar.activateWipers(); // Calls Car's own specific method
+
+        // Demonstrating an inherited method by treating Car as Vehicle (Polymorphism)
+        System.out.println("\n== Car as a Vehicle ==");
+        Vehicle anotherVehicle = new Car("Ford", "F-150", "Gasoline");
+        anotherVehicle.drive(); // Still calls the Car's overridden drive() method!
+        // anotherVehicle.activateWipers(); // This would cause a compile-time error!
+                                          // Vehicle type does not have activateWipers()
+    }
+}
+----
+
+In this example:
+
+*   The `Car` class `extends` the `Vehicle` class, automatically inheriting `brand`, `numberOfWheels`, `honk()`, `drive()`, and `getBrand()`.
+*   The `Car` constructor uses `super(4)` to call the `Vehicle` class constructor, initializing `numberOfWheels`.
+*   The `Car` class can directly access the `protected` `brand` field and sets its value.
+*   `myCar.displayCarInfo()` calls `getBrand()` and `honk()`, demonstrating the reuse of inherited methods.
+*   The `Car` class introduces its own specific fields (`modelName`, `fuelType`) and methods (`activateWipers()`).
+*   The `drive()` method is *overridden* in the `Car` class. When `myCar.drive()` is called, the specialized `Car` version is executed, not the `Vehicle`'s generic version. The `@Override` annotation is a compiler hint and good practice.
+*   The last part of `main` demonstrates that a `Car` object can be assigned to a `Vehicle` reference (`Vehicle anotherVehicle = new Car(...)`). When `anotherVehicle.drive()` is called, the runtime still invokes the `Car`'s overridden `drive()` method due to polymorphism. However, `activateWipers()` cannot be called using the `Vehicle` reference because it's a `Car`-specific method not present in the `Vehicle` type.
+
+=== Hands-on Activity: Exploring Vehicle Hierarchy with Inheritance
+
+This activity will guide you through creating and compiling Java code that defines a simple hierarchy of vehicles using inheritance. You will observe how subclasses inherit common behaviors and can implement specialized functionalities.
+
+.   **Set up your development environment:**
+    Ensure you have a Java Development Kit (JDK) installed and configured, and a text editor or IDE.
+
+.   **Create the `Vehicle.java` file:**
+    Create a file named `Vehicle.java` in a new directory (e.g., `inheritance_lab`) and add the following code for the superclass:
+    [source,java]
+    ----
+    // Vehicle.java (Superclass)
+    class Vehicle {
+        protected String type;
+        protected int maxSpeed;
+
+        public Vehicle(String type, int maxSpeed) {
+            this.type = type;
+            this.maxSpeed = maxSpeed;
+            System.out.println("Initializing a " + type + ".");
+        }
+
+        public void start() {
+            System.out.println(type + " is starting its engine.");
+        }
+
+        public void stop() {
+            System.out.println(type + " is stopping its engine.");
+        }
+
+        public void accelerate() {
+            System.out.println(type + " is accelerating up to " + maxSpeed + " km/h.");
+        }
+
+        public void displayInfo() {
+            System.out.println("Type: " + type + ", Max Speed: " + maxSpeed + " km/h.");
+        }
+    }
+    ----
+
+.   **Create the `Car.java` file:**
+    Create a file named `Car.java` in the *same directory*. This class will extend `Vehicle` and provide specialized methods and an overridden `accelerate()` method.
+    [source,java]
+    ----
+    // Car.java (Subclass)
+    class Car extends Vehicle {
+        private int numberOfDoors;
+
+        public Car(String brand, int maxSpeed, int numberOfDoors) {
+            super(brand + " Car", maxSpeed); // Call Vehicle constructor
+            this.numberOfDoors = numberOfDoors;
+        }
+
+        @Override
+        public void accelerate() {
+            System.out.println(type + " smoothly accelerates to " + maxSpeed + " km/h. Enjoy the ride!");
+        }
+
+        public void openTrunk() {
+            System.out.println(type + " trunk is opening.");
+        }
+
+        // Overload displayInfo for Car-specific details
+        public void displayCarInfo() {
+            super.displayInfo(); // Call parent's displayInfo
+            System.out.println("Number of doors: " + numberOfDoors);
+        }
+    }
+    ----
+
+.   **Create the `Motorcycle.java` file:**
+    Create another subclass file named `Motorcycle.java` in the *same directory*. It also extends `Vehicle` and overrides `accelerate()`.
+    [source,java]
+    ----
+    // Motorcycle.java (Subclass)
+    class Motorcycle extends Vehicle {
+        private boolean hasSidecar;
+
+        public Motorcycle(String brand, int maxSpeed, boolean hasSidecar) {
+            super(brand + " Motorcycle", maxSpeed); // Call Vehicle constructor
+            this.hasSidecar = hasSidecar;
+        }
+
+        @Override
+        public void accelerate() {
+            System.out.println(type + " roars and accelerates to " + maxSpeed + " km/h! Feel the wind!");
+        }
+
+        public void performWheelie() {
+            if (!hasSidecar) {
+                System.out.println(type + " is performing a wheelie!");
+            } else {
+                System.out.println(type + " is too stable for a wheelie.");
+            }
+        }
+
+        // Overload displayInfo for Motorcycle-specific details
+        public void displayMotorcycleInfo() {
+            super.displayInfo(); // Call parent's displayInfo
+            System.out.println("Has sidecar: " + hasSidecar);
+        }
+    }
+    ----
+
+.   **Create the `InheritanceLab.java` file:**
+    Finally, create a main class `InheritanceLab.java` in the *same directory* to orchestrate the demonstration of these vehicle objects.
+    [source,java]
+    ----
+    // InheritanceLab.java (Main class for demonstration)
+    public class InheritanceLab {
+        public static void main(String[] args) {
+            System.out.println("=== Java Inheritance Lab ===");
+
+            // 1. Demonstrate a generic Vehicle
+            System.out.println("\n--- Generic Vehicle Actions ---");
+            Vehicle generalVehicle = new Vehicle("Standard Transport", 100);
+            generalVehicle.displayInfo();
+            generalVehicle.start();
+            generalVehicle.accelerate();
+            generalVehicle.stop();
+
+            // 2. Demonstrate a Car
+            System.out.println("\n--- Car Actions ---");
+            Car myCar = new Car("Toyota", 200, 4);
+            myCar.displayCarInfo(); // Car's specific display method
+            myCar.start();          // Inherited method
+            myCar.accelerate();     // Overridden method
+            myCar.openTrunk();      // Car's specific method
+            myCar.stop();           // Inherited method
+
+            // 3. Demonstrate a Motorcycle
+            System.out.println("\n--- Motorcycle Actions ---");
+            Motorcycle myMotorcycle = new Motorcycle("Harley", 180, false);
+            myMotorcycle.displayMotorcycleInfo(); // Motorcycle's specific display method
+            myMotorcycle.start();                 // Inherited method
+            myMotorcycle.accelerate();            // Overridden method
+            myMotorcycle.performWheelie();        // Motorcycle's specific method
+            myMotorcycle.stop();                  // Inherited method
+
+            Motorcycle sidecarBike = new Motorcycle("BMW", 150, true);
+            System.out.println("\n--- Motorcycle with Sidecar Actions ---");
+            sidecarBike.displayMotorcycleInfo();
+            sidecarBike.performWheelie(); // See different behavior due to condition
+        }
+    }
+    ----
+
+.   **Compile the Java files:**
+    Open your terminal or command prompt, navigate to the `inheritance_lab` directory, and compile all the Java files.
+    [source,bash]
+    ----
+    javac Vehicle.java Car.java Motorcycle.java InheritanceLab.java
+    ----
+    If successful, you will see no output, and `.class` files will be generated for each `.java` file.
+
+.   **Execute the `InheritanceLab` class:**
+    Run the main class to observe the inheritance in action.
+    [source,bash]
+    ----
+    java InheritanceLab
+    ----
+
+.   **Observe the Output:**
+    You should see output similar to the following, demonstrating the inheritance of methods (`start`, `stop`) and the specialized behavior of overridden methods (`accelerate`), as well as subclass-specific methods (`openTrunk`, `performWheelie`):
+    [source,text]
+    ----
+    === Java Inheritance Lab ===
+    Initializing a Standard Transport.
+
+    --- Generic Vehicle Actions ---
+    Type: Standard Transport, Max Speed: 100 km/h.
+    Standard Transport is starting its engine.
+    Standard Transport is accelerating up to 100 km/h.
+    Standard Transport is stopping its engine.
+
+    Initializing a Toyota Car.
+
+    --- Car Actions ---
+    Type: Toyota Car, Max Speed: 200 km/h.
+    Number of doors: 4
+    Toyota Car is starting its engine.
+    Toyota Car smoothly accelerates to 200 km/h. Enjoy the ride!
+    Toyota Car trunk is opening.
+    Toyota Car is stopping its engine.
+
+    Initializing a Harley Motorcycle.
+
+    --- Motorcycle Actions ---
+    Type: Harley Motorcycle, Max Speed: 180 km/h.
+    Has sidecar: false
+    Harley Motorcycle is starting its engine.
+    Harley Motorcycle roars and accelerates to 180 km/h! Feel the wind!
+    Harley Motorcycle is performing a wheelie!
+    Harley Motorcycle is stopping its engine.
+
+    Initializing a BMW Motorcycle.
+
+    --- Motorcycle with Sidecar Actions ---
+    Type: BMW Motorcycle, Max Speed: 150 km/h.
+    Has sidecar: true
+    BMW Motorcycle is too stable for a wheelie.
+    ----
+
+This activity vividly illustrates how:
+
+*   `Car` and `Motorcycle` objects reuse the `start()` and `stop()` methods from the `Vehicle` superclass.
+*   The `accelerate()` method demonstrates polymorphism, executing different code based on the actual object type (`Vehicle`, `Car`, or `Motorcycle`).
+*   Subclasses can introduce their own unique features (`openTrunk` for `Car`, `performWheelie` for `Motorcycle`).
+*   Constructors in subclasses utilize `super()` to initialize the superclass portion of the object.</code></pre>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a></span>
+  <span class="next"><a href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

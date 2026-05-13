@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Debugger (jdb): A utility for debugging Java code. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">
+    <link rel="next" href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../object-oriented-programming-oop-principles/javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a></li>
+    <li><a href="debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Debugger (jdb): A utility for debugging Java code.</h1>
+<h1 id="_debugger_jdb_a_utility_for_debugging_java_code" class="sect0"><a class="anchor" href="#_debugger_jdb_a_utility_for_debugging_java_code"></a>Debugger (jdb): A Utility for Debugging Java Code</h1>
+<div class="paragraph">
+<p>Debugging is an essential skill for any software developer. It involves finding and resolving defects or 'bugs' in computer programs that prevent correct operation. Java provides a powerful command-line debugger called <code>jdb</code> (Java Debugger) as part of the Java Development Kit (JDK), allowing developers to analyze and troubleshoot Java applications without the need for a full-fledged Integrated Development Environment (IDE).</p>
+</div>
+<div class="sect1">
+<h2 id="_understanding_the_java_debugger_jdb"><a class="anchor" href="#_understanding_the_java_debugger_jdb"></a>Understanding the Java Debugger (<code>jdb</code>)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While IDEs like IntelliJ IDEA offer sophisticated graphical debugger tools that allow you to visually set breakpoints, inspect variables, and step through code, <code>jdb</code> provides a robust command-line alternative. It&#8217;s particularly useful when working in environments where an IDE isn&#8217;t available, such as remote servers, minimal development setups, or when you need to understand the fundamental debugging process.</p>
+</div>
+<div class="paragraph">
+<p>The <code>jdb</code> utility enables you to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Set Breakpoints:</strong> Pause program execution at specific lines of code.</p>
+</li>
+<li>
+<p><strong>Step Through Code:</strong> Execute code line by line, method by method.</p>
+</li>
+<li>
+<p><strong>Inspect Variables:</strong> View the values of local variables and object fields at any point during execution.</p>
+</li>
+<li>
+<p><strong>Modify Execution Flow:</strong> Change variable values or even step into or over methods.</p>
+</li>
+<li>
+<p><strong>Monitor Threads:</strong> Observe the state of different threads in a multi-threaded application.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This level of control is crucial for understanding program behavior, identifying the root cause of errors, and verifying the correctness of your logic.</p>
+</div>
+<div class="sect2">
+<h3 id="_how_jdb_works"><a class="anchor" href="#_how_jdb_works"></a>How <code>jdb</code> Works</h3>
+<div class="paragraph">
+<p>When you debug a Java application with <code>jdb</code>, you&#8217;re essentially launching your Java Virtual Machine (JVM) in a special debug mode. This mode allows <code>jdb</code> to connect to the JVM, receive notifications about program events (like hitting a breakpoint), and send commands to control the JVM&#8217;s execution.</p>
+</div>
+<div class="paragraph">
+<p>The general workflow for using <code>jdb</code> involves:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Compiling</strong> your Java source code with debug information enabled.</p>
+</li>
+<li>
+<p><strong>Launching</strong> your application with <code>jdb</code> attached, or attaching <code>jdb</code> to an already running JVM.</p>
+</li>
+<li>
+<p><strong>Issuing commands</strong> within the <code>jdb</code> console to control execution and inspect the program state.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_lab_basic_java_debugging_with_jdb"><a class="anchor" href="#_hands_on_lab_basic_java_debugging_with_jdb"></a>Hands-on Lab: Basic Java Debugging with <code>jdb</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this hands-on lab, we will create a simple Java program, compile it, and then use <code>jdb</code> to step through its execution, set breakpoints, and inspect variable values.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_create_a_sample_java_program"><a class="anchor" href="#_step_1_create_a_sample_java_program"></a>Step 1: Create a Sample Java Program</h3>
+<div class="paragraph">
+<p>Let&#8217;s create a simple Java program that calculates the factorial of a number. We&#8217;ll introduce a minor logical point where we can demonstrate debugging.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a file named <code>FactorialCalculator.java</code> with the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class FactorialCalculator {
+
+    public static void main(String[] args) {
+        int number = 5;
+        long result = calculateFactorial(number);
+        System.out.println("The factorial of " + number + " is: " + result);
+    }
+
+    public static long calculateFactorial(int n) {
+        if (n &lt; 0) {
+            throw new IllegalArgumentException("Factorial is not defined for negative numbers.");
+        }
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+
+        long factorial = 1;
+        for (int i = 1; i &lt;= n; i++) { // Breakpoint opportunity here
+            factorial = factorial * i;
+        }
+        return factorial;
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_compile_the_java_program_with_debug_information"><a class="anchor" href="#_step_2_compile_the_java_program_with_debug_information"></a>Step 2: Compile the Java Program with Debug Information</h3>
+<div class="paragraph">
+<p>For <code>jdb</code> to be most effective, you need to compile your Java source code with debug information. This is typically done by including the <code>-g</code> option with the <code>javac</code> compiler.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open your terminal or command prompt.</p>
+</li>
+<li>
+<p>Navigate to the directory where you saved <code>FactorialCalculator.java</code>.</p>
+</li>
+<li>
+<p>Compile the program:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">javac -g FactorialCalculator.java</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command creates <code>FactorialCalculator.class</code> in the same directory, containing the necessary debugging symbols.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_launch_the_program_in_debug_mode_with_jdb"><a class="anchor" href="#_step_3_launch_the_program_in_debug_mode_with_jdb"></a>Step 3: Launch the Program in Debug Mode with <code>jdb</code></h3>
+<div class="paragraph">
+<p>Now, we will launch our compiled program using <code>jdb</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the same terminal, start <code>jdb</code> and specify the main class:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jdb FactorialCalculator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see output similar to this, indicating that <code>jdb</code> has started and paused the execution at the beginning of the <code>main</code> method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Initializing jdb ...
+&gt;
+VM initialisation complete.
+Set uncaught java.lang.Throwable
+Set deferred uncaught java.lang.Throwable
+Deferring breakpoint FactorialCalculator.java:10.
+It will be set after the class is loaded.
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>&gt;</code> prompt indicates that <code>jdb</code> is waiting for your commands.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_set_a_breakpoint"><a class="anchor" href="#_step_4_set_a_breakpoint"></a>Step 4: Set a Breakpoint</h3>
+<div class="paragraph">
+<p>Let&#8217;s set a breakpoint inside the <code>calculateFactorial</code> method to inspect the loop. We&#8217;ll set it on the line <code>factorial = factorial * i;</code>. This corresponds to line 19 in our <code>FactorialCalculator.java</code> file.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>At the <code>jdb</code> prompt, set the breakpoint:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stop at FactorialCalculator:19</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a confirmation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Deferring breakpoint FactorialCalculator:19.
+It will be set after the class is loaded.
+&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_5_run_to_the_breakpoint"><a class="anchor" href="#_step_5_run_to_the_breakpoint"></a>Step 5: Run to the Breakpoint</h3>
+<div class="paragraph">
+<p>Now, tell <code>jdb</code> to continue execution until it hits the first breakpoint.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>At the <code>jdb</code> prompt, type <code>run</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The program will execute until it reaches line 19 for the first time. You&#8217;ll see output indicating that the breakpoint has been hit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">run
+VM Started: Set deferred uncaught java.lang.Throwable
+Breakpoint hit: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=10
+19            factorial = factorial * i;
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>bci</code> (bytecode index) is an internal JVM detail. The important part is that <code>jdb</code> shows you the line of code where execution is currently paused.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_6_inspect_variables"><a class="anchor" href="#_step_6_inspect_variables"></a>Step 6: Inspect Variables</h3>
+<div class="paragraph">
+<p>At the breakpoint, you can inspect the values of local variables.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To see the value of <code>n</code>, <code>factorial</code>, and <code>i</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">print n
+print factorial
+print i</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll see output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">print n
+ n = 5
+print factorial
+ factorial = 1
+print i
+ i = 1
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This confirms that at the start of the loop (<code>i=1</code>), <code>n</code> is 5 and <code>factorial</code> is 1.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_7_step_through_the_code"><a class="anchor" href="#_step_7_step_through_the_code"></a>Step 7: Step Through the Code</h3>
+<div class="paragraph">
+<p>You can execute the code line by line.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the <code>step</code> command to execute the current line (<code>factorial = factorial * i;</code>) and move to the next executable line:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">step</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">step
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=15
+19            factorial = factorial * i;
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait, <code>jdb</code> sometimes reports the same line twice for stepping <strong>through</strong> it. Let&#8217;s <code>print</code> <code>factorial</code> again to see its updated value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">print factorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">print factorial
+ factorial = 1
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It seems we are still at the beginning of the line. Let&#8217;s use <code>next</code> to step <strong>over</strong> the current line and onto the <strong>next</strong> line. <code>step</code> goes into methods, <code>next</code> stays in the current frame.</p>
+</div>
+</li>
+<li>
+<p>Use <code>next</code> to execute the current line and move to the next statement <strong>within the current method</strong>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">next</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now <code>jdb</code> will move to the closing brace of the <code>for</code> loop, and then back to the loop condition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=20 bci=18
+20        }
+&gt;
+next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=18 bci=26
+18        for (int i = 1; i &lt;= n; i++) { // Breakpoint opportunity here
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, let&#8217;s print <code>i</code> and <code>factorial</code> to see their updated values after one iteration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">print i
+print factorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">print i
+ i = 2
+print factorial
+ factorial = 1
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Self-correction:</strong> The breakpoint was at line 19 (<code>factorial = factorial * i;</code>). After <code>next</code>, it went to line 20 (closing brace), then back to line 18 (loop condition) where <code>i</code> was incremented to 2. However, <code>factorial</code> remained 1, indicating the multiplication <code>factorial * i</code> didn&#8217;t execute as expected from a single <code>next</code> command. This highlights that for loops, stepping can be tricky. Let&#8217;s <code>cont</code> (continue) to hit the breakpoint again for the next iteration.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_8_continue_execution_to_the_next_breakpoint_hit"><a class="anchor" href="#_step_8_continue_execution_to_the_next_breakpoint_hit"></a>Step 8: Continue Execution to the Next Breakpoint Hit</h3>
+<div class="paragraph">
+<p>To continue the program&#8217;s execution until the next breakpoint hit (or until the program finishes), use the <code>cont</code> command.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>At the <code>jdb</code> prompt, type <code>cont</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cont</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The breakpoint will be hit again for <code>i=2</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cont
+Breakpoint hit: "thread=main", FactorialCalculator.calculateFactorial(), line=19 bci=10
+19            factorial = factorial * i;
+&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, inspect <code>i</code> and <code>factorial</code> again:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">print i
+print factorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">print i
+ i = 2
+print factorial
+ factorial = 1
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, execute the <code>factorial = factorial * i;</code> line with <code>next</code> and then check <code>factorial</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">next
+print factorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">next
+Step completed: "thread=main", FactorialCalculator.calculateFactorial(), line=20 bci=18
+20        }
+&gt;
+print factorial
+ factorial = 2
+&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Excellent! Now <code>factorial</code> has correctly updated to 2 (1 * 2).</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_9_clear_breakpoints_and_continue_to_finish"><a class="anchor" href="#_step_9_clear_breakpoints_and_continue_to_finish"></a>Step 9: Clear Breakpoints and Continue to Finish</h3>
+<div class="paragraph">
+<p>If you want the program to run without stopping at any more breakpoints, you can clear them.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To clear the breakpoint at line 19:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">clear FactorialCalculator:19</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">clear FactorialCalculator:19
+Breakpoint cleared: "thread=main", FactorialCalculator.calculateFactorial(), line=19
+&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, let the program run to completion:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cont</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The program will finish, and you&#8217;ll see its output, followed by <code>jdb</code> exiting:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cont
+The factorial of 5 is: 120
+The application exited
+&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have successfully used <code>jdb</code> to debug a simple Java program, setting breakpoints, inspecting variables, and stepping through code execution. This foundational knowledge is transferable to more complex debugging scenarios, even when using advanced IDEs.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a></span>
+  <span class="next"><a href="security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

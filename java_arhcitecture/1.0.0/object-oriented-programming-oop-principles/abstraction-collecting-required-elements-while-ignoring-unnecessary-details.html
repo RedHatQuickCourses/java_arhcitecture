@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Abstraction: Collecting required elements while ignoring unnecessary details. :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="object-oriented-programming-oop-principles.html">
+    <link rel="next" href="encapsulation-bundling-data-and-methods-inside-an-object.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
+    <li><a href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Abstraction: Collecting required elements while ignoring unnecessary details.</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s the detailed educational content on Abstraction, presented in Antora AsciiDoc format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">[[java-architecture-oop-abstraction]]
+= Abstraction: Collecting Required Elements While Ignoring Unnecessary Details
+
+This section dives into the core concept of Abstraction, a fundamental principle of Object-Oriented Programming (OOP) in Java. We will explore its definition, importance, and practical application.
+
+== Understanding Abstraction
+
+Abstraction, at its heart, is about focusing on the *essential qualities* of an entity while *hiding away the complex, underlying implementation details*. As the definition states, it involves:
+
+*   *Collecting required elements*: Identifying and exposing only what is necessary for interaction.
+*   *Ignoring unnecessary details*: Concealing the internal workings that are not relevant to the user or other parts of the system.
+
+In the context of Java and software development, abstraction allows us to manage complexity by breaking down large systems into simpler, more manageable components. It enables developers to work with high-level ideas without getting bogged down by the intricate specifics of how those ideas are realized.
+
+Consider a real-world analogy: driving a car. As a driver, you interact with the steering wheel, accelerator, and brake pedals. You understand *what* these controls do (turn, accelerate, stop). You don't need to know the complex mechanics of how the engine works, how the braking system engages, or how the power steering assists your turns. The car's design abstracts away these internal complexities, presenting a simplified interface for you to operate it effectively.
+
+=== Why Abstraction is Crucial
+
+1.  *Simplifies Complexity*: Abstraction helps in reducing the overall complexity of a system by presenting a simpler view of objects and processes. This makes code easier to understand, write, and maintain.
+2.  *Focus on "What" over "How"*: It shifts the focus from "how" an action is performed to "what" action is performed. This is vital for designing flexible and extensible systems.
+3.  *Increases Reusability*: By defining abstract types and behaviors, you can create generic code that can work with various concrete implementations, promoting code reuse.
+4.  *Enhances Maintainability*: Changes to the internal implementation of an abstracted component do not necessarily require changes to the code that uses that component, provided the external interface remains consistent.
+5.  *Security*: By hiding implementation details, abstraction can also contribute to system security by preventing unauthorized access or manipulation of sensitive internal data.
+
+=== Abstraction in Java
+
+Java implements abstraction primarily through:
+
+*   **Abstract Classes**: A class declared with the `abstract` keyword. It cannot be instantiated directly and can contain both abstract methods (methods with no body) and concrete methods (methods with a body). Subclasses *must* provide implementations for all abstract methods declared in their abstract parent.
+*   **Interfaces**: A blueprint of a class. It can only contain abstract methods and constants (before Java 8). From Java 8 onwards, interfaces can also have default and static methods. A class *implements* an interface and must provide an implementation for all its abstract methods. Interfaces are a pure form of abstraction, defining *contracts* for behavior without specifying *how* that behavior is achieved.
+
+The context provided also touches upon the concept of "specifications" (lines 582-586), stating that "interface is just a declaration... it has declarations, but it doesn't have implementations. So, that is called a specification." This perfectly aligns with abstraction. Specifications, like Jakarta EE (formerly J2EE), are sets of interfaces and abstract definitions that outline expected behaviors and functionalities without dictating their concrete implementation. This allows different vendors (e.g., Red Hat with JBoss EAP, Oracle with WebLogic) to provide their own unique implementations while adhering to a common, abstracted standard.
+
+Abstraction is a powerful tool for designing robust, scalable, and maintainable software systems. It allows developers to think at a higher level, focusing on the essential features and behaviors, while delegating the intricacies of implementation to specific components.
+
+== Hands-on Activity: Illustrating Abstraction with an Abstract Class
+
+Let's explore a simple Java example to demonstrate the concept of abstraction using an abstract class and method.
+
+Imagine we want to create different types of vehicles, but all vehicles share some common characteristics and actions (like starting, stopping, and having a general description). We can use an abstract class to define these commonalities, leaving the specific implementation details to concrete vehicle types.
+
+=== Step 1: Define an Abstract `Vehicle` Class
+
+Create a file named `Vehicle.java`. This class will be `abstract` because we don't intend to create a generic "Vehicle" object; we intend to create specific types of vehicles.
+
+```java
+// Vehicle.java
+package com.example.abstraction;
+
+// Declare the class as abstract
+public abstract class Vehicle {
+
+    private String brand;
+    private String model;
+
+    public Vehicle(String brand, String model) {
+        this.brand = brand;
+        this.model = model;
+    }
+
+    // Concrete method: all vehicles can get their brand and model
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    // Abstract method: All vehicles can start, but how they start is different.
+    // This method has no body and forces subclasses to implement it.
+    public abstract void start();
+
+    // Abstract method: All vehicles can stop, but how they stop is different.
+    public abstract void stop();
+
+    // Concrete method: A general description common to all vehicles
+    public void displayInfo() {
+        System.out.println("Vehicle: " + brand + " " + model);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Notice the <code>abstract</code> keyword for the <code>Vehicle</code> class and the <code>start()</code> and <code>stop()</code> methods.</p>
+</li>
+<li>
+<p>The <code>start()</code> and <code>stop()</code> methods have no curly braces (<code>{}</code>) because they don&#8217;t have an implementation in the <code>Vehicle</code> class itself. They are mere <strong>declarations</strong> of behavior.</p>
+</li>
+<li>
+<p><code>getBrand()</code>, <code>getModel()</code>, and <code>displayInfo()</code> are concrete methods with implementations.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_create_concrete_subclasses"><a class="anchor" href="#_step_2_create_concrete_subclasses"></a>Step 2: Create Concrete Subclasses</h3>
+<div class="paragraph">
+<p>Now, let&#8217;s create specific types of vehicles that <strong>extend</strong> the abstract <code>Vehicle</code> class. These subclasses <strong>must</strong> provide implementations for the abstract methods (<code>start()</code> and <code>stop()</code>).</p>
+</div>
+<div class="paragraph">
+<p>Create a file named <code>Car.java</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Car.java
+package com.example.abstraction;
+
+public class Car extends Vehicle {
+
+    private int numberOfDoors;
+
+    public Car(String brand, String model, int numberOfDoors) {
+        // Call the constructor of the parent Vehicle class
+        super(brand, model);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    // Implement the abstract start() method specific to a Car
+    @Override
+    public void start() {
+        System.out.println("The " + getBrand() + " " + getModel() + " car starts by turning the key or pushing a button.");
+    }
+
+    // Implement the abstract stop() method specific to a Car
+    @Override
+    public void stop() {
+        System.out.println("The " + getBrand() + " " + getModel() + " car applies brakes to stop.");
+    }
+
+    public void displayCarInfo() {
+        super.displayInfo(); // Call the parent's displayInfo
+        System.out.println("  Doors: " + numberOfDoors);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a file named <code>Motorcycle.java</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Motorcycle.java
+package com.example.abstraction;
+
+public class Motorcycle extends Vehicle {
+
+    private boolean hasSidecar;
+
+    public Motorcycle(String brand, String model, boolean hasSidecar) {
+        super(brand, model);
+        this.hasSidecar = hasSidecar;
+    }
+
+    // Implement the abstract start() method specific to a Motorcycle
+    @Override
+    public void start() {
+        System.out.println("The " + getBrand() + " " + getModel() + " motorcycle starts with an electric starter or kickstart.");
+    }
+
+    // Implement the abstract stop() method specific to a Motorcycle
+    @Override
+    public void stop() {
+        System.out.println("The " + getBrand() + " " + getModel() + " motorcycle applies hand and foot brakes to stop.");
+    }
+
+    public void displayMotorcycleInfo() {
+        super.displayInfo();
+        System.out.println("  Has Sidecar: " + hasSidecar);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_test_the_abstraction"><a class="anchor" href="#_step_3_test_the_abstraction"></a>Step 3: Test the Abstraction</h3>
+<div class="paragraph">
+<p>Now, let&#8217;s create a main class to see how these abstracted and concrete classes work together.</p>
+</div>
+<div class="paragraph">
+<p>Create a file named <code>VehicleSimulator.java</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// VehicleSimulator.java
+package com.example.abstraction;
+
+public class VehicleSimulator {
+    public static void main(String[] args) {
+        // You cannot instantiate an abstract class directly:
+        // Vehicle myGenericVehicle = new Vehicle("Generic", "Model"); // This would cause a compile-time error!
+
+        // You can create instances of the concrete subclasses
+        Car myCar = new Car("Toyota", "Camry", 4);
+        Motorcycle myBike = new Motorcycle("Harley-Davidson", "Iron 883", false);
+
+        System.out.println("--- Car Operations ---");
+        myCar.displayCarInfo();
+        myCar.start();
+        myCar.stop();
+        System.out.println("\n");
+
+        System.out.println("--- Motorcycle Operations ---");
+        myBike.displayMotorcycleInfo();
+        myBike.start();
+        myBike.stop();
+        System.out.println("\n");
+
+        // Polymorphism in action: Treating specific vehicles as general Vehicles
+        // This demonstrates the power of abstraction - we can refer to objects
+        // by their abstract type and call their common abstract methods.
+        Vehicle anotherCar = new Car("Honda", "Civic", 4);
+        Vehicle anotherBike = new Motorcycle("Yamaha", "MT-07", false);
+
+        System.out.println("--- Polymorphic Vehicle Operations ---");
+        System.out.println("Operating anotherCar:");
+        anotherCar.displayInfo(); // Calls concrete method from Vehicle
+        anotherCar.start();      // Calls Car's implementation of start()
+        anotherCar.stop();       // Calls Car's implementation of stop()
+        System.out.println("\n");
+
+        System.out.println("Operating anotherBike:");
+        anotherBike.displayInfo(); // Calls concrete method from Vehicle
+        anotherBike.start();       // Calls Motorcycle's implementation of start()
+        anotherBike.stop();        // Calls Motorcycle's implementation of stop()
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_compile_and_run"><a class="anchor" href="#_step_4_compile_and_run"></a>Step 4: Compile and Run</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create a directory structure:</strong>
+<code>src/main/java/com/example/abstraction/</code>
+Place <code>Vehicle.java</code>, <code>Car.java</code>, <code>Motorcycle.java</code>, and <code>VehicleSimulator.java</code> inside this directory.</p>
+</li>
+<li>
+<p><strong>Navigate to the <code>src/main/java</code> directory in your terminal.</strong></p>
+</li>
+<li>
+<p><strong>Compile the Java files:</strong>
+<code>javac com/example/abstraction/*.java</code></p>
+</li>
+<li>
+<p><strong>Run the <code>VehicleSimulator</code>:</strong>
+<code>java com.example.abstraction.VehicleSimulator</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You will observe output similar to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">--- Car Operations ---
+Vehicle: Toyota Camry
+  Doors: 4
+The Toyota Camry car starts by turning the key or pushing a button.
+The Toyota Camry car applies brakes to stop.
+
+
+--- Motorcycle Operations ---
+Vehicle: Harley-Davidson Iron 883
+  Has Sidecar: false
+The Harley-Davidson Iron 883 motorcycle starts with an electric starter or kickstart.
+The Harley-Davidson Iron 883 motorcycle applies hand and foot brakes to stop.
+
+
+--- Polymorphic Vehicle Operations ---
+Operating anotherCar:
+Vehicle: Honda Civic
+The Honda Civic car starts by turning the key or pushing a button.
+The Honda Civic car applies brakes to stop.
+
+
+Operating anotherBike:
+Vehicle: Yamaha MT-07
+The Yamaha MT-07 motorcycle starts with an electric starter or kickstart.
+The Yamaha MT-07 motorcycle applies hand and foot brakes to stop.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This hands-on activity illustrates how the <code>Vehicle</code> abstract class defines a common interface for <code>start()</code> and <code>stop()</code> (the "what"), while allowing <code>Car</code> and <code>Motorcycle</code> subclasses to provide their own distinct implementations (the "how"), effectively abstracting away the operational details based on the specific vehicle type. It also shows how you can refer to <code>Car</code> and <code>Motorcycle</code> objects using the more general <code>Vehicle</code> type, showcasing the power of abstraction combined with polymorphism.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs"></code></pre>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></span>
+  <span class="next"><a href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>

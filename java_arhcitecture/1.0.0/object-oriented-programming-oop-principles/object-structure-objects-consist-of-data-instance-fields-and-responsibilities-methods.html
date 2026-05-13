@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Object Structure: Objects consist of data (instance fields) and responsibilities (methods). :: Java Architecture and Core Concepts</title>
+    <link rel="prev" href="polymorphism-using-one-name-for-multiple-actions.html">
+    <link rel="next" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Java Architecture and Core Concepts</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="java_arhcitecture" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Java Architecture and Core Concepts</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-development-and-monitoring-tools.html">Java Development and Monitoring Tools</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/compiler-javac-translates-java-code-into-class-files.html">Compiler (javac): Translates Java code into class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/application-launcher-java-used-to-execute-the-compiled-class-files.html">Application Launcher (java): Used to execute the compiled class files.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/decompiler-javap-used-to-view-the-details-of-a-class-file.html">Decompiler (javap): Used to view the details of a .class file.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/archiver-jar-bundles-multiple-files-into-a-single-archive-or-unzips-existing-ones.html">Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/debugger-jdb-a-utility-for-debugging-java-code.html">Debugger (jdb): A utility for debugging Java code.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/security-tool-keytool-creates-key-stores-and-trust-stores-for-sslhttps-security.html">Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/monitoring-tools-jconsole-and-jvisualvm-are-used-to-monitor-memory-threads-and-process-performance.html">Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java-development-and-monitoring-tools/java-flight-recorder-jfr-a-tool-for-troubleshooting-complex-issues-by-storing-data-over-intervals.html">Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/hands-on-lab-java-development-workflow.html">Hands-on Lab: Java Development Workflow</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/compiling-and-executing-java-source-code.html">Compiling and Executing Java Source Code</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/inspecting-bytecode-with-javap.html">Inspecting Bytecode with <code>javap</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/creating-and-managing-jar-files.html">Creating and Managing JAR Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../hands-on-lab-java-development-workflow/monitoring-java-applications-with-jconsole.html">Monitoring Java Applications with JConsole</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../enterprise-java-and-specifications/enterprise-java-and-specifications.html">Enterprise Java and Specifications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Java Architecture and Core Concepts</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Java Architecture and Core Concepts</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
+    <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
+    <li><a href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</h1>
+<h1 id="object-structure" class="sect0"><a class="anchor" href="#object-structure"></a>Object Structure: Data and Responsibilities</h1>
+<div class="paragraph">
+<p>In object-oriented programming (OOP), an <strong>object</strong> is a fundamental building block, serving as a self-contained entity that encapsulates both data and the behavior that operates on that data. Understanding the internal structure of an object is crucial for grasping how Java applications work.</p>
+</div>
+<div class="paragraph">
+<p>An object&#8217;s structure can be primarily divided into two key components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data</strong> (Instance Fields/Attributes)</p>
+</li>
+<li>
+<p><strong>Responsibilities</strong> (Methods/Behaviors)</p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_detailed_technical_explanation"><a class="anchor" href="#_detailed_technical_explanation"></a>Detailed Technical Explanation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_data_instance_fields_and_attributes"><a class="anchor" href="#_data_instance_fields_and_attributes"></a>Data: Instance Fields and Attributes</h3>
+<div class="paragraph">
+<p>Every object holds specific data that defines its current state. This data is stored in what are known as <strong>instance fields</strong> or <strong>attributes</strong>. These are variables declared within a class but outside any method, constructor, or block. Each instance of the class (each object) will have its own copy of these fields, allowing objects of the same class to maintain different states.</p>
+</div>
+<div class="paragraph">
+<p>As highlighted in our foundational understanding of objects, an object&#8217;s "structure&#8230;&#8203; is able to store some data in the instance space" (context lines 18-20). This data gives the object its unique characteristics.</p>
+</div>
+<div class="paragraph">
+<p>For example, consider a <code>Car</code> object. It might have instance fields like <code>color</code>, <code>make</code>, <code>model</code>, and <code>currentSpeed</code>. Each individual <code>Car</code> object you create will have its own distinct set of values for these fields (e.g., one car could be "red", a "Toyota", "Camry", with a <code>currentSpeed</code> of 60, while another is "blue", a "Honda", "Civic", with a <code>currentSpeed</code> of 45). These fields define the <code>Car</code> object&#8217;s specific state at any given moment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsibilities_methods_and_behaviors"><a class="anchor" href="#_responsibilities_methods_and_behaviors"></a>Responsibilities: Methods and Behaviors</h3>
+<div class="paragraph">
+<p>Beyond holding data, an object also possesses <strong>responsibilities</strong>, which are the actions it can perform or the services it can provide. These responsibilities are implemented through <strong>methods</strong>. Methods are blocks of code that define the behavior of an object. They encapsulate the logic for how an object behaves, how it interacts with its own data, and how it communicates with other objects.</p>
+</div>
+<div class="paragraph">
+<p>The context clearly defines responsibilities: "the responsibilities we can say about this, what we can say, the methods, what process that object can perform on the data hold by that object" (context lines 21-24). Methods are the "task performer" (context lines 28-29) within an object. They allow objects to act upon or modify their internal state.</p>
+</div>
+<div class="paragraph">
+<p>Continuing with the <code>Car</code> example, methods might include <code>startEngine()</code>, <code>accelerate(int speedIncrease)</code>, <code>brake(int speedDecrease)</code>, or <code>changeGear(int newGear)</code>. These methods operate on the <code>Car</code> object&#8217;s data (e.g., <code>accelerate()</code> would modify the <code>currentSpeed</code> field), defining what the car <strong>can do</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_symbiotic_relationship"><a class="anchor" href="#_the_symbiotic_relationship"></a>The Symbiotic Relationship</h3>
+<div class="paragraph">
+<p>The true power of an object lies in the symbiotic relationship between its data and its methods. Methods are inherently designed to operate on the object&#8217;s own instance fields, ensuring that the object&#8217;s state is managed consistently and encapsulated effectively. This bundling of data and methods together within a single unit is a core principle of encapsulation, where the internal workings of an object are hidden from the outside, and interactions occur only through well-defined methods. This design promotes modularity, maintainability, and reusability in software development.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lab-object-structure"><a class="anchor" href="#lab-object-structure"></a>Hands-on Activity: Defining Object Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this activity, you will define a simple Java class to illustrate how instance fields store data and methods define responsibilities.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_create_a_java_class_for_a_book"><a class="anchor" href="#_step_1_create_a_java_class_for_a_book"></a>Step 1: Create a Java Class for a <code>Book</code></h3>
+<div class="paragraph">
+<p>Create a new Java file named <code>Book.java</code>. This class will represent a book object, defining its data and responsibilities.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Book {
+    // Instance Fields (Data/Attributes)
+    String title;
+    String author;
+    int pageCount;
+    boolean isAvailable;
+
+    // Constructor to initialize the object's instance fields
+    public Book(String title, String author, int pageCount) {
+        this.title = title; // 'this' refers to the current object's instance field
+        this.author = author;
+        this.pageCount = pageCount;
+        this.isAvailable = true; // By default, a newly created book is available
+    }
+
+    // Methods (Responsibilities/Behaviors)
+    // This method displays the current state of the book object
+    public void displayBookInfo() {
+        System.out.println("Title: " + this.title);
+        System.out.println("Author: " + this.author);
+        System.out.println("Pages: " + this.pageCount);
+        System.out.println("Available: " + (this.isAvailable ? "Yes" : "No"));
+    }
+
+    // This method changes the 'isAvailable' state to indicate borrowing
+    public void borrowBook() {
+        if (this.isAvailable) {
+            this.isAvailable = false; // Update the object's internal state
+            System.out.println("Book '" + this.title + "' has been borrowed.");
+        } else {
+            System.out.println("Book '" + this.title + "' is currently not available.");
+        }
+    }
+
+    // This method changes the 'isAvailable' state to indicate returning
+    public void returnBook() {
+        if (!this.isAvailable) {
+            this.isAvailable = true; // Update the object's internal state
+            System.out.println("Book '" + this.title + "' has been returned.");
+        } else {
+            System.out.println("Book '" + this.title + "' was already available.");
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_create_a_main_class_to_use_book_objects"><a class="anchor" href="#_step_2_create_a_main_class_to_use_book_objects"></a>Step 2: Create a Main Class to Use <code>Book</code> Objects</h3>
+<div class="paragraph">
+<p>Create another Java file named <code>LibraryApp.java</code> to demonstrate how <code>Book</code> objects are created, how their instance fields hold data, and how their methods are invoked to interact with that data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class LibraryApp {
+    public static void main(String[] args) {
+        // Create Book objects (instances of the Book class)
+        // Each object has its own set of instance fields (title, author, etc.)
+        Book book1 = new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 193);
+        Book book2 = new Book("Pride and Prejudice", "Jane Austen", 279);
+
+        System.out.println("--- Initial Book States ---");
+        // Invoke a method to display book1's info
+        book1.displayBookInfo();
+        System.out.println("---------------------------");
+        // Invoke a method to display book2's info
+        book2.displayBookInfo();
+        System.out.println("\n");
+
+        // Interact with book1 using its methods
+        System.out.println("--- Interacting with Book 1 ---");
+        book1.borrowBook(); // Invokes the borrowBook method on book1
+        book1.displayBookInfo();
+        book1.borrowBook(); // Try to borrow again (demonstrates state-dependent behavior)
+        System.out.println("\n");
+
+        // Interact with book2 using its methods
+        System.out.println("--- Interacting with Book 2 ---");
+        book2.displayBookInfo();
+        book2.borrowBook(); // Invokes the borrowBook method on book2
+        book2.returnBook(); // Invokes the returnBook method on book2
+        book2.displayBookInfo();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_compile_and_run_the_code"><a class="anchor" href="#_step_3_compile_and_run_the_code"></a>Step 3: Compile and Run the Code</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open your terminal or command prompt.</p>
+</li>
+<li>
+<p>Navigate to the directory where you saved <code>Book.java</code> and <code>LibraryApp.java</code>.</p>
+</li>
+<li>
+<p>Compile both Java files using the <code>javac</code> compiler:
+<code><code>bash
+javac Book.java LibraryApp.java
+</code></code></p>
+</li>
+<li>
+<p>Run the <code>LibraryApp</code> to see the objects in action:
+<code><code>bash
+java LibraryApp
+</code></code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_expected_output"><a class="anchor" href="#_expected_output"></a>Expected Output</h3>
+<div class="paragraph">
+<p>You will observe output similar to this, demonstrating how the instance fields hold different data for each book and how methods change the state (<code>isAvailable</code>) and display information:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">--- Initial Book States ---
+Title: The Hitchhiker's Guide to the Galaxy
+Author: Douglas Adams
+Pages: 193
+Available: Yes
+---------------------------
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes
+
+
+--- Interacting with Book 1 ---
+Book 'The Hitchhiker's Guide to the Galaxy' has been borrowed.
+Title: The Hitchhiker's Guide to the Galaxy
+Author: Douglas Adams
+Pages: 193
+Available: No
+Book 'The Hitchhiker's Guide to the Galaxy' is currently not available.
+
+
+--- Interacting with Book 2 ---
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes
+Book 'Pride and Prejudice' has been borrowed.
+Book 'Pride and Prejudice' has been returned.
+Title: Pride and Prejudice
+Author: Jane Austen
+Pages: 279
+Available: Yes</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reflection"><a class="anchor" href="#_reflection"></a>Reflection</h3>
+<div class="paragraph">
+<p>This hands-on activity clearly demonstrates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How <code>Book</code> objects are defined with specific <code>title</code>, <code>author</code>, <code>pageCount</code>, and <code>isAvailable</code> <strong>instance fields</strong>, which constitute the object&#8217;s <strong>data</strong> or <strong>state</strong>.</p>
+</li>
+<li>
+<p>How <strong>methods</strong> like <code>displayBookInfo()</code>, <code>borrowBook()</code>, and <code>returnBook()</code> define the object&#8217;s <strong>responsibilities</strong> and interact with its internal data (<code>isAvailable</code>) to change its state.</p>
+</li>
+<li>
+<p>That each <code>Book</code> object created (e.g., <code>book1</code> and <code>book2</code>) maintains its own independent set of instance field values, proving that objects are self-contained entities.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a></span>
+  <span class="next"><a href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+  </body>
+</html>
