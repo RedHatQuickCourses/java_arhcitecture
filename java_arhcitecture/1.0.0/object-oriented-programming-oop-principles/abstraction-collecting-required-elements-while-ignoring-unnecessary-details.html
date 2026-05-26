@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Abstraction: Collecting required elements while ignoring unnecessary details. :: Java Architecture and Core Concepts</title>
+    <title>Abstraction :: Java Architecture and Core Concepts</title>
     <link rel="prev" href="object-oriented-programming-oop-principles.html">
     <link rel="next" href="encapsulation-bundling-data-and-methods-inside-an-object.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -61,22 +61,22 @@
     <a class="nav-link" href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a>
+    <a class="nav-link" href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a>
+    <a class="nav-link" href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance: Inheriting properties from parent classes.</a>
+    <a class="nav-link" href="inheritance-inheriting-properties-from-parent-classes.html">Inheritance</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism: Using one name for multiple actions.</a>
+    <a class="nav-link" href="polymorphism-using-one-name-for-multiple-actions.html">Polymorphism</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure: Objects consist of data (instance fields) and responsibilities (methods).</a>
+    <a class="nav-link" href="object-structure-objects-consist-of-data-instance-fields-and-responsibilities-methods.html">Object Structure</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature: Considered partially object-oriented because it supports primitive data types like int and float.</a>
+    <a class="nav-link" href="javas-nature-considered-partially-object-oriented-because-it-supports-primitive-data-types-like-int-and-float.html">Java&#8217;s Nature</a>
   </li>
 </ul>
   </li>
@@ -89,13 +89,13 @@
     <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-platform-components-jdk-jre-and-jvm.html">Java Platform Components: JDK, JRE, and JVM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.</a>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-development-kit-jdk-the-outermost-layer-and-a-superset-containing-all-tools-necessary-for-development.html">Java Development Kit (JDK)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.</a>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-runtime-environment-jre-located-inside-the-jdk-providing-libraries-like-javalang-and-javaio-to-run-programs.html">Java Runtime Environment (JRE)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.</a>
+    <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/java-virtual-machine-jvm-the-innermost-component-and-actual-executor-it-is-platform-dependent-for-different-operating-systems.html">Java Virtual Machine (JVM)</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../java-platform-components-jdk-jre-and-jvm/compilation-flow-java-source-code-is-compiled-into-bytecode-class-files-by-the-jdk-and-then-executed-by-the-jvm.html">Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.</a>
@@ -216,7 +216,7 @@
   <ul>
     <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
     <li><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></li>
-    <li><a href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction: Collecting required elements while ignoring unnecessary details.</a></li>
+    <li><a href="abstraction-collecting-required-elements-while-ignoring-unnecessary-details.html">Abstraction</a></li>
   </ul>
 </nav>
 </div>
@@ -225,61 +225,96 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Abstraction: Collecting required elements while ignoring unnecessary details.</h1>
-<div id="preamble">
+<h1 class="page">Abstraction</h1>
+<h1 id="java-architecture-oop-abstraction" class="sect0"><a class="anchor" href="#java-architecture-oop-abstraction"></a>Abstraction: Collecting Required Elements While Ignoring Unnecessary Details</h1>
+<div class="paragraph">
+<p>This section dives into the core concept of Abstraction, a fundamental principle of Object-Oriented Programming (OOP) in Java. We will explore its definition, importance, and practical application.</p>
+</div>
+<div class="sect1">
+<h2 id="_understanding_abstraction"><a class="anchor" href="#_understanding_abstraction"></a>Understanding Abstraction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here&#8217;s the detailed educational content on Abstraction, presented in Antora AsciiDoc format:</p>
+<p>Abstraction, at its heart, is about focusing on the <strong>essential qualities</strong> of an entity while <strong>hiding away the complex, underlying implementation details</strong>. As the definition states, it involves:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Collecting required elements</strong>: Identifying and exposing only what is necessary for interaction.</p>
+</li>
+<li>
+<p><strong>Ignoring unnecessary details</strong>: Concealing the internal workings that are not relevant to the user or other parts of the system.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the context of Java and software development, abstraction allows us to manage complexity by breaking down large systems into simpler, more manageable components. It enables developers to work with high-level ideas without getting bogged down by the intricate specifics of how those ideas are realized.</p>
+</div>
+<div class="paragraph">
+<p>Consider a real-world analogy: driving a car. As a driver, you interact with the steering wheel, accelerator, and brake pedals. You understand <strong>what</strong> these controls do (turn, accelerate, stop). You don&#8217;t need to know the complex mechanics of how the engine works, how the braking system engages, or how the power steering assists your turns. The car&#8217;s design abstracts away these internal complexities, presenting a simplified interface for you to operate it effectively.</p>
+</div>
+<div class="sect2">
+<h3 id="_why_abstraction_is_crucial"><a class="anchor" href="#_why_abstraction_is_crucial"></a>Why Abstraction is Crucial</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Simplifies Complexity</strong>: Abstraction helps in reducing the overall complexity of a system by presenting a simpler view of objects and processes. This makes code easier to understand, write, and maintain.</p>
+</li>
+<li>
+<p><strong>Focus on "What" over "How"</strong>: It shifts the focus from "how" an action is performed to "what" action is performed. This is vital for designing flexible and extensible systems.</p>
+</li>
+<li>
+<p><strong>Increases Reusability</strong>: By defining abstract types and behaviors, you can create generic code that can work with various concrete implementations, promoting code reuse.</p>
+</li>
+<li>
+<p><strong>Enhances Maintainability</strong>: Changes to the internal implementation of an abstracted component do not necessarily require changes to the code that uses that component, provided the external interface remains consistent.</p>
+</li>
+<li>
+<p><strong>Security</strong>: By hiding implementation details, abstraction can also contribute to system security by preventing unauthorized access or manipulation of sensitive internal data.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abstraction_in_java"><a class="anchor" href="#_abstraction_in_java"></a>Abstraction in Java</h3>
+<div class="paragraph">
+<p>Java implements abstraction primarily through:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Abstract Classes</strong>: A class declared with the <code>abstract</code> keyword. It cannot be instantiated directly and can contain both abstract methods (methods with no body) and concrete methods (methods with a body). Subclasses <strong>must</strong> provide implementations for all abstract methods declared in their abstract parent.</p>
+</li>
+<li>
+<p><strong>Interfaces</strong>: A blueprint of a class. It can only contain abstract methods and constants (before Java 8). From Java 8 onwards, interfaces can also have default and static methods. A class <strong>implements</strong> an interface and must provide an implementation for all its abstract methods. Interfaces are a pure form of abstraction, defining <strong>contracts</strong> for behavior without specifying <strong>how</strong> that behavior is achieved.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The context provided also touches upon the concept of "specifications" (lines 582-586), stating that "interface is just a declaration&#8230;&#8203; it has declarations, but it doesn&#8217;t have implementations. So, that is called a specification." This perfectly aligns with abstraction. Specifications, like Jakarta EE (formerly J2EE), are sets of interfaces and abstract definitions that outline expected behaviors and functionalities without dictating their concrete implementation. This allows different vendors (e.g., Red Hat with JBoss EAP, Oracle with WebLogic) to provide their own unique implementations while adhering to a common, abstracted standard.</p>
+</div>
+<div class="paragraph">
+<p>Abstraction is a powerful tool for designing robust, scalable, and maintainable software systems. It allows developers to think at a higher level, focusing on the essential features and behaviors, while delegating the intricacies of implementation to specific components.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_activity_illustrating_abstraction_with_an_abstract_class"><a class="anchor" href="#_hands_on_activity_illustrating_abstraction_with_an_abstract_class"></a>Hands-on Activity: Illustrating Abstraction with an Abstract Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s explore a simple Java example to demonstrate the concept of abstraction using an abstract class and method.</p>
+</div>
+<div class="paragraph">
+<p>Imagine we want to create different types of vehicles, but all vehicles share some common characteristics and actions (like starting, stopping, and having a general description). We can use an abstract class to define these commonalities, leaving the specific implementation details to concrete vehicle types.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_define_an_abstract_vehicle_class"><a class="anchor" href="#_step_1_define_an_abstract_vehicle_class"></a>Step 1: Define an Abstract <code>Vehicle</code> Class</h3>
+<div class="paragraph">
+<p>Create a file named <code>Vehicle.java</code>. This class will be <code>abstract</code> because we don&#8217;t intend to create a generic "Vehicle" object; we intend to create specific types of vehicles.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">[[java-architecture-oop-abstraction]]
-= Abstraction: Collecting Required Elements While Ignoring Unnecessary Details
-
-This section dives into the core concept of Abstraction, a fundamental principle of Object-Oriented Programming (OOP) in Java. We will explore its definition, importance, and practical application.
-
-== Understanding Abstraction
-
-Abstraction, at its heart, is about focusing on the *essential qualities* of an entity while *hiding away the complex, underlying implementation details*. As the definition states, it involves:
-
-*   *Collecting required elements*: Identifying and exposing only what is necessary for interaction.
-*   *Ignoring unnecessary details*: Concealing the internal workings that are not relevant to the user or other parts of the system.
-
-In the context of Java and software development, abstraction allows us to manage complexity by breaking down large systems into simpler, more manageable components. It enables developers to work with high-level ideas without getting bogged down by the intricate specifics of how those ideas are realized.
-
-Consider a real-world analogy: driving a car. As a driver, you interact with the steering wheel, accelerator, and brake pedals. You understand *what* these controls do (turn, accelerate, stop). You don't need to know the complex mechanics of how the engine works, how the braking system engages, or how the power steering assists your turns. The car's design abstracts away these internal complexities, presenting a simplified interface for you to operate it effectively.
-
-=== Why Abstraction is Crucial
-
-1.  *Simplifies Complexity*: Abstraction helps in reducing the overall complexity of a system by presenting a simpler view of objects and processes. This makes code easier to understand, write, and maintain.
-2.  *Focus on "What" over "How"*: It shifts the focus from "how" an action is performed to "what" action is performed. This is vital for designing flexible and extensible systems.
-3.  *Increases Reusability*: By defining abstract types and behaviors, you can create generic code that can work with various concrete implementations, promoting code reuse.
-4.  *Enhances Maintainability*: Changes to the internal implementation of an abstracted component do not necessarily require changes to the code that uses that component, provided the external interface remains consistent.
-5.  *Security*: By hiding implementation details, abstraction can also contribute to system security by preventing unauthorized access or manipulation of sensitive internal data.
-
-=== Abstraction in Java
-
-Java implements abstraction primarily through:
-
-*   **Abstract Classes**: A class declared with the `abstract` keyword. It cannot be instantiated directly and can contain both abstract methods (methods with no body) and concrete methods (methods with a body). Subclasses *must* provide implementations for all abstract methods declared in their abstract parent.
-*   **Interfaces**: A blueprint of a class. It can only contain abstract methods and constants (before Java 8). From Java 8 onwards, interfaces can also have default and static methods. A class *implements* an interface and must provide an implementation for all its abstract methods. Interfaces are a pure form of abstraction, defining *contracts* for behavior without specifying *how* that behavior is achieved.
-
-The context provided also touches upon the concept of "specifications" (lines 582-586), stating that "interface is just a declaration... it has declarations, but it doesn't have implementations. So, that is called a specification." This perfectly aligns with abstraction. Specifications, like Jakarta EE (formerly J2EE), are sets of interfaces and abstract definitions that outline expected behaviors and functionalities without dictating their concrete implementation. This allows different vendors (e.g., Red Hat with JBoss EAP, Oracle with WebLogic) to provide their own unique implementations while adhering to a common, abstracted standard.
-
-Abstraction is a powerful tool for designing robust, scalable, and maintainable software systems. It allows developers to think at a higher level, focusing on the essential features and behaviors, while delegating the intricacies of implementation to specific components.
-
-== Hands-on Activity: Illustrating Abstraction with an Abstract Class
-
-Let's explore a simple Java example to demonstrate the concept of abstraction using an abstract class and method.
-
-Imagine we want to create different types of vehicles, but all vehicles share some common characteristics and actions (like starting, stopping, and having a general description). We can use an abstract class to define these commonalities, leaving the specific implementation details to concrete vehicle types.
-
-=== Step 1: Define an Abstract `Vehicle` Class
-
-Create a file named `Vehicle.java`. This class will be `abstract` because we don't intend to create a generic "Vehicle" object; we intend to create specific types of vehicles.
-
-```java
-// Vehicle.java
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Vehicle.java
 package com.example.abstraction;
 
 // Declare the class as abstract
@@ -328,7 +363,6 @@ public abstract class Vehicle {
 <p><code>getBrand()</code>, <code>getModel()</code>, and <code>displayInfo()</code> are concrete methods with implementations.</p>
 </li>
 </ul>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -523,15 +557,12 @@ The Yamaha MT-07 motorcycle applies hand and foot brakes to stop.</code></pre>
 <div class="paragraph">
 <p>This hands-on activity illustrates how the <code>Vehicle</code> abstract class defines a common interface for <code>start()</code> and <code>stop()</code> (the "what"), while allowing <code>Car</code> and <code>Motorcycle</code> subclasses to provide their own distinct implementations (the "how"), effectively abstracting away the operational details based on the specific vehicle type. It also shows how you can refer to <code>Car</code> and <code>Motorcycle</code> objects using the more general <code>Vehicle</code> type, showcasing the power of abstraction combined with polymorphism.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs"></code></pre>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="object-oriented-programming-oop-principles.html">Object-Oriented Programming (OOP) Principles</a></span>
-  <span class="next"><a href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation: Bundling data and methods inside an object.</a></span>
+  <span class="next"><a href="encapsulation-bundling-data-and-methods-inside-an-object.html">Encapsulation</a></span>
 </nav>
 </article>
   </div>
