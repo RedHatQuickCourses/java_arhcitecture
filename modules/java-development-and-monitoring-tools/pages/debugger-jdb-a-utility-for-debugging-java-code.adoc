@@ -1,4 +1,4 @@
-#  Debugger (jdb): A utility for debugging Java code.
+#  Debugger (jdb)
 
 = Debugger (jdb): A Utility for Debugging Java Code
 

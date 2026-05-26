@@ -1,4 +1,4 @@
-#  Security Tool (keytool): Creates key stores and trust stores for SSL/HTTPS security.
+#  Security Tool (keytool)
 
 [#java-security-keytool]
 = Security Tool: keytool

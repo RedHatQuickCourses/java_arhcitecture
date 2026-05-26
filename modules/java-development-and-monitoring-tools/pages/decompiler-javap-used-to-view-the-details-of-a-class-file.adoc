@@ -1,4 +1,4 @@
-#  Decompiler (javap): Used to view the details of a .class file.
+#  Decompiler (javap)
 
 ifeval::[{doctype} == 'book']
 :toc: macro

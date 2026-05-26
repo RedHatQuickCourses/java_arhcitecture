@@ -1,4 +1,4 @@
-#  Compilation Flow: Java source code is compiled into bytecode (.class files) by the JDK and then executed by the JVM.
+#  Compilation Flow
 
 = The Java Compilation and Execution Flow
 

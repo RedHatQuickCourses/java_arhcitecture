@@ -1,8 +1,6 @@
 #  Inspecting Bytecode with `javap`
 
-As a Content Architect, I've developed the following Antora AsciiDoc content for inspecting bytecode with `javap`, fulfilling the objectives of technical accuracy, engagement, and hands-on learning.
 
-```asciidoc
 [[_inspecting_bytecode_with_javap]]
 = Inspecting Bytecode with `javap`
 
@@ -231,4 +229,3 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
 ==== Summary
 
 By performing these steps, you've gained practical experience with `javap` and observed how your high-level Java code is translated into the low-level bytecode instructions that the JVM understands. This foundational understanding is crucial for any serious Java developer looking to master the platform.
-```

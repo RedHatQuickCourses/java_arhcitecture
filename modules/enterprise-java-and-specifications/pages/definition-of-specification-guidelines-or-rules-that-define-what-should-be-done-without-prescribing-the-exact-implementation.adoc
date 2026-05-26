@@ -1,7 +1,7 @@
-#  Definition of Specification: Guidelines or rules that define what should be done without prescribing the exact implementation.
+#  Specification in Java
 
-```asciidoc
-= Definition of Specification in Java
+
+= Specification in Java
 
 In the vast ecosystem of Java, understanding the concept of a "specification" is fundamental, especially when delving into enterprise-level applications and platform components. A specification acts as a foundational blueprint, guiding developers and vendors on what needs to be achieved without dictating the exact methodology for implementation.
 
@@ -84,4 +84,3 @@ To solidify your understanding of specifications, consider the following questio
     *   How do specifications contribute to the modularity, portability, and evolution of the Java ecosystem? Consider how they enable competition among vendors and choice for developers.
 
 By distinguishing between the abstract definition (specification) and the concrete realization (implementation), you gain a deeper insight into the architecture and flexibility of the Java platform, enabling you to make informed decisions when designing and developing applications.
-```

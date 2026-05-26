@@ -1,4 +1,4 @@
-#  Compiler (javac): Translates Java code into class files.
+#  Compiler (javac)
 
 = Java Architecture and Core Concepts: Compiler (javac)
 

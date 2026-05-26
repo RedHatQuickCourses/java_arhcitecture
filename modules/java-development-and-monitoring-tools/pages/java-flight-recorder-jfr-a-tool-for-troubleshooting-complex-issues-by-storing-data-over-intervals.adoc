@@ -1,4 +1,4 @@
-#  Java Flight Recorder (JFR): A tool for troubleshooting complex issues by storing data over intervals.
+#  Java Flight Recorder (JFR)
 
 [[java-flight-recorder]]
 === Java Flight Recorder (JFR)

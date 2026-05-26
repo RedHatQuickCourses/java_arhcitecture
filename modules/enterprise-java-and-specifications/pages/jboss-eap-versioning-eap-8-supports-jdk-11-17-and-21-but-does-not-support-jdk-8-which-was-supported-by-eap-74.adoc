@@ -1,4 +1,4 @@
-#  JBoss EAP Versioning: EAP 8 supports JDK 11, 17, and 21, but does not support JDK 8 (which was supported by EAP 7.4).
+#  JDK Support for JBoss EAP
 
 = Java Architecture and Core Concepts: JBoss EAP Versioning
 

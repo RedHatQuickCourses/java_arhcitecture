@@ -1,8 +1,6 @@
 #  Monitoring Java Applications with JConsole
 
-Here's the detailed educational content on "Monitoring Java Applications with JConsole" in Antora AsciiDoc format, combining technical explanations and hands-on activities.
 
-```asciidoc
 [[monitoring-java-applications-with-jconsole]]
 = Monitoring Java Applications with JConsole
 
@@ -198,4 +196,3 @@ The *VM Summary* tab provides static information about the JVM, such as:
 . To close JConsole, simply close its GUI window.
 
 This hands-on lab demonstrated how JConsole provides a powerful, real-time view into the internal workings of a running Java application, aiding in performance tuning and troubleshooting. It's an essential tool in any Java developer's or administrator's toolkit.
-```

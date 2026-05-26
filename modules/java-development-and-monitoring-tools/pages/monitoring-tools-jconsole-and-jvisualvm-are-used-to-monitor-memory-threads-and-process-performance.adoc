@@ -1,4 +1,4 @@
-#  Monitoring Tools: JConsole and JVisualVM are used to monitor memory, threads, and process performance.
+#  Monitoring Tools
 
 = Monitoring Java Applications
 

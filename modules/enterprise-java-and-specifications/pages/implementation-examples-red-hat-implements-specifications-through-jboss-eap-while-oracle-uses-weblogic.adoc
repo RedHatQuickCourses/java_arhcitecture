@@ -1,4 +1,4 @@
-#  Implementation Examples: Red Hat implements specifications through JBoss EAP, while Oracle uses WebLogic.
+#  Enterprise Java Specification Implementations
 
 [[enterprise-java-specifications-implementations]]
 = Enterprise Java Specification Implementations

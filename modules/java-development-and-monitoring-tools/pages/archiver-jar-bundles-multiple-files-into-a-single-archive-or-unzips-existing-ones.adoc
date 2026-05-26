@@ -1,4 +1,4 @@
-#  Archiver (jar): Bundles multiple files into a single archive or unzips existing ones.
+#  Archiver (jar)
 
 = Archiver (jar)
 

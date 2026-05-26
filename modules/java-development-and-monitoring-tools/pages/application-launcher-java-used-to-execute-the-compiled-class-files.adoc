@@ -1,4 +1,4 @@
-#  Application Launcher (java): Used to execute the compiled class files.
+#  Application Launcher (java)
 
 [[java-application-launcher]]
 = Java Application Launcher (`java`)
