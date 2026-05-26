@@ -6,9 +6,9 @@
 Course Title:  Java Architecture and Core Concepts
 
 Description:
-Course description FIXME
+This course provides a comprehensive introduction to the foundational elements of Java. You will explore Object-Oriented Programming (OOP) principles, understand the architectural differences between the JDK, JRE, and JVM, and get hands-on experience with essential Java development and monitoring tools. Additionally, you will learn about Enterprise Java specifications and how they are implemented using Red Hat JBoss EAP.
 
-Duration: FIXME hours
+Duration: 2 hours
 
 == Topics covered in this course
 
@@ -29,6 +29,6 @@ Duration: FIXME hours
 
 This course assumes that you have the following prior experience:
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+* Basic understanding of general programming logic and concepts.
+* Familiarity with navigating the command-line interface (CLI).
+* No prior Java experience is strictly required, though it is beneficial.
