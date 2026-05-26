@@ -1,4 +1,4 @@
-#  Object Structure: Objects consist of data (instance fields) and responsibilities (methods).
+#  Object Structure
 
 [[object-structure]]
 = Object Structure: Data and Responsibilities

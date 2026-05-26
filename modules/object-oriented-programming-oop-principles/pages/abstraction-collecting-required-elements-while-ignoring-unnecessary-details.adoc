@@ -1,8 +1,6 @@
-#  Abstraction: Collecting required elements while ignoring unnecessary details.
+#  Abstraction
 
-Here's the detailed educational content on Abstraction, presented in Antora AsciiDoc format:
 
-```asciidoc
 [[java-architecture-oop-abstraction]]
 = Abstraction: Collecting Required Elements While Ignoring Unnecessary Details
 
@@ -260,4 +258,3 @@ The Yamaha MT-07 motorcycle applies hand and foot brakes to stop.
 ```
 
 This hands-on activity illustrates how the `Vehicle` abstract class defines a common interface for `start()` and `stop()` (the "what"), while allowing `Car` and `Motorcycle` subclasses to provide their own distinct implementations (the "how"), effectively abstracting away the operational details based on the specific vehicle type. It also shows how you can refer to `Car` and `Motorcycle` objects using the more general `Vehicle` type, showcasing the power of abstraction combined with polymorphism.
-```

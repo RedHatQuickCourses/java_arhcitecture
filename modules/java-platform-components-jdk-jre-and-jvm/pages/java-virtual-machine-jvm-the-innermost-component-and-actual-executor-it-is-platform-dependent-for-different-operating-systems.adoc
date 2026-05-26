@@ -1,5 +1,4 @@
-#  Java Virtual Machine (JVM): The innermost component and actual executor; it is platform-dependent for different operating systems.
-
+#  Java Virtual Machine (JVM)
 = Java Virtual Machine (JVM)
 
 The Java Virtual Machine (JVM) is a cornerstone of the Java platform, acting as the innermost component responsible for the actual execution of Java bytecode. It's a critical abstraction layer that enables Java's famed "Write Once, Run Anywhere" capability.

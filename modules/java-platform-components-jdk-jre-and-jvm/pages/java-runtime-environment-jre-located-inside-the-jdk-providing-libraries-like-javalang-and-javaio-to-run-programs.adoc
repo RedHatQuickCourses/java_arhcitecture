@@ -1,4 +1,4 @@
-#  Java Runtime Environment (JRE): Located inside the JDK, providing libraries (like java.lang and java.io) to run programs.
+#  Java Runtime Environment (JRE)
 
 [[java-runtime-environment]]
 = Java Runtime Environment (JRE)

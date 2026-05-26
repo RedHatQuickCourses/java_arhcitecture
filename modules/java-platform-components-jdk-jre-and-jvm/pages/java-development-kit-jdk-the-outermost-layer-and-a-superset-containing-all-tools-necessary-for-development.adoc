@@ -1,4 +1,4 @@
-#  Java Development Kit (JDK): The outermost layer and a superset containing all tools necessary for development.
+#  Java Development Kit (JDK)
 
 = Java Development Kit (JDK): The Foundation for Java Development
 

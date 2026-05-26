@@ -1,4 +1,4 @@
-#  Java's Nature: Considered partially object-oriented because it supports primitive data types like int and float.
+#  Java's Nature
 
 [[java-partial-oop-nature]]
 === Java's Partially Object-Oriented Nature

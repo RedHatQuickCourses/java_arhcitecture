@@ -1,6 +1,5 @@
-#  Inheritance: Inheriting properties from parent classes.
+#  Inheritance
 
-```asciidoc
 == Inheritance: Inheriting Properties from Parent Classes
 
 [role="summary"]
@@ -372,4 +371,3 @@ This activity vividly illustrates how:
 *   The `accelerate()` method demonstrates polymorphism, executing different code based on the actual object type (`Vehicle`, `Car`, or `Motorcycle`).
 *   Subclasses can introduce their own unique features (`openTrunk` for `Car`, `performWheelie` for `Motorcycle`).
 *   Constructors in subclasses utilize `super()` to initialize the superclass portion of the object.
-```

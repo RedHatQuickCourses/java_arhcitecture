@@ -1,4 +1,4 @@
-#  Encapsulation: Bundling data and methods inside an object.
+#  Encapsulation
 
 = Encapsulation: Bundling Data and Methods
 

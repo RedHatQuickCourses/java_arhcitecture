@@ -1,8 +1,6 @@
-#  Polymorphism: Using one name for multiple actions.
+#  Polymorphism
 
-Here is the detailed educational content on Polymorphism, presented in Antora AsciiDoc format.
 
-```asciidoc
 = Java Architecture and Core Concepts
 
 == Object-Oriented Programming (OOP) Principles
@@ -434,4 +432,3 @@ Overriding demonstration complete.
 Notice how when `startEngine()` or `drive()` is called through a `Vehicle` reference (e.g., `v1.startEngine()`), the JVM correctly identifies the actual object type (`Car` or `Motorcycle`) at runtime and executes its overridden method. This is the essence of runtime polymorphism, allowing you to treat different objects uniformly through a common interface.
 
 ---
-```
