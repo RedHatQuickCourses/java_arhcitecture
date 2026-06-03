@@ -1,6 +1,6 @@
 #  Inheritance
 
-== Inheritance: Inheriting Properties from Parent Classes
+== Inheritance
 
 [role="summary"]
 Inheritance is a fundamental Object-Oriented Programming (OOP) principle in Java that enables classes to acquire properties and behaviors from other classes, promoting code reuse and establishing hierarchical relationships. This section details how inheritance works, its benefits, and provides a hands-on activity to solidify your understanding.

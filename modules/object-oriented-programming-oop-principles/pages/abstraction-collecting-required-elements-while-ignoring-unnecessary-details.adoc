@@ -2,9 +2,7 @@
 
 
 [[java-architecture-oop-abstraction]]
-= Abstraction: Collecting Required Elements While Ignoring Unnecessary Details
-
-This section dives into the core concept of Abstraction, a fundamental principle of Object-Oriented Programming (OOP) in Java. We will explore its definition, importance, and practical application.
+= Abstraction
 
 == Understanding Abstraction
 

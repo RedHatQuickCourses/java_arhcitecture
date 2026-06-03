@@ -1,6 +1,6 @@
 #  Encapsulation
 
-= Encapsulation: Bundling Data and Methods
+= Encapsulation
 
 Encapsulation, a fundamental principle of Object-Oriented Programming (OOP), is the mechanism of bundling data (instance fields) and the methods (functions) that operate on that data into a single unit, known as an object. This concept ensures that an object's internal state is hidden from external access, and can only be modified or accessed through the object's well-defined public interface.
 
