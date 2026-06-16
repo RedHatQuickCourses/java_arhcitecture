@@ -7,17 +7,17 @@ The Java Runtime Environment (JRE) serves as the dedicated environment for execu
 
 == What is JRE?
 
-The JRE is a software package that provides the minimum requirements for executing a Java application. It includes the Java Virtual Machine (JVM), core libraries, and other supporting files necessary for running Java bytecode. Its primary role is to provide a runtime environment where Java bytecode can be executed safely and efficiently (Context: 608-609).
+The JRE is a software package that provides the minimum requirements for executing a Java application. It includes the Java Virtual Machine (JVM), core libraries, and other supporting files necessary for running Java bytecode. Its primary role is to provide a runtime environment where Java bytecode can be executed safely and efficiently.
 
 == JRE's Place in the Java Ecosystem
 
-The JRE is located *inside* the Java Development Kit (JDK) (Context: 94). This hierarchical structure means that if you install the JDK, you automatically get the JRE, which in turn contains the JVM.
+The JRE is located *inside* the Java Development Kit (JDK). This hierarchical structure means that if you install the JDK, you automatically get the JRE, which in turn contains the JVM.
 
 *   **JDK** (Java Development Kit): The superset, containing tools for development *and* execution.
 *   **JRE** (Java Runtime Environment): Inside the JDK, providing the environment and libraries for execution.
 *   **JVM** (Java Virtual Machine): The innermost component, the actual executor of bytecode, contained within the JRE.
 
-This means if you've developed a Java application using the JDK, and you simply want to run it on another machine, that machine only needs the JRE (and by extension, the JVM) to execute your compiled `.class` files (Context: 88).
+This means if you've developed a Java application using the JDK, and you simply want to run it on another machine, that machine only needs the JRE (and by extension, the JVM) to execute your compiled `.class` files.
 
 == Core Components and Functionality
 
@@ -32,7 +32,7 @@ Notable examples of these libraries include:
 *   `java.lang`: This package contains fundamental classes and interfaces that are part of the Java language itself. It includes classes like `Object`, `String`, `System`, `Thread`, and many others that are essential for almost any Java program. It's so fundamental that it's automatically imported into every Java source file.
 *   `java.io`: This package provides classes for system input and output operations, such as reading from and writing to files, network streams, and the console.
 
-These common packages are provided by the JRE, making them readily available to Java applications and reducing the need for explicit imports of these core functionalities (Context: 124-128).
+These common packages are provided by the JRE, making them readily available to Java applications and reducing the need for explicit imports of these core functionalities.
 
 === Including the Java Virtual Machine (JVM)
 
@@ -40,7 +40,7 @@ At its core, the JRE contains the Java Virtual Machine (JVM). The JVM is respons
 
 === Supporting the Class Loader
 
-While the JVM directly executes the bytecode, the process of getting that bytecode into the JVM is managed by the Class Loader. The Class Loader, which is part of the JRE, performs three main tasks: loading, linking, and initialization of Java classes (Context: 110, 621-626). This ensures that all necessary classes are available and correctly prepared for execution by the JVM.
+While the JVM directly executes the bytecode, the process of getting that bytecode into the JVM is managed by the Class Loader. The Class Loader, which is part of the JRE, performs three main tasks: loading, linking, and initialization of Java classes. This ensures that all necessary classes are available and correctly prepared for execution by the JVM.
 
 == Hands-on Activity: Understanding JRE's Role in Execution
 
