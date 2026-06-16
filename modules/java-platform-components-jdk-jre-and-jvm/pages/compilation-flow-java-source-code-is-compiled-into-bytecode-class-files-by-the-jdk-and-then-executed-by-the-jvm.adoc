@@ -69,7 +69,7 @@ The typical Java development workflow proceeds as follows:
 .  You compile the `.java` file using the `javac` compiler (provided by the JDK), which produces `.class` files (bytecode).
 .  You run the `.class` files using the `java` application launcher, which starts a JVM that loads, verifies, and executes the bytecode on the native operating system.
 
-[graphviz, "java_compilation_flow", png]
+[graphviz, "java_compilation_flow", svg]
 ----
 digraph JavaFlow {
     rankdir=LR;
@@ -108,46 +108,46 @@ Let's put this knowledge into practice by compiling and executing a simple "Hell
 .  **Create the Java Source File:**
     a. Open your preferred text editor.
     b. Type the following Java code:
-        [source,java]
-        ----
+[source,java]
+----
         // MyFirstProgram.java
         public class MyFirstProgram {
             public static void main(String[] args) {
                 System.out.println("Hello from the Java Compilation Flow Lab!");
             }
         }
-        ----
+----
     c. Save the file as `MyFirstProgram.java` in a directory of your choice (e.g., `C:\javalabs` on Windows or `~/javalabs` on Linux/macOS). Ensure the filename exactly matches the public class name.
 
 .  **Open a Terminal/Command Prompt:**
     a. Navigate to the directory where you saved `MyFirstProgram.java` using the `cd` command.
-       [source,bash]
-       ----
+[source,bash]
+----
        # On Linux/macOS
        cd ~/javalabs
 
        # On Windows
        cd C:\javalabs
-       ----
+----
 
 .  **Compile the Java Source Code:**
     a. Use the `javac` command to compile your `.java` file into a `.class` file.
-       [source,bash]
-       ----
+[source,bash]
+----
        javac MyFirstProgram.java
-       ----
+----
     b. If compilation is successful, you will see no output. A file named `MyFirstProgram.class` will be created in the same directory. This is your Java bytecode. If you encounter errors, carefully review your `MyFirstProgram.java` file for typos, especially case sensitivity, and correct them before recompiling.
 
 .  **Execute the Java Bytecode:**
     a. Use the `java` command followed by the name of your class (without the `.class` extension) to execute the bytecode.
-       [source,bash]
-       ----
+[source,bash]
+----
        java MyFirstProgram
-       ----
+----
     b. You should see the output printed to your terminal:
-       [source,text]
-       ----
+[source,text]
+----
        Hello from the Java Compilation Flow Lab!
-       ----
+----
 
 This hands-on exercise demonstrates the fundamental two-step process: `javac` for compilation and `java` for execution, forming the core of the Java development workflow.

@@ -24,7 +24,7 @@ JAR files are foundational to the Java ecosystem due to several key benefits:
 
 The `jar` command operates from the command line and uses a flexible syntax to perform various archiving operations. The general structure is:
 
-`jar {c|r|t|u|x}[vfm0Mi] [JAR_file] [manifest_file] [-C directory] files...`
+`jar [OPTION ...] [ [--release VERSION] [-C dir] files] ...`
 
 Let's examine the most commonly used options:
 
@@ -75,7 +75,6 @@ We will start by creating a simple Java application and then packaging it into a
         public static void greet() {
             System.out.println("Greetings from a JAR file!");
         }
-
         public static void main(String[] args) {
             greet();
         }

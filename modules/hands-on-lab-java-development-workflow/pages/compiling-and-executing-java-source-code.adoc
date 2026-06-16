@@ -71,16 +71,16 @@ This lab provides a practical, step-by-step experience in the core Java developm
 
 .  **Set Up Your Project Directory**
    Open your terminal or command prompt and create a dedicated directory for this lab. Navigate into it:
-   [source,bash]
-   ----
+[source,bash]
+----
    mkdir java-first-app
    cd java-first-app
-   ----
+----
 
 .  **Write Your Java Source Code**
    Using your preferred text editor, create a new file named `Greeting.java` within the `java-first-app` directory. Copy and paste the following Java code into the file:
-   [source,java]
-   ----
+[source,java]
+----
    // Greeting.java
    public class Greeting {
        public static void main(String[] args) {
@@ -88,35 +88,35 @@ This lab provides a practical, step-by-step experience in the core Java developm
            System.out.println("This is my first compiled and executed Java program!");
        }
    }
-   ----
+----
    Save the file. It is crucial that the filename (`Greeting.java`) precisely matches the public class name (`Greeting`).
 
 .  **Compile the Java Source Code**
    Return to your terminal, ensuring you are still within the `java-first-app` directory where `Greeting.java` is saved. Execute the `javac` command, providing the filename as an argument:
-   [source,bash]
-   ----
+[source,bash]
+----
    javac Greeting.java
-   ----
+----
    If the compilation is successful, `javac` will typically not display any output. However, it will create a new file named `Greeting.class` in the same directory. This `Greeting.class` file contains the Java bytecode.
 
    To confirm the creation of the `.class` file, you can list the directory contents:
-   [source,bash]
-   ----
+[source,bash]
+----
    ls
-   ----
+----
    You should now see both `Greeting.java` and `Greeting.class` listed.
 
-   [TIP]
-   ====
+[TIP]
+====
    If `javac` reports errors, carefully inspect your `Greeting.java` file for any typographical errors, missing semicolons, incorrect casing, or mismatched class/filename. Pay close attention to error messages provided by the compiler, as they often pinpoint the exact issue and line number.
-   ====
+====
 
 .  **Execute the Compiled Java Program**
    With the `Greeting.class` file (bytecode) now available, you can execute it using the `java` application launcher. In your terminal, enter:
-   [source,bash]
-   ----
+[source,bash]
+----
    java Greeting
-   ----
+----
    Notice a critical detail: when using the `java` command, you specify the class name (`Greeting`) but *omit* the `.class` extension. The JVM handles the lookup of the `.class` file internally.
 
 === Expected Output

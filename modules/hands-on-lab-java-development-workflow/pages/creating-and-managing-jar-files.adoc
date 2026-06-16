@@ -1,6 +1,5 @@
 #  Creating and Managing JAR Files
 
-:java-architecture:creating-and-managing-jar-files.adoc
 = Creating and Managing JAR Files
 
 The Java Archive (JAR) file format is a package file format used to aggregate many Java class files, associated metadata, and resources (text, images, etc.) into a single file for distribution. JAR files are fundamental to Java development, simplifying deployment and distribution of Java applications and libraries.

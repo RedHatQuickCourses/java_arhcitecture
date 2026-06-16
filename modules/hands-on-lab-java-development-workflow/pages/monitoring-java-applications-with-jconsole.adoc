@@ -1,7 +1,6 @@
 #  Monitoring Java Applications with JConsole
 
 
-[[monitoring-java-applications-with-jconsole]]
 = Monitoring Java Applications with JConsole
 
 JConsole, a graphical monitoring tool included with the Java Development Kit (JDK), is an invaluable utility for observing the runtime behavior and resource utilization of Java applications. It provides insights into various aspects of a running Java Virtual Machine (JVM), enabling developers and administrators to diagnose performance issues, understand memory usage patterns, and inspect runtime data.
@@ -10,13 +9,12 @@ JConsole, a graphical monitoring tool included with the Java Development Kit (JD
 
 JConsole (Java Monitoring and Management Console) is a robust, lightweight tool that leverages Java Management Extensions (JMX) to gather information from a running JVM. It presents this data through an intuitive graphical user interface (GUI), offering a real-time view of critical application metrics.
 
-The context provided highlights several key characteristics of JConsole:
 
-*   **Purpose**: JConsole is primarily used for monitoring purposes, providing information about running Java processes and their management details (lines 346, 347, 355, 378, 461).
-*   **Connection Mechanism**: It connects to an *existing running Java process* (lines 326-327). To achieve this, it displays the *Process ID (PID)* of available Java processes, allowing you to select and connect to a specific one (lines 333-334).
-*   **Monitored Information**: Once connected, JConsole can show vital statistics such as *memory allocation and how it's being utilized* (lines 337-338). For enterprise applications or servers, it can also display *Management Beans (MBeans)*, which expose specific management operations and attributes of the server (lines 373-374).
-*   **Platform Independence**: JConsole is a core component of the JDK (lines 456-457) and is *platform-independent* (lines 448, 460). This means its features and functionality remain consistent regardless of the operating system where it's run.
-*   **Interface**: It provides a *GUI* (line 325) for easy interaction and visualization of data.
+*   **Purpose**: JConsole is primarily used for monitoring purposes, providing information about running Java processes and their management details .
+*   **Connection Mechanism**: It connects to an *existing running Java process* . To achieve this, it displays the *Process ID (PID)* of available Java processes, allowing you to select and connect to a specific one.
+*   **Monitored Information**: Once connected, JConsole can show vital statistics such as *memory allocation and how it's being utilized* . For enterprise applications or servers, it can also display *Managed Beans (MBeans)*, which expose specific management operations and attributes of the server.
+*   **Platform Independence**: JConsole is a core component of the JDK and is *platform-independent* . This means its features and functionality remain consistent regardless of the operating system where it's run.
+*   **Interface**: It provides a *GUI* for easy interaction and visualization of data.
 
 In essence, JConsole acts as a window into the JVM, allowing you to observe its health and performance without altering the application's code. It's particularly useful for identifying memory leaks, thread contention, and general resource bottlenecks.
 
@@ -178,7 +176,7 @@ The *Classes* tab displays information about class loading and unloading.
 The *MBeans* tab is one of JConsole's most powerful features. It allows you to interact with Java Management Extensions (JMX) MBeans exposed by the JVM and the application.
 
 *   **JVM MBeans**: On the left-hand pane, navigate through the `java.lang` and `java.util.logging` domains to explore built-in JVM MBeans. For instance, `java.lang/Memory` provides attributes like `HeapMemoryUsage` and `NonHeapMemoryUsage`.
-*   **Application MBeans**: For more complex applications (like application servers such as JBoss EAP), custom MBeans are often registered to expose application-specific metrics and operations. As per the context, JConsole shows "management means which are related to your jboss server" (lines 373-374), demonstrating its utility in enterprise environments.
+*   **Application MBeans**: For more complex applications (like application servers such as JBoss EAP), custom MBeans are often registered to expose application-specific metrics and operations.
 *   You can view attributes (read-only data) and invoke operations (methods) exposed by MBeans.
 
 ==== VM Summary Tab

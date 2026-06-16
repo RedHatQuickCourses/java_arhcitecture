@@ -206,7 +206,8 @@ public class MyUtility {
 <3> `iload_2`: Loads the second integer argument (`b`) from local variable 2 onto the operand stack.
 <4> `imul`: Multiplies the two integers currently on top of the operand stack.
 <5> `ireturn`: Returns the integer result from the top of the operand stack.
-
+[NOTE]
+    bytecode output shown in the examples may vary slightly depending on the JDK version and compiler settings.
 . **Inspect with `javap -v` (Verbose Output)**
 +
 For the most comprehensive view, which includes detailed information about stack sizes, local variables, method arguments, constant pool entries, and full bytecode disassembly, use the `-v` (verbose) option:

@@ -17,8 +17,8 @@ JBoss EAP 8 represents a significant evolution, introducing support for modern J
     ** JDK 17
     ** JDK 21
 *   **Unsupported JDK Versions**: It is important to note the specific JDK versions that are *not* supported by EAP 8:
-    ** JDK 8: Unlike previous EAP versions, JDK 8 is explicitly *not* supported for JBoss EAP 8. xref:1.2.3[See context lines 269-270]
-    ** JDK 25: While the range of supported JDKs extends, JDK 25 is specifically mentioned as *not* supported. xref:1.2.3[See context lines 251-252]
+    ** JDK 8: Unlike previous EAP versions, JDK 8 is explicitly *not* supported for JBoss EAP 8.
+    ** JDK 25: While the range of supported JDKs extends, JDK 25 is specifically mentioned as *not* supported. 
 
 Understanding this support matrix is vital for planning application development and migration strategies. Running EAP 8 on an unsupported JDK version can lead to unpredictable behavior, performance issues, and lack of official support from Red Hat.
 
@@ -27,8 +27,8 @@ Understanding this support matrix is vital for planning application development 
 JBoss EAP 7.4 is a previous major version of the platform. It has a different set of supported JDK versions compared to EAP 8, reflecting the JDK landscape at the time of its development and release.
 
 *   **Supported JDK Versions**: JBoss EAP 7.4 supports:
-    ** JDK 8: This was a primary supported JDK for EAP 7.4. xref:1.2.3[See context line 256]
-    ** JDK 11: EAP 7.4 also extended support to JDK 11. xref:1.2.3[See context line 268]
+    ** JDK 8: This was a primary supported JDK for EAP 7.4.
+    ** JDK 11: EAP 7.4 also extended support to JDK 11.
 
 While EAP 7.4 still receives maintenance updates, it's crucial for customers using this version to be aware of its specific support lifecycle and JDK compatibility.
 
@@ -46,7 +46,7 @@ The exact support for specific JDK versions can sometimes evolve with maintenanc
 
 JBoss EAP, like other application servers, implements various *specifications*. A specification in Enterprise Java defines a set of guidelines or rules outlining what should be done without prescribing the exact implementation. For example, the Jakarta EE (formerly Java EE) specifications define APIs and behaviors for enterprise applications.
 
-*   **Implementation**: Red Hat implements these specifications through JBoss EAP. Other vendors like Oracle implement them through products like WebLogic. These implementations adhere to the specifications while providing their own unique features and optimizations. xref:1.2.3[See context section "Enterprise Java and Specifications"]
+*   **Implementation**: Red Hat implements these specifications through JBoss EAP. Other vendors like Oracle implement them through products like WebLogic. These implementations adhere to the specifications while providing their own unique features and optimizations.
 
 The support for different JDK versions in JBoss EAP is closely tied to its implementation of these specifications and the underlying Java platform capabilities.
 
@@ -83,26 +83,5 @@ Your task is to analyze the situation based on the compatibility information you
 .Expected Outcome
 Your response should highlight the incompatibility and provide clear steps.
 
-[source, text]
-----
-Dear Customer,
-
-Thank you for reaching out. We understand you're experiencing unexpected behavior with your application on JBoss EAP 7.4 after updating your Java version to JDK 17.
-
-Upon reviewing your setup against the official JBoss EAP 7.4 compatibility matrix, we've identified a potential root cause:
-
-*   JBoss EAP 7.4 officially supports JDK 8 and JDK 11.
-*   Running JBoss EAP 7.4 on JDK 17 is an unsupported configuration. This can lead to the "unexpected behavior" you are observing.
-
-To resolve this immediately, we recommend reverting your Java environment to a supported JDK version for EAP 7.4, either JDK 8 or JDK 11. Please try this and let us know if the issue persists.
-
-For future planning, if you wish to leverage newer JDK versions like JDK 17 or JDK 21, you would need to upgrade your JBoss EAP instance to JBoss EAP 8, which supports these newer JDKs. We can provide resources and guidance for an EAP upgrade path if that's a direction you'd like to explore.
-
-Please let us know your findings after reverting the JDK version.
-
-Sincerely,
-[Your Name/Support Team]
-----
-
 [IMPORTANT]
-When dealing with older EAP versions, such as EAP 7, customers might require a specific *subscription* to receive full support. xref:1.2.3[See context lines 261-267] As a support engineer, always verify the customer's subscription status for older products, as this impacts the level of support that can be provided. This often means checking if they have a "separate kind of subscription that customer need to purchase for getting support on EAP 7." xref:1.2.3[See context lines 261-263]
+When dealing with older EAP versions, such as EAP 7, customers might require a specific *subscription* to receive full support. As a support engineer, always verify the customer's subscription status for older products, as this impacts the level of support that can be provided. This often means checking if they have a "separate kind of subscription that customer need to purchase for getting support on EAP 7."

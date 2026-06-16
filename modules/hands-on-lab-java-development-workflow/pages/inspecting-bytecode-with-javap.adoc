@@ -24,7 +24,7 @@ While you don't typically write bytecode directly, being able to read and unders
 
 == Introducing `javap`: The Java Class File Disassembler
 
-The `javap` tool, part of the Java Development Kit (JDK), is a command-line utility used to disassemble `.class` files. Essentially, it takes a compiled Java class file and prints a human-readable representation of its contents, including fields, methods, and the bytecode instructions themselves. It acts as a *decompiler* in the sense that it reverses the compilation process to show you the low-level details that `javac` produced.
+The `javap` tool, part of the Java Development Kit (JDK), is a command-line utility used to disassemble `.class` files. Essentially, it takes a compiled Java class file and prints a human-readable representation of its contents, including fields, methods, and the bytecode instructions themselves.
 
 You can use `javap` to:
 
@@ -51,7 +51,7 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
 .   **Create a Java Source File:**
     Open your text editor and create a new file named `Calculator.java` with the following content:
 
-    ```java
+```java
     // Calculator.java
     public class Calculator {
         private int result;
@@ -84,26 +84,26 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
             System.out.println("Final result: " + calc.getResult()); // Expected: 15
         }
     }
-    ```
+```
 
 .   **Compile the Java Source File:**
     Open your command-line terminal, navigate to the directory where you saved `Calculator.java`, and compile it using `javac`:
 
-    ```bash
-    javac Calculator.java
-    ```
+```bash
+javac Calculator.java
+```
     This command will create a `Calculator.class` file in the same directory. This is your compiled bytecode file.
 
 .   **Inspect the Class File with Basic `javap`:**
     Now, use `javap` to get a basic overview of the compiled class.
 
-    ```bash
-    javap Calculator.class
-    ```
+```bash
+javap Calculator
+```
 
     You should see output similar to this (some details might vary slightly depending on your JDK version):
 
-    ```
+```
     Compiled from "Calculator.java"
     public class Calculator {
       public Calculator();
@@ -112,15 +112,15 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
       public int getResult();
       public static void main(java.lang.String[]);
     }
-    ```
+```
     *Observation:* This output shows the class name, its constructors, and its public methods. It doesn't show private fields or the method implementations themselves by default.
 
 .   **Inspect with Verbose Output (`-v`):**
     To get more detailed information, including stack sizes, local variable tables, and the constant pool, use the `-v` (verbose) option:
 
-    ```bash
-    javap -v Calculator.class
-    ```
+```bash
+    javap -v Calculator
+```
 
     This will produce a much longer output. Pay attention to sections like:
 
@@ -132,13 +132,13 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
 .   **Inspect Bytecode Instructions (`-c`):**
     To see the actual disassembled bytecode instructions for each method, use the `-c` option. This is where you can see the low-level operations the JVM performs.
 
-    ```bash
-    javap -c Calculator.class
-    ```
+```bash
+    javap -c Calculator
+```
 
     Scroll through the output. For example, look at the `add` method:
 
-    ```
+```
       public int add(int, int);
         descriptor: (II)I
         flags: (0x0001) ACC_PUBLIC
@@ -155,7 +155,7 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
                 0       4     0  this   LCalculator;
                 0       4     1     a   I
                 0       4     2     b   I
-    ```
+```
 
     *Observation:*
     *   Each line in the `Code:` section represents a bytecode instruction.
@@ -167,7 +167,7 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
 
     Similarly, examine the `incrementResult` method's bytecode:
 
-    ```
+```
       public void incrementResult(int);
         descriptor: (I)V
         flags: (0x0001) ACC_PUBLIC
@@ -186,18 +186,18 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
             Start  Length  Slot  Name   Signature
                 0      11     0  this   LCalculator;
                 0      11     1 value   I
-    ```
+```
     *Observation:* Here you see `getfield` and `putfield` instructions, which are used to access and modify instance fields (`this.result`).
 
 .   **Inspect with Signatures (`-s`):**
     The `-s` option prints the internal type signatures of fields and methods. This can be combined with `-p` to include private members.
 
-    ```bash
+```bash
     javap -s -p Calculator.class
-    ```
+```
     Partial output for `Calculator`:
 
-    ```
+```
     Compiled from "Calculator.java"
     public class Calculator {
       private int result;
@@ -218,7 +218,7 @@ In this hands-on lab, you will write a simple Java program, compile it, and then
       public static void main(java.lang.String[]);
         descriptor: ([Ljava/lang/String;)V
     }
-    ```
+```
     *Observation:*
     *   `I` represents `int`.
     *   `V` represents `void`.

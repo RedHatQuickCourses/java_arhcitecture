@@ -1,4 +1,3 @@
 * xref:enterprise-java-and-specifications.adoc[]
 ** xref:definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.adoc[]
 ** xref:implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.adoc[]
-** xref:jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.adoc[]

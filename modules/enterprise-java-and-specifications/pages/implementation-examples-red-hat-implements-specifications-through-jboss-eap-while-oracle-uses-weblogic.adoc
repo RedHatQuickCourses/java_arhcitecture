@@ -1,15 +1,14 @@
 #  Enterprise Java Specification Implementations
 
-[[enterprise-java-specifications-implementations]]
 = Enterprise Java Specification Implementations
 
 This section elaborates on how abstract Enterprise Java specifications are brought to life through concrete implementations provided by various vendors, highlighting Red Hat JBoss EAP and Oracle WebLogic as key examples.
 
 == The Role of Specifications and Implementations
 
-In the realm of Enterprise Java, a *specification* acts as a standardized contract or blueprint (context lines 592-593). It meticulously defines _what_ functionality, APIs, and behaviors must be supported, but intentionally refrains from dictating _how_ these requirements should be met (context lines 592-593). For instance, specifications like JDBC (Java Database Connectivity), JNDI (Java Naming and Directory Interface), JAX-RS (Java API for RESTful Web Services), and JAX-WS (Java API for XML Web Services) all fall into this category (context lines 590-591). The Java Virtual Machine (JVM) itself is also defined by a specification that outlines the runtime environment for Java bytecode execution (context lines 517-518, 602-603).
+In the realm of Enterprise Java, a *specification* acts as a standardized contract or blueprint. It meticulously defines _what_ functionality, APIs, and behaviors must be supported, but intentionally refrains from dictating _how_ these requirements should be met. For instance, specifications like JDBC (Java Database Connectivity), JNDI (Java Naming and Directory Interface), JAX-RS (Java API for RESTful Web Services), and JAX-WS (Java API for XML Web Services) all fall into this category. The Java Virtual Machine (JVM) itself is also defined by a specification that outlines the runtime environment for Java bytecode execution.
 
-While specifications provide the rules, they are not executable code. To utilize these defined capabilities, a concrete *implementation* is required. This is where technology vendors step in. Each vendor develops their unique software product—typically an application server—that provides the actual code and runtime environment to fulfill the specification's requirements (context line 597). The crucial aspect is that while the internal implementation details may vary significantly between vendors, the *result* and the API compliance for developers must be identical, ensuring consistency and portability across different platforms (context lines 598-599).
+While specifications provide the rules, they are not executable code. To utilize these defined capabilities, a concrete *implementation* is required. This is where technology vendors step in. Each vendor develops their unique software product—typically an application server—that provides the actual code and runtime environment to fulfill the specification's requirements. The crucial aspect is that while the internal implementation details may vary significantly between vendors, the *result* and the API compliance for developers must be identical, ensuring consistency and portability across different platforms.
 
 == Vendor-Specific Implementation Examples
 
@@ -17,18 +16,18 @@ Leading enterprise software vendors provide their own robust application servers
 
 === Red Hat JBoss Enterprise Application Platform (EAP)
 
-Red Hat's flagship offering for enterprise Java applications is the *JBoss Enterprise Application Platform* (JBoss EAP). JBoss EAP is an application server that provides a complete, certified implementation of the Jakarta EE specifications (context lines 533-535, 595). It offers a runtime environment for deploying and running Java applications that leverage features like EJB (Enterprise JavaBeans), JPA (Java Persistence API), JMS (Java Message Service), and other Jakarta EE components.
+Red Hat's flagship offering for enterprise Java applications is the *JBoss Enterprise Application Platform* (JBoss EAP). JBoss EAP is an application server that provides a complete, certified implementation of the Jakarta EE specifications. It offers a runtime environment for deploying and running Java applications that leverage features like EJB (Enterprise JavaBeans), JPA (Java Persistence API), JMS (Java Message Service), and other Jakarta EE components.
 
 For example, when a developer writes an application that uses the Jakarta Persistence API (JPA) for database interaction, JBoss EAP provides the actual persistence provider and transaction management capabilities defined by the JPA specification.
 
 [NOTE]
 ====
-JBoss EAP versions evolve to support newer Java Development Kit (JDK) releases. For instance, JBoss EAP 8 supports JDK 11, 17, and 21. This marks a progression from earlier versions like EAP 7.4, which supported JDK 8 (context lines 271-272). This demonstrates how implementations adapt to advancements in the core Java platform.
+JBoss EAP versions evolve to support newer Java Development Kit (JDK) releases. For instance, JBoss EAP 8 supports JDK 11, 17, and 21. This marks a progression from earlier versions like EAP 7.4, which supported JDK 8. This demonstrates how implementations adapt to advancements in the core Java platform.
 ====
 
 === Oracle WebLogic Server
 
-Another prominent example of an Enterprise Java specification implementation is *Oracle WebLogic Server*. Oracle, a major player in the enterprise software market, provides WebLogic as its application server product (context line 596). Similar to JBoss EAP, WebLogic Server offers a full-featured environment for deploying and managing enterprise Java applications, adhering to the same set of Jakarta EE specifications.
+Another prominent example of an Enterprise Java specification implementation is *Oracle WebLogic Server*. Oracle, a major player in the enterprise software market, provides WebLogic as its application server product. Similar to JBoss EAP, WebLogic Server offers a full-featured environment for deploying and managing enterprise Java applications, adhering to the same set of Jakarta EE specifications.
 
 Organizations often choose between application servers like JBoss EAP and Oracle WebLogic based on factors such as existing infrastructure, vendor relationships, specific performance requirements, and licensing models. Despite these different implementations, an application developed strictly according to the Jakarta EE specifications should be portable and function consistently across both JBoss EAP and WebLogic environments.
 
