@@ -11,7 +11,7 @@ Java provides a comprehensive suite of tools for developing, debugging, packagin
 * *`jar` (Archiver)*: Bundles multiple files (like `.class` files, resources) into a single Java Archive (JAR) file or can be used to extract files from an existing JAR.
 * *`jdb` (Debugger)*: A command-line utility for debugging Java code, allowing developers to set breakpoints, step through code, and inspect variables.
 * *`keytool` (Security Tool)*: Manages keystores and truststores, essential for SSL/HTTPS security in Java applications.
-* *`JConsole` *: GUI-based tool for monitoring the performance of Java applications, including memory usage, thread activity, and process performance. `JConsole` is used to get information of a running Java process.
+* *`JConsole` (Monitoring Tool)*: GUI-based tool for monitoring the performance of Java applications, including memory usage, thread activity, and process performance. `JConsole` is used to get information of a running Java process.
 * *`Java Flight Recorder` (JFR)*: A powerful profiling and event collection framework for troubleshooting complex issues by collecting detailed diagnostic and profiling data over time.
 
 [[hands-on-java-development-workflow]]
