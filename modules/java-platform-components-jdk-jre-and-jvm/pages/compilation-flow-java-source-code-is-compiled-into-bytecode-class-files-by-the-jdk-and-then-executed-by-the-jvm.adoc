@@ -24,7 +24,7 @@ public class HelloWorld {
 
 === 2. Compilation by the JDK (javac)
 
-Once the source code is written, it needs to be translated into a format that the computer can understand. This is where the Java Development Kit (JDK) comes into play. The JDK is a superset of all tools necessary for Java development, including the compiler (context 79-86, 121-123).
+Once the source code is written, it needs to be translated into a format that the computer can understand. This is where the Java Development Kit (JDK) comes into play. The JDK is a superset of all tools necessary for Java development, including the compiler.
 
 The primary tool for compilation within the JDK is `javac`, the Java compiler. When you invoke `javac` on a `.java` file, it performs the following actions:
 
@@ -34,36 +34,36 @@ The primary tool for compilation within the JDK is `javac`, the Java compiler. W
 [NOTE]
 The bytecode is designed to be platform-independent. This means a `.class` file generated on a Windows machine can be run on Linux or macOS, provided those platforms have a compatible Java Runtime Environment (JRE) installed.
 
-The compilation step is explicitly performed by the JDK (context 106-108). Without the JDK, you cannot compile Java source code.
+The compilation step is explicitly performed by the JDK. Without the JDK, you cannot compile Java source code.
 
 === 3. Loading and Verification by the JRE (Class Loader)
 
-After compilation, the `.class` files (bytecode) are ready for execution. This is where the Java Runtime Environment (JRE) and Java Virtual Machine (JVM) become central. The JRE contains the libraries needed to run Java programs (context 124-128), and the JVM is the actual executor (context 130).
+After compilation, the `.class` files (bytecode) are ready for execution. This is where the Java Runtime Environment (JRE) and Java Virtual Machine (JVM) become central. The JRE contains the libraries needed to run Java programs (context 124-128), and the JVM is the actual executor.
 
-Before execution, the bytecode must be loaded into the JVM. This is handled by the **Class Loader**, which is a crucial component of the JRE (context 109-111). The Class Loader performs several critical tasks:
+Before execution, the bytecode must be loaded into the JVM. This is handled by the **Class Loader**, which is a crucial component of the JRE. The Class Loader performs several critical tasks:
 
 *   **Loading:** It loads the `.class` files into memory.
 *   **Linking:** It links the loaded classes with other classes and resolves dependencies. This stage includes:
-    *   **Verification:** A *bytecode verifier* (context 111) checks the loaded bytecode for security and structural correctness. This ensures that the bytecode doesn't violate Java's security restrictions or tamper with the JVM's integrity.
+    *   **Verification:** A *bytecode verifier* checks the loaded bytecode for security and structural correctness. This ensures that the bytecode doesn't violate Java's security restrictions or tamper with the JVM's integrity.
     *   **Preparation:** Static variables are allocated memory and initialized to default values.
     *   **Resolution:** Symbolic references (like method names or variable names) are replaced with direct references.
 *   **Initialization:** Static initializers are executed, and static fields are assigned their final values.
 
 === 4. Execution by the JVM (java)
 
-Once the bytecode is loaded, verified, and prepared, the Java Virtual Machine (JVM) takes over to execute the program (context 112-113, 130). The JVM is the innermost component of the Java platform (context 92).
+Once the bytecode is loaded, verified, and prepared, the Java Virtual Machine (JVM) takes over to execute the program (context 112-113, 130). The JVM is the innermost component of the Java platform.
 
 The execution process within the JVM involves:
 
 *   **Interpretation:** The JVM contains a Java interpreter (context 131) that reads the bytecode instructions one by one and executes them.
-*   **Just-In-Time (JIT) Compilation:** For performance optimization, modern JVMs incorporate a Just-In-Time (JIT) compiler (context 132). The JIT compiler identifies frequently executed sections of bytecode ("hot spots") and compiles them into native machine code directly for the underlying operating system. This native code can then be executed much faster than interpreted bytecode.
-*   **Garbage Collection:** The JVM also manages memory automatically through its garbage collector (context 133), freeing up memory occupied by objects that are no longer referenced by the program.
+*   **Just-In-Time (JIT) Compilation:** For performance optimization, modern JVMs incorporate a Just-In-Time (JIT) compiler. The JIT compiler identifies frequently executed sections of bytecode ("hot spots") and compiles them into native machine code directly for the underlying operating system. This native code can then be executed much faster than interpreted bytecode.
+*   **Garbage Collection:** The JVM also manages memory automatically through its garbage collector , freeing up memory occupied by objects that are no longer referenced by the program.
 
-It's crucial to remember that while the bytecode is platform-independent, the JVM itself is *platform-dependent* (context 74, 104-105, 115). This means you need a specific JVM tailored for your operating system (e.g., Windows JVM, Linux JVM, macOS JVM) to run Java applications. The `java` application launcher (context 122) is used to invoke the JVM and start the execution of a compiled `.class` file.
+It's crucial to remember that while the bytecode is platform-independent, the JVM itself is *platform-dependent*. This means you need a specific JVM tailored for your operating system (e.g., Windows JVM, Linux JVM, macOS JVM) to run Java applications. The `java` application launcher is used to invoke the JVM and start the execution of a compiled `.class` file.
 
 === Summary of the Flow
 
-The typical Java development workflow proceeds as follows (context 69-73):
+The typical Java development workflow proceeds as follows:
 
 .  You write your Java source code in a `.java` file.
 .  You compile the `.java` file using the `javac` compiler (provided by the JDK), which produces `.class` files (bytecode).
