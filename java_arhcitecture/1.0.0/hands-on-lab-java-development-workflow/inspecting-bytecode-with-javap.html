@@ -172,9 +172,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -274,7 +271,7 @@
 <h2 id="_introducing_javap_the_java_class_file_disassembler"><a class="anchor" href="#_introducing_javap_the_java_class_file_disassembler"></a>Introducing <code>javap</code>: The Java Class File Disassembler</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>javap</code> tool, part of the Java Development Kit (JDK), is a command-line utility used to disassemble <code>.class</code> files. Essentially, it takes a compiled Java class file and prints a human-readable representation of its contents, including fields, methods, and the bytecode instructions themselves. It acts as a <strong>decompiler</strong> in the sense that it reverses the compilation process to show you the low-level details that <code>javac</code> produced.</p>
+<p>The <code>javap</code> tool, part of the Java Development Kit (JDK), is a command-line utility used to disassemble <code>.class</code> files. Essentially, it takes a compiled Java class file and prints a human-readable representation of its contents, including fields, methods, and the bytecode instructions themselves.</p>
 </div>
 <div class="paragraph">
 <p>You can use <code>javap</code> to:</p>
@@ -326,86 +323,74 @@
 <li>
 <p><strong>Create a Java Source File:</strong>
 Open your text editor and create a new file named <code>Calculator.java</code> with the following content:</p>
-<div class="literalblock">
-<div class="content">
-<pre>```java
-// Calculator.java
-public class Calculator {
-    private int result;</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public Calculator() {
-    this.result = 0;
-}</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public int add(int a, int b) {
-    return a + b;
-}</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public void incrementResult(int value) {
-    this.result += value;
-}</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public int getResult() {
-    return this.result;
-}</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public static void main(String[] args) {
-    Calculator calc = new Calculator();
-    int sum = calc.add(5, 7);
-    System.out.println("Sum: " + sum); // Expected: 12</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>calc.incrementResult(10);
-System.out.println("Current result: " + calc.getResult()); // Expected: 10</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>        calc.incrementResult(5);
-        System.out.println("Final result: " + calc.getResult()); // Expected: 15
-    }
-}
-```</pre>
-</div>
-</div>
 </li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">    // Calculator.java
+    public class Calculator {
+        private int result;
+
+        public Calculator() {
+            this.result = 0;
+        }
+
+        public int add(int a, int b) {
+            return a + b;
+        }
+
+        public void incrementResult(int value) {
+            this.result += value;
+        }
+
+        public int getResult() {
+            return this.result;
+        }
+
+        public static void main(String[] args) {
+            Calculator calc = new Calculator();
+            int sum = calc.add(5, 7);
+            System.out.println("Sum: " + sum); // Expected: 12
+
+            calc.incrementResult(10);
+            System.out.println("Current result: " + calc.getResult()); // Expected: 10
+
+            calc.incrementResult(5);
+            System.out.println("Final result: " + calc.getResult()); // Expected: 15
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Compile the Java Source File:</strong>
 Open your command-line terminal, navigate to the directory where you saved <code>Calculator.java</code>, and compile it using <code>javac</code>:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">javac Calculator.java</code></pre>
+</div>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>```bash
-javac Calculator.java
-```
-This command will create a `Calculator.class` file in the same directory. This is your compiled bytecode file.</pre>
+<pre>This command will create a `Calculator.class` file in the same directory. This is your compiled bytecode file.</pre>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Inspect the Class File with Basic <code>javap</code>:</strong>
 Now, use <code>javap</code> to get a basic overview of the compiled class.</p>
-<div class="literalblock">
+</li>
+</ol>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>```bash
-javap Calculator.class
-```</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">javap Calculator</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -413,30 +398,34 @@ javap Calculator.class
 <pre>You should see output similar to this (some details might vary slightly depending on your JDK version):</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    Compiled from "Calculator.java"
+    public class Calculator {
+      public Calculator();
+      public int add(int, int);
+      public void incrementResult(int);
+      public int getResult();
+      public static void main(java.lang.String[]);
+    }</code></pre>
+</div>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>```
-Compiled from "Calculator.java"
-public class Calculator {
-  public Calculator();
-  public int add(int, int);
-  public void incrementResult(int);
-  public int getResult();
-  public static void main(java.lang.String[]);
-}
-```
-*Observation:* This output shows the class name, its constructors, and its public methods. It doesn't show private fields or the method implementations themselves by default.</pre>
+<pre>*Observation:* This output shows the class name, its constructors, and its public methods. It doesn't show private fields or the method implementations themselves by default.</pre>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Inspect with Verbose Output (<code>-v</code>):</strong>
 To get more detailed information, including stack sizes, local variable tables, and the constant pool, use the <code>-v</code> (verbose) option:</p>
-<div class="literalblock">
+</li>
+</ol>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>```bash
-javap -v Calculator.class
-```</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    javap -v Calculator</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -456,18 +445,20 @@ javap -v Calculator.class
 <pre>*Observation:* The verbose output provides a deeper look into the metadata stored in the `.class` file, which the JVM uses during loading and execution.</pre>
 </div>
 </div>
-</li>
-</ul>
-</div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Inspect Bytecode Instructions (<code>-c</code>):</strong>
 To see the actual disassembled bytecode instructions for each method, use the <code>-c</code> option. This is where you can see the low-level operations the JVM performs.</p>
-<div class="literalblock">
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>```bash
-javap -c Calculator.class
-```</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    javap -c Calculator</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -475,26 +466,24 @@ javap -c Calculator.class
 <pre>Scroll through the output. For example, look at the `add` method:</pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>```
-  public int add(int, int);
-    descriptor: (II)I
-    flags: (0x0001) ACC_PUBLIC
-    Code:
-      stack=2, locals=3, args_size=3
-         0: iload_1       // Load local variable 1 (first argument 'a') onto stack
-         1: iload_2       // Load local variable 2 (second argument 'b') onto stack
-         2: iadd          // Add the two integers on top of the stack
-         3: ireturn       // Return the integer result
-      LineNumberTable:
-        line 11: 0
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0       4     0  this   LCalculator;
-            0       4     1     a   I
-            0       4     2     b   I
-```</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">      public int add(int, int);
+        descriptor: (II)I
+        flags: (0x0001) ACC_PUBLIC
+        Code:
+          stack=2, locals=3, args_size=3
+             0: iload_1       // Load local variable 1 (first argument 'a') onto stack
+             1: iload_2       // Load local variable 2 (second argument 'b') onto stack
+             2: iadd          // Add the two integers on top of the stack
+             3: ireturn       // Return the integer result
+          LineNumberTable:
+            line 11: 0
+          LocalVariableTable:
+            Start  Length  Slot  Name   Signature
+                0       4     0  this   LCalculator;
+                0       4     1     a   I
+                0       4     2     b   I</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -513,92 +502,84 @@ javap -c Calculator.class
 <pre>Similarly, examine the `incrementResult` method's bytecode:</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">      public void incrementResult(int);
+        descriptor: (I)V
+        flags: (0x0001) ACC_PUBLIC
+        Code:
+          stack=3, locals=2, args_size=2
+             0: aload_0       // Load 'this' reference onto stack
+             1: dup           // Duplicate 'this'
+             2: getfield      #14                 // Field Calculator.result:I
+             5: iload_1       // Load local variable 1 (argument 'value')
+             6: iadd          // Add the field value and argument value
+             7: putfield      #14                 // Field Calculator.result:I
+            10: return        // Void return
+          LineNumberTable:
+            line 15: 0
+          LocalVariableTable:
+            Start  Length  Slot  Name   Signature
+                0      11     0  this   LCalculator;
+                0      11     1 value   I</code></pre>
+</div>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>```
-  public void incrementResult(int);
-    descriptor: (I)V
-    flags: (0x0001) ACC_PUBLIC
-    Code:
-      stack=3, locals=2, args_size=2
-         0: aload_0       // Load 'this' reference onto stack
-         1: dup           // Duplicate 'this'
-         2: getfield      #14                 // Field Calculator.result:I
-         5: iload_1       // Load local variable 1 (argument 'value')
-         6: iadd          // Add the field value and argument value
-         7: putfield      #14                 // Field Calculator.result:I
-        10: return        // Void return
-      LineNumberTable:
-        line 15: 0
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0      11     0  this   LCalculator;
-            0      11     1 value   I
-```
-*Observation:* Here you see `getfield` and `putfield` instructions, which are used to access and modify instance fields (`this.result`).</pre>
+<pre>*Observation:* Here you see `getfield` and `putfield` instructions, which are used to access and modify instance fields (`this.result`).</pre>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Inspect with Signatures (<code>-s</code>):</strong>
 The <code>-s</code> option prints the internal type signatures of fields and methods. This can be combined with <code>-p</code> to include private members.</p>
-<div class="literalblock">
-<div class="content">
-<pre>```bash
-javap -s -p Calculator.class
-```
-Partial output for `Calculator`:</pre>
+</li>
+</ol>
 </div>
-</div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>```
-Compiled from "Calculator.java"
-public class Calculator {
-  private int result;
-    descriptor: I</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    javap -s -p Calculator.class</code></pre>
 </div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>public Calculator();
-  descriptor: ()V</pre>
+<pre>Partial output for `Calculator`:</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    Compiled from "Calculator.java"
+    public class Calculator {
+      private int result;
+        descriptor: I
+
+      public Calculator();
+        descriptor: ()V
+
+      public int add(int, int);
+        descriptor: (II)I
+
+      public void incrementResult(int);
+        descriptor: (I)V
+
+      public int getResult();
+        descriptor: ()I
+
+      public static void main(java.lang.String[]);
+        descriptor: ([Ljava/lang/String;)V
+    }</code></pre>
 </div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>public int add(int, int);
-  descriptor: (II)I</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public void incrementResult(int);
-  descriptor: (I)V</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>public int getResult();
-  descriptor: ()I</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  public static void main(java.lang.String[]);
-    descriptor: ([Ljava/lang/String;)V
-}
-```
-*Observation:*
+<pre>*Observation:*
 *   `I` represents `int`.
 *   `V` represents `void`.
 *   `(` `II` `)` `I` means a method that takes two `int`s and returns an `int`.
 *   `(` `[Ljava/lang/String;` `)` `V` means a method that takes an array of `String` objects and returns `void`.
 *   The private `result` field is now visible due to the `-p` option.</pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect3">

@@ -172,9 +172,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -226,7 +223,7 @@
 </aside>
 <article class="doc">
 <h1 class="page">Monitoring Java Applications with JConsole</h1>
-<h1 id="monitoring-java-applications-with-jconsole" class="sect0"><a class="anchor" href="#monitoring-java-applications-with-jconsole"></a>Monitoring Java Applications with JConsole</h1>
+<h1 id="_monitoring_java_applications_with_jconsole" class="sect0"><a class="anchor" href="#_monitoring_java_applications_with_jconsole"></a>Monitoring Java Applications with JConsole</h1>
 <div class="paragraph">
 <p>JConsole, a graphical monitoring tool included with the Java Development Kit (JDK), is an invaluable utility for observing the runtime behavior and resource utilization of Java applications. It provides insights into various aspects of a running Java Virtual Machine (JVM), enabling developers and administrators to diagnose performance issues, understand memory usage patterns, and inspect runtime data.</p>
 </div>
@@ -236,25 +233,22 @@
 <div class="paragraph">
 <p>JConsole (Java Monitoring and Management Console) is a robust, lightweight tool that leverages Java Management Extensions (JMX) to gather information from a running JVM. It presents this data through an intuitive graphical user interface (GUI), offering a real-time view of critical application metrics.</p>
 </div>
-<div class="paragraph">
-<p>The context provided highlights several key characteristics of JConsole:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Purpose</strong>: JConsole is primarily used for monitoring purposes, providing information about running Java processes and their management details (lines 346, 347, 355, 378, 461).</p>
+<p><strong>Purpose</strong>: JConsole is primarily used for monitoring purposes, providing information about running Java processes and their management details .</p>
 </li>
 <li>
-<p><strong>Connection Mechanism</strong>: It connects to an <strong>existing running Java process</strong> (lines 326-327). To achieve this, it displays the <strong>Process ID (PID)</strong> of available Java processes, allowing you to select and connect to a specific one (lines 333-334).</p>
+<p><strong>Connection Mechanism</strong>: It connects to an <strong>existing running Java process</strong> . To achieve this, it displays the <strong>Process ID (PID)</strong> of available Java processes, allowing you to select and connect to a specific one.</p>
 </li>
 <li>
-<p><strong>Monitored Information</strong>: Once connected, JConsole can show vital statistics such as <strong>memory allocation and how it&#8217;s being utilized</strong> (lines 337-338). For enterprise applications or servers, it can also display <strong>Management Beans (MBeans)</strong>, which expose specific management operations and attributes of the server (lines 373-374).</p>
+<p><strong>Monitored Information</strong>: Once connected, JConsole can show vital statistics such as <strong>memory allocation and how it&#8217;s being utilized</strong> . For enterprise applications or servers, it can also display <strong>Managed Beans (MBeans)</strong>, which expose specific management operations and attributes of the server.</p>
 </li>
 <li>
-<p><strong>Platform Independence</strong>: JConsole is a core component of the JDK (lines 456-457) and is <strong>platform-independent</strong> (lines 448, 460). This means its features and functionality remain consistent regardless of the operating system where it&#8217;s run.</p>
+<p><strong>Platform Independence</strong>: JConsole is a core component of the JDK and is <strong>platform-independent</strong> . This means its features and functionality remain consistent regardless of the operating system where it&#8217;s run.</p>
 </li>
 <li>
-<p><strong>Interface</strong>: It provides a <strong>GUI</strong> (line 325) for easy interaction and visualization of data.</p>
+<p><strong>Interface</strong>: It provides a <strong>GUI</strong> for easy interaction and visualization of data.</p>
 </li>
 </ul>
 </div>
@@ -559,7 +553,7 @@ If your application were running on a remote machine, you would use the "Remote 
 <p><strong>JVM MBeans</strong>: On the left-hand pane, navigate through the <code>java.lang</code> and <code>java.util.logging</code> domains to explore built-in JVM MBeans. For instance, <code>java.lang/Memory</code> provides attributes like <code>HeapMemoryUsage</code> and <code>NonHeapMemoryUsage</code>.</p>
 </li>
 <li>
-<p><strong>Application MBeans</strong>: For more complex applications (like application servers such as JBoss EAP), custom MBeans are often registered to expose application-specific metrics and operations. As per the context, JConsole shows "management means which are related to your jboss server" (lines 373-374), demonstrating its utility in enterprise environments.</p>
+<p><strong>Application MBeans</strong>: For more complex applications (like application servers such as JBoss EAP), custom MBeans are often registered to expose application-specific metrics and operations.</p>
 </li>
 <li>
 <p>You can view attributes (read-only data) and invoke operations (methods) exposed by MBeans.</p>

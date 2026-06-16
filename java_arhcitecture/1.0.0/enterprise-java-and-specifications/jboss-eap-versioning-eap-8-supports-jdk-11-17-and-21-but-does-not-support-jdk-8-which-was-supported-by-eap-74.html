@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>JDK Support for JBoss EAP :: Java Architecture and Core Concepts</title>
-    <link rel="prev" href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">
-    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -172,9 +170,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -215,7 +210,6 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Java Architecture and Core Concepts</a></li>
-    <li><a href="enterprise-java-and-specifications.html">Enterprise Java and Specifications</a></li>
     <li><a href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a></li>
   </ul>
 </nav>
@@ -264,10 +258,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>JDK 8: Unlike previous EAP versions, JDK 8 is explicitly <strong>not</strong> supported for JBoss EAP 8. <a href="#1.2.3" class="xref unresolved">See context lines 269-270</a></p>
+<p>JDK 8: Unlike previous EAP versions, JDK 8 is explicitly <strong>not</strong> supported for JBoss EAP 8.</p>
 </li>
 <li>
-<p>JDK 25: While the range of supported JDKs extends, JDK 25 is specifically mentioned as <strong>not</strong> supported. <a href="#1.2.3" class="xref unresolved">See context lines 251-252</a></p>
+<p>JDK 25: While the range of supported JDKs extends, JDK 25 is specifically mentioned as <strong>not</strong> supported.</p>
 </li>
 </ul>
 </div>
@@ -290,10 +284,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>JDK 8: This was a primary supported JDK for EAP 7.4. <a href="#1.2.3" class="xref unresolved">See context line 256</a></p>
+<p>JDK 8: This was a primary supported JDK for EAP 7.4.</p>
 </li>
 <li>
-<p>JDK 11: EAP 7.4 also extended support to JDK 11. <a href="#1.2.3" class="xref unresolved">See context line 268</a></p>
+<p>JDK 11: EAP 7.4 also extended support to JDK 11.</p>
 </li>
 </ul>
 </div>
@@ -349,7 +343,7 @@ The exact support for specific JDK versions can sometimes evolve with maintenanc
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Implementation</strong>: Red Hat implements these specifications through JBoss EAP. Other vendors like Oracle implement them through products like WebLogic. These implementations adhere to the specifications while providing their own unique features and optimizations. <a href="#1.2.3" class="xref unresolved">See context section "Enterprise Java and Specifications"</a></p>
+<p><strong>Implementation</strong>: Red Hat implements these specifications through JBoss EAP. Other vendors like Oracle implement them through products like WebLogic. These implementations adhere to the specifications while providing their own unique features and optimizations.</p>
 </li>
 </ul>
 </div>
@@ -452,27 +446,6 @@ The exact support for specific JDK versions can sometimes evolve with maintenanc
 <div class="title">Expected Outcome</div>
 <p>Your response should highlight the incompatibility and provide clear steps.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Dear Customer,
-
-Thank you for reaching out. We understand you're experiencing unexpected behavior with your application on JBoss EAP 7.4 after updating your Java version to JDK 17.
-
-Upon reviewing your setup against the official JBoss EAP 7.4 compatibility matrix, we've identified a potential root cause:
-
-*   JBoss EAP 7.4 officially supports JDK 8 and JDK 11.
-*   Running JBoss EAP 7.4 on JDK 17 is an unsupported configuration. This can lead to the "unexpected behavior" you are observing.
-
-To resolve this immediately, we recommend reverting your Java environment to a supported JDK version for EAP 7.4, either JDK 8 or JDK 11. Please try this and let us know if the issue persists.
-
-For future planning, if you wish to leverage newer JDK versions like JDK 17 or JDK 21, you would need to upgrade your JBoss EAP instance to JBoss EAP 8, which supports these newer JDKs. We can provide resources and guidance for an EAP upgrade path if that's a direction you'd like to explore.
-
-Please let us know your findings after reverting the JDK version.
-
-Sincerely,
-[Your Name/Support Team]</code></pre>
-</div>
-</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -480,7 +453,7 @@ Sincerely,
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-When dealing with older EAP versions, such as EAP 7, customers might require a specific <strong>subscription</strong> to receive full support. <a href="#1.2.3" class="xref unresolved">See context lines 261-267</a> As a support engineer, always verify the customer&#8217;s subscription status for older products, as this impacts the level of support that can be provided. This often means checking if they have a "separate kind of subscription that customer need to purchase for getting support on EAP 7." <a href="#1.2.3" class="xref unresolved">See context lines 261-263</a>
+When dealing with older EAP versions, such as EAP 7, customers might require a specific <strong>subscription</strong> to receive full support. As a support engineer, always verify the customer&#8217;s subscription status for older products, as this impacts the level of support that can be provided. This often means checking if they have a "separate kind of subscription that customer need to purchase for getting support on EAP 7."
 </td>
 </tr>
 </table>
@@ -488,10 +461,6 @@ When dealing with older EAP versions, such as EAP 7, customers might require a s
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a></span>
-  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
-</nav>
 </article>
   </div>
 </main>

@@ -172,9 +172,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -361,65 +358,106 @@
 <ol class="arabic">
 <li>
 <p><strong>Set Up Your Project Directory</strong>
-Open your terminal or command prompt and create a dedicated directory for this lab. Navigate into it:
-[source,bash]
-----
-mkdir java-first-app
-cd java-first-app
-----</p>
-</li>
-<li>
-<p><strong>Write Your Java Source Code</strong>
-Using your preferred text editor, create a new file named <code>Greeting.java</code> within the <code>java-first-app</code> directory. Copy and paste the following Java code into the file:
-[source,java]
-----
-// Greeting.java
-public class Greeting {
-    public static void main(String[] args) {
-        System.out.println("Hello from the Java Development Workflow Lab!");
-        System.out.println("This is my first compiled and executed Java program!");
-    }
-}
-----
-Save the file. It is crucial that the filename (<code>Greeting.java</code>) precisely matches the public class name (<code>Greeting</code>).</p>
-</li>
-<li>
-<p><strong>Compile the Java Source Code</strong>
-Return to your terminal, ensuring you are still within the <code>java-first-app</code> directory where <code>Greeting.java</code> is saved. Execute the <code>javac</code> command, providing the filename as an argument:
-[source,bash]
-----
-javac Greeting.java
-----
-If the compilation is successful, <code>javac</code> will typically not display any output. However, it will create a new file named <code>Greeting.class</code> in the same directory. This <code>Greeting.class</code> file contains the Java bytecode.</p>
-<div class="literalblock">
-<div class="content">
-<pre>To confirm the creation of the `.class` file, you can list the directory contents:
-[source,bash]
-----
-ls
-----
-You should now see both `Greeting.java` and `Greeting.class` listed.</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>[TIP]
-====
-If `javac` reports errors, carefully inspect your `Greeting.java` file for any typographical errors, missing semicolons, incorrect casing, or mismatched class/filename. Pay close attention to error messages provided by the compiler, as they often pinpoint the exact issue and line number.
-====</pre>
-</div>
-</div>
-</li>
-<li>
-<p><strong>Execute the Compiled Java Program</strong>
-With the <code>Greeting.class</code> file (bytecode) now available, you can execute it using the <code>java</code> application launcher. In your terminal, enter:
-[source,bash]
-----
-java Greeting
-----
-Notice a critical detail: when using the <code>java</code> command, you specify the class name (<code>Greeting</code>) but <strong>omit</strong> the <code>.class</code> extension. The JVM handles the lookup of the <code>.class</code> file internally.</p>
+Open your terminal or command prompt and create a dedicated directory for this lab. Navigate into it:</p>
 </li>
 </ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>   mkdir java-first-app
+   cd java-first-app</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Write Your Java Source Code</strong>
+Using your preferred text editor, create a new file named <code>Greeting.java</code> within the <code>java-first-app</code> directory. Copy and paste the following Java code into the file:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>   // Greeting.java
+   public class Greeting {
+       public static void main(String[] args) {
+           System.out.println("Hello from the Java Development Workflow Lab!");
+           System.out.println("This is my first compiled and executed Java program!");
+       }
+   }</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Save the file. It is crucial that the filename (`Greeting.java`) precisely matches the public class name (`Greeting`).</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Compile the Java Source Code</strong>
+Return to your terminal, ensuring you are still within the <code>java-first-app</code> directory where <code>Greeting.java</code> is saved. Execute the <code>javac</code> command, providing the filename as an argument:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>   javac Greeting.java</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>If the compilation is successful, `javac` will typically not display any output. However, it will create a new file named `Greeting.class` in the same directory. This `Greeting.class` file contains the Java bytecode.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>To confirm the creation of the `.class` file, you can list the directory contents:</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">   ls</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>You should now see both `Greeting.java` and `Greeting.class` listed.</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="literalblock">
+<div class="content">
+<pre>If `javac` reports errors, carefully inspect your `Greeting.java` file for any typographical errors, missing semicolons, incorrect casing, or mismatched class/filename. Pay close attention to error messages provided by the compiler, as they often pinpoint the exact issue and line number.</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Execute the Compiled Java Program</strong>
+With the <code>Greeting.class</code> file (bytecode) now available, you can execute it using the <code>java</code> application launcher. In your terminal, enter:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>   java Greeting</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Notice a critical detail: when using the `java` command, you specify the class name (`Greeting`) but *omit* the `.class` extension. The JVM handles the lookup of the `.class` file internally.</pre>
+</div>
 </div>
 </div>
 <div class="sect2">

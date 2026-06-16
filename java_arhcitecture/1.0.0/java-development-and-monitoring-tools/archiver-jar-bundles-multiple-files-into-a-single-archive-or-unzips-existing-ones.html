@@ -172,9 +172,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -280,7 +277,7 @@
 <p>The <code>jar</code> command operates from the command line and uses a flexible syntax to perform various archiving operations. The general structure is:</p>
 </div>
 <div class="paragraph">
-<p><code>jar {c|r|t|u|x}[vfm0Mi] [JAR_file] [manifest_file] [-C directory] files&#8230;&#8203;</code></p>
+<p><code>jar [OPTION &#8230;&#8203;] [ [--release VERSION] [-C dir] files] &#8230;&#8203;</code></p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s examine the most commonly used options:</p>
@@ -380,12 +377,8 @@ package com.example;</pre>
 <pre>public class MyGreeting {
     public static void greet() {
         System.out.println("Greetings from a JAR file!");
-    }</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>    public static void main(String[] args) {
+    }
+    public static void main(String[] args) {
         greet();
     }
 }

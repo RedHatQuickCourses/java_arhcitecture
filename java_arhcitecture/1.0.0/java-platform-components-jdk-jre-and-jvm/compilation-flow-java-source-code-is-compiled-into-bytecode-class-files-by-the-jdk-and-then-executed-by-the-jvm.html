@@ -172,9 +172,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../enterprise-java-and-specifications/implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../enterprise-java-and-specifications/jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -429,83 +426,101 @@ The bytecode is designed to be platform-independent. This means a <code>.class</
 <p>Open your preferred text editor.</p>
 </li>
 <li>
-<p>Type the following Java code:
-[source,java]
-----
-// MyFirstProgram.java
-public class MyFirstProgram {
-    public static void main(String[] args) {
-        System.out.println("Hello from the Java Compilation Flow Lab!");
-    }
-}
-----</p>
-</li>
-<li>
-<p>Save the file as <code>MyFirstProgram.java</code> in a directory of your choice (e.g., <code>C:\javalabs</code> on Windows or <code>~/javalabs</code> on Linux/macOS). Ensure the filename exactly matches the public class name.</p>
+<p>Type the following Java code:</p>
 </li>
 </ol>
 </div>
 </li>
-<li>
-<p><strong>Open a Terminal/Command Prompt:</strong></p>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        // MyFirstProgram.java
+        public class MyFirstProgram {
+            public static void main(String[] args) {
+                System.out.println("Hello from the Java Compilation Flow Lab!");
+            }
+        }</pre>
+</div>
+</div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Navigate to the directory where you saved <code>MyFirstProgram.java</code> using the <code>cd</code> command.
-[source,bash]
-----
-# On Linux/macOS
-cd ~/javalabs</p>
-<div class="literalblock">
-<div class="content">
-<pre># On Windows
-cd C:\javalabs
-----</pre>
-</div>
-</div>
+<p>Save the file as <code>MyFirstProgram.java</code> in a directory of your choice (e.g., <code>C:\javalabs</code> on Windows or <code>~/javalabs</code> on Linux/macOS). Ensure the filename exactly matches the public class name.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Open a Terminal/Command Prompt:</strong></p>
 </li>
 </ol>
 </div>
 </li>
+<li>
+<p>Navigate to the directory where you saved <code>MyFirstProgram.java</code> using the <code>cd</code> command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>       # On Linux/macOS
+       cd ~/javalabs
+
+       # On Windows
+       cd C:\javalabs</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Compile the Java Source Code:</strong></p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Use the <code>javac</code> command to compile your <code>.java</code> file into a <code>.class</code> file.
-[source,bash]
-----
-javac MyFirstProgram.java
-----</p>
-</li>
-<li>
-<p>If compilation is successful, you will see no output. A file named <code>MyFirstProgram.class</code> will be created in the same directory. This is your Java bytecode. If you encounter errors, carefully review your <code>MyFirstProgram.java</code> file for typos, especially case sensitivity, and correct them before recompiling.</p>
+<p>Use the <code>javac</code> command to compile your <code>.java</code> file into a <code>.class</code> file.</p>
 </li>
 </ol>
 </div>
 </li>
-<li>
-<p><strong>Execute the Java Bytecode:</strong></p>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>       javac MyFirstProgram.java</pre>
+</div>
+</div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Use the <code>java</code> command followed by the name of your class (without the <code>.class</code> extension) to execute the bytecode.
-[source,bash]
-----
-java MyFirstProgram
-----</p>
-</li>
+<p>If compilation is successful, you will see no output. A file named <code>MyFirstProgram.class</code> will be created in the same directory. This is your Java bytecode. If you encounter errors, carefully review your <code>MyFirstProgram.java</code> file for typos, especially case sensitivity, and correct them before recompiling.</p>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>You should see the output printed to your terminal:
-[source,text]
-----
-Hello from the Java Compilation Flow Lab!
-----</p>
+<p><strong>Execute the Java Bytecode:</strong></p>
 </li>
 </ol>
 </div>
 </li>
+<li>
+<p>Use the <code>java</code> command followed by the name of your class (without the <code>.class</code> extension) to execute the bytecode.</p>
+</li>
 </ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>       java MyFirstProgram</pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>You should see the output printed to your terminal:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>       Hello from the Java Compilation Flow Lab!</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>This hands-on exercise demonstrates the fundamental two-step process: <code>javac</code> for compilation and <code>java</code> for execution, forming the core of the Java development workflow.</p>

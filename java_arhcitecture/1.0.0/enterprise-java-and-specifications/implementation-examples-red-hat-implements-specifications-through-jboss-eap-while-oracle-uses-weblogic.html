@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Enterprise Java Specification Implementations :: Java Architecture and Core Concepts</title>
     <link rel="prev" href="definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">
-    <link rel="next" href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">
+    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -172,9 +172,6 @@
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="implementation-examples-red-hat-implements-specifications-through-jboss-eap-while-oracle-uses-weblogic.html">Enterprise Java Specification Implementations</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -226,7 +223,7 @@
 </aside>
 <article class="doc">
 <h1 class="page">Enterprise Java Specification Implementations</h1>
-<h1 id="enterprise-java-specifications-implementations" class="sect0"><a class="anchor" href="#enterprise-java-specifications-implementations"></a>Enterprise Java Specification Implementations</h1>
+<h1 id="_enterprise_java_specification_implementations" class="sect0"><a class="anchor" href="#_enterprise_java_specification_implementations"></a>Enterprise Java Specification Implementations</h1>
 <div class="paragraph">
 <p>This section elaborates on how abstract Enterprise Java specifications are brought to life through concrete implementations provided by various vendors, highlighting Red Hat JBoss EAP and Oracle WebLogic as key examples.</p>
 </div>
@@ -234,10 +231,10 @@
 <h2 id="_the_role_of_specifications_and_implementations"><a class="anchor" href="#_the_role_of_specifications_and_implementations"></a>The Role of Specifications and Implementations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the realm of Enterprise Java, a <strong>specification</strong> acts as a standardized contract or blueprint (context lines 592-593). It meticulously defines <em>what</em> functionality, APIs, and behaviors must be supported, but intentionally refrains from dictating <em>how</em> these requirements should be met (context lines 592-593). For instance, specifications like JDBC (Java Database Connectivity), JNDI (Java Naming and Directory Interface), JAX-RS (Java API for RESTful Web Services), and JAX-WS (Java API for XML Web Services) all fall into this category (context lines 590-591). The Java Virtual Machine (JVM) itself is also defined by a specification that outlines the runtime environment for Java bytecode execution (context lines 517-518, 602-603).</p>
+<p>In the realm of Enterprise Java, a <strong>specification</strong> acts as a standardized contract or blueprint. It meticulously defines <em>what</em> functionality, APIs, and behaviors must be supported, but intentionally refrains from dictating <em>how</em> these requirements should be met. For instance, specifications like JDBC (Java Database Connectivity), JNDI (Java Naming and Directory Interface), JAX-RS (Java API for RESTful Web Services), and JAX-WS (Java API for XML Web Services) all fall into this category. The Java Virtual Machine (JVM) itself is also defined by a specification that outlines the runtime environment for Java bytecode execution.</p>
 </div>
 <div class="paragraph">
-<p>While specifications provide the rules, they are not executable code. To utilize these defined capabilities, a concrete <strong>implementation</strong> is required. This is where technology vendors step in. Each vendor develops their unique software product—typically an application server—that provides the actual code and runtime environment to fulfill the specification&#8217;s requirements (context line 597). The crucial aspect is that while the internal implementation details may vary significantly between vendors, the <strong>result</strong> and the API compliance for developers must be identical, ensuring consistency and portability across different platforms (context lines 598-599).</p>
+<p>While specifications provide the rules, they are not executable code. To utilize these defined capabilities, a concrete <strong>implementation</strong> is required. This is where technology vendors step in. Each vendor develops their unique software product—typically an application server—that provides the actual code and runtime environment to fulfill the specification&#8217;s requirements. The crucial aspect is that while the internal implementation details may vary significantly between vendors, the <strong>result</strong> and the API compliance for developers must be identical, ensuring consistency and portability across different platforms.</p>
 </div>
 </div>
 </div>
@@ -250,7 +247,7 @@
 <div class="sect2">
 <h3 id="_red_hat_jboss_enterprise_application_platform_eap"><a class="anchor" href="#_red_hat_jboss_enterprise_application_platform_eap"></a>Red Hat JBoss Enterprise Application Platform (EAP)</h3>
 <div class="paragraph">
-<p>Red Hat&#8217;s flagship offering for enterprise Java applications is the <strong>JBoss Enterprise Application Platform</strong> (JBoss EAP). JBoss EAP is an application server that provides a complete, certified implementation of the Jakarta EE specifications (context lines 533-535, 595). It offers a runtime environment for deploying and running Java applications that leverage features like EJB (Enterprise JavaBeans), JPA (Java Persistence API), JMS (Java Message Service), and other Jakarta EE components.</p>
+<p>Red Hat&#8217;s flagship offering for enterprise Java applications is the <strong>JBoss Enterprise Application Platform</strong> (JBoss EAP). JBoss EAP is an application server that provides a complete, certified implementation of the Jakarta EE specifications. It offers a runtime environment for deploying and running Java applications that leverage features like EJB (Enterprise JavaBeans), JPA (Java Persistence API), JMS (Java Message Service), and other Jakarta EE components.</p>
 </div>
 <div class="paragraph">
 <p>For example, when a developer writes an application that uses the Jakarta Persistence API (JPA) for database interaction, JBoss EAP provides the actual persistence provider and transaction management capabilities defined by the JPA specification.</p>
@@ -263,7 +260,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>JBoss EAP versions evolve to support newer Java Development Kit (JDK) releases. For instance, JBoss EAP 8 supports JDK 11, 17, and 21. This marks a progression from earlier versions like EAP 7.4, which supported JDK 8 (context lines 271-272). This demonstrates how implementations adapt to advancements in the core Java platform.</p>
+<p>JBoss EAP versions evolve to support newer Java Development Kit (JDK) releases. For instance, JBoss EAP 8 supports JDK 11, 17, and 21. This marks a progression from earlier versions like EAP 7.4, which supported JDK 8. This demonstrates how implementations adapt to advancements in the core Java platform.</p>
 </div>
 </td>
 </tr>
@@ -273,7 +270,7 @@
 <div class="sect2">
 <h3 id="_oracle_weblogic_server"><a class="anchor" href="#_oracle_weblogic_server"></a>Oracle WebLogic Server</h3>
 <div class="paragraph">
-<p>Another prominent example of an Enterprise Java specification implementation is <strong>Oracle WebLogic Server</strong>. Oracle, a major player in the enterprise software market, provides WebLogic as its application server product (context line 596). Similar to JBoss EAP, WebLogic Server offers a full-featured environment for deploying and managing enterprise Java applications, adhering to the same set of Jakarta EE specifications.</p>
+<p>Another prominent example of an Enterprise Java specification implementation is <strong>Oracle WebLogic Server</strong>. Oracle, a major player in the enterprise software market, provides WebLogic as its application server product. Similar to JBoss EAP, WebLogic Server offers a full-featured environment for deploying and managing enterprise Java applications, adhering to the same set of Jakarta EE specifications.</p>
 </div>
 <div class="paragraph">
 <p>Organizations often choose between application servers like JBoss EAP and Oracle WebLogic based on factors such as existing infrastructure, vendor relationships, specific performance requirements, and licensing models. Despite these different implementations, an application developed strictly according to the Jakarta EE specifications should be portable and function consistently across both JBoss EAP and WebLogic environments.</p>
@@ -286,7 +283,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="definition-of-specification-guidelines-or-rules-that-define-what-should-be-done-without-prescribing-the-exact-implementation.html">Specification in Java</a></span>
-  <span class="next"><a href="jboss-eap-versioning-eap-8-supports-jdk-11-17-and-21-but-does-not-support-jdk-8-which-was-supported-by-eap-74.html">JDK Support for JBoss EAP</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
 </nav>
 </article>
   </div>
