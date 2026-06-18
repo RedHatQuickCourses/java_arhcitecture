@@ -1,1 +1,0 @@
-To begin your hands-on training, you will need to access the lab environment. Please note that at this time, specific instructions for accessing the lab environment on platforms other than the primary one are currently under development. Please ensure you are prepared to follow the standard access procedures provided for this course.

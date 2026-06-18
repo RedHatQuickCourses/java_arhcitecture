@@ -1,9 +1,0 @@
-In this module, we will cover the steps to launch your lab environment using the Red Hat Online Learning platform, also known as ROLE.
-
-To begin, you will need to log in to the ROLE portal. Red Hat associates can access the platform at role.rhu.redhat.com, while Red Hat partners should visit rol.redhat.com.
-
-Once you have logged in, follow these steps to set up your environment:
-
-First, search the catalog for your specific lab entry. When you find the correct item in the search results, click the Launch button. Once you are on the course page, select the Lab Environment tab. From there, click the Create button to initiate the launch process. 
-
-Please wait a few moments for the system to complete the lab creation. Once the process is finished, look for the SSH Private Key and instructions provided on the page. These will contain all the necessary details you need to access your lab environment.
