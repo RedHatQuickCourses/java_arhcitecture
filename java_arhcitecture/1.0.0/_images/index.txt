@@ -1,0 +1,7 @@
+Welcome to the course titled Java Architecture and Core Concepts.
+
+This training provides a comprehensive introduction to the foundational elements of the Java language. Throughout this course, you will explore the core principles of Object-Oriented Programming, and we will break down the architectural differences between the JDK, the JRE, and the JVM. You will also gain hands-on experience using essential Java development and monitoring tools, and finally, you will learn about Enterprise Java specifications and how they are implemented using Red Hat JBoss EAP. This course is designed to be completed in approximately two hours.
+
+During our time together, we will cover five primary topics. First, we will examine Object-Oriented Programming principles. Next, we will analyze the key components of the Java platform, specifically the JDK, JRE, and JVM. Then, we will look at various Java development and monitoring tools. You will also participate in a hands-on lab to practice the standard Java development workflow, and we will conclude with an overview of Enterprise Java and its specifications.
+
+Before we begin, please ensure you meet the following prerequisites. You should have a basic understanding of general programming logic and concepts, and you should be comfortable navigating the command-line interface. While no prior Java experience is strictly required to participate, having some familiarity with the language will certainly be beneficial as we progress through the material.

@@ -1,0 +1,7 @@
+In the world of enterprise Java, it is helpful to understand the distinction between a specification and an implementation. A specification defines a set of guidelines or rules that outline what needs to be done, without detailing exactly how it should be implemented. This approach is powerful because it allows various vendors to create their own unique implementations of these specifications, while still ensuring that their products remain interoperable.
+
+Let’s look at some of the key concepts behind this. First, the primary purpose of these specifications is to ensure consistency and compatibility across different enterprise-level Java technologies. When we talk about common Java specifications, you will frequently encounter terms like JDBC, JNDI, JAX-RS, JAX-WS, and the broader Jakarta EE framework.
+
+To turn these specifications into usable tools, companies develop application servers, which act as the concrete implementations. For example, Red Hat provides JBoss Enterprise Application Platform, or EAP, while Oracle offers WebLogic.
+
+When working with JBoss EAP, it is important to pay close attention to versioning and environment compatibility. Regarding JDK support, JBoss EAP 8 is designed to work with JDK versions 11, 17, and 21. Please note that JBoss EAP 8 does not support JDK 8. If you are working in an environment that requires JDK 8, you would need to use the older version, JBoss EAP 7.4, which specifically supports that environment.

@@ -1,0 +1,46 @@
+Welcome to this session on using the Java class file disassembler, known as `javap`. In this module, we will explore the concept of decompilation and learn how to use `javap` to inspect compiled Java bytecode. This is a fundamental skill for low-level analysis, debugging, and performing security assessments on Java applications.
+
+### Understanding Decompilation
+
+In a standard Java workflow, the `javac` compiler translates your `.java` source files into an intermediate format called bytecode, stored in `.class` files. This bytecode is what the Java Virtual Machine, or JVM, executes. 
+
+Decompilation is the inverse of this process. It is the attempt to turn that bytecode back into something resembling human-readable source code. While it is rarely possible to perfectly reconstruct your original source code—largely due to compiler optimizations and the loss of metadata—decompilers are essential for understanding how a class functions when the source code is unavailable.
+
+You might find yourself using decompilers for three main reasons. First, for debugging and troubleshooting third-party libraries or legacy applications. Second, for security analysis, where you need to inspect code for vulnerabilities or malicious activity. And third, for learning, as it gives you a window into how specific Java language features are translated into instructions for the JVM.
+
+**A Critical Warning on Security**
+
+Before we proceed, it is vital to keep security in mind. When you work with proprietary or sensitive `.class` files, never use online decompiler services. Uploading these files to the public web exposes your intellectual property and sensitive customer data to significant risks. Always prioritize security by using offline, locally hosted decompiler tools directly on your machine.
+
+### Introducing `javap`
+
+The `javap` tool is a disassembler that comes pre-installed with the Java Development Kit. It doesn't try to recreate `.java` source files like some advanced third-party decompilers, such as JD-GUI. Instead, it provides a direct, symbolic representation of the bytecode, method signatures, and internal class attributes. It shows you exactly what the JVM sees, making it an indispensable tool for low-level inspection.
+
+### Using `javap`
+
+To use `javap`, you simply run it from your terminal or command prompt by providing the name of the class you wish to inspect. Remember to specify the class name, not the filename—so, leave off the `.class` extension.
+
+There are several command-line options that change the level of detail provided in the output:
+*   The `-c` flag disassembles the methods, showing you the actual bytecode instructions.
+*   The `-s` flag prints the internal type signatures for fields and methods.
+*   The `-l` flag shows line numbers and local variable tables, provided that debug information was included during compilation.
+*   The `-p` flag reveals all members, including private and protected ones, whereas the default is to show only public and protected members.
+*   Finally, the `-v` flag provides verbose output, covering everything from the constant pool to stack sizes.
+
+### Hands-on Lab: Inspecting Bytecode
+
+Let’s put this into practice. First, ensure you have the JDK installed and a terminal ready.
+
+**Step one: Create your program.** Create a file named `MyUtility.java`. Inside, define a class with a `main` method that prints a greeting and performs a simple multiplication using a private helper method called `multiply`.
+
+**Step two: Compile it.** Open your terminal, navigate to your file's directory, and run `javac MyUtility.java`. This generates the `MyUtility.class` bytecode file.
+
+**Step three: Basic inspection.** Run `javap MyUtility`. You will notice that the output only shows the constructor and the `main` method. The private `multiply` method is hidden by default.
+
+**Step four: Reveal private members.** Run `javap -p MyUtility`. Now, you will see the `multiply` method included in the output, demonstrating how the `-p` flag exposes private and protected members.
+
+**Step five: Disassemble the bytecode.** Run `javap -c MyUtility`. This is where it gets interesting. You can now see the actual bytecode instructions, such as `iload` for loading integers, `imul` for multiplication, and `ireturn` for returning the result. Keep in mind that this output might vary slightly depending on your specific JDK version.
+
+**Step six: Verbose output.** Finally, run `javap -v MyUtility`. This provides the most comprehensive look at the class, including the constant pool and detailed stack information.
+
+By following these steps, you have successfully peeked under the hood of your compiled Java code. Understanding these low-level details is a significant step toward mastering the Java platform and the way the JVM executes your programs.

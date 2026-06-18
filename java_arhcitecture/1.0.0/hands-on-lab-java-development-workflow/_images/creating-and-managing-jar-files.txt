@@ -1,0 +1,30 @@
+Welcome to this lesson on creating and managing Java Archive files, commonly known as JAR files. The JAR format is a fundamental part of Java development, used to aggregate multiple class files, metadata, and resources like images or text into a single, portable package.
+
+Think of a JAR file as a standard ZIP archive with a .jar extension. Inside, you will find your compiled Java bytecode, which are your .class files, alongside a special META-INF directory. This directory contains a manifest file, which holds critical metadata about the archive, such as versioning, digital signatures, and entry points for executable applications.
+
+There are several key reasons why we use JAR files. First, they allow you to bundle an entire application into one file, which simplifies distribution. Second, they are the standard way to distribute Java libraries, making it easy to incorporate external code into your projects. Third, they provide compression, which saves disk space and reduces file transfer times. Finally, they offer security features, allowing you to digitally sign your code to verify its authenticity and integrity.
+
+To work with these files, the JDK provides a command-line utility simply called `jar`. This tool allows you to create new archives, view their contents, and extract files from them.
+
+Let’s look at the three primary functions of the `jar` command.
+First, to create a JAR, you use `jar cf`. For instance, running `jar cf myapp.jar *.class` will combine all class files in your directory into a single JAR named `myapp.jar`.
+Second, to see what is inside an existing archive, use `jar tf`. The `t` stands for "table of contents." Running this command against your JAR file will list every file and directory stored within it.
+Third, to retrieve files, use `jar xf`. This extracts the contents of the archive into your current directory.
+
+Now, let's put this into practice with a hands-on lab. Before you begin, ensure your Java Development Kit is correctly configured and that you can run the `javac` and `java` commands from your terminal.
+
+In this activity, we will go through the end-to-end process of managing a JAR.
+
+Step one, create your source files. In a text editor, create two files: `HelloWorld.java` and `MyUtility.java`. The `HelloWorld` class will act as the entry point, printing a message and calling a method from the `MyUtility` class.
+
+Step two, compile your code. Navigate to your working directory in the terminal and run `javac HelloWorld.java MyUtility.java`. This will generate your compiled `.class` files.
+
+Step three, create the archive. Run the command `jar cf my_application.jar HelloWorld.class MyUtility.class`. You have now bundled those two classes into a single file named `my_application.jar`. If you prefer, you can also use a wildcard, such as `jar cf my_application.jar *.class`, to include all class files in the directory at once.
+
+Step four, inspect the contents. Use the command `jar tf my_application.jar`. You will see the contents listed, including your class files and an automatically generated `META-INF/MANIFEST.MF` file.
+
+Step five, extract your files. To see how to retrieve your data, create a new directory, move into it, and then run `jar xf ../my_application.jar`. If you list the contents of that new directory, you will see that your original class files and the manifest folder have been successfully extracted.
+
+Finally, feel free to clean up your workspace by removing the source files, the compiled classes, the JAR archive, and the temporary directory you created.
+
+By completing these steps, you have mastered the essential workflow for managing JAR files—an indispensable skill for any Java developer.

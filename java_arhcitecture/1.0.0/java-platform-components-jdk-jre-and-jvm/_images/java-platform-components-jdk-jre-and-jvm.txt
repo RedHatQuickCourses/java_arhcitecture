@@ -1,0 +1,15 @@
+In this session, we will explore the three core components of the Java platform: the Java Development Kit, the Java Runtime Environment, and the Java Virtual Machine. Understanding how these pieces work together is essential for Java development and execution.
+
+Let’s start with the Java Development Kit, or JDK. Think of the JDK as the outermost layer and a comprehensive superset of tools. It contains everything you need for Java development, including the JRE, the JVM, and essential command-line tools like the `javac` compiler and the `java` application launcher. You use the JDK to compile your human-readable source code, which is stored in `.java` files, into bytecode, which is saved as `.class` files.
+
+Next is the Java Runtime Environment, or JRE. You can think of the JRE as being located inside the JDK. Its primary purpose is to provide the libraries, such as `java.lang` and `java.io`, and the other components necessary to actually run Java programs. The JRE includes the JVM, class loaders, and bytecode verifiers, and it is the environment you need if you simply want to execute already compiled Java applications.
+
+Finally, we have the Java Virtual Machine, or JVM. This is the innermost component and the engine that actually executes the Java bytecode. It is important to note that the JVM is platform-dependent; this means you must have the specific version of the JVM designed for your operating system, whether that is Windows, Linux, or macOS. The JVM is responsible for translating bytecode into native machine instructions for your computer. It includes critical features like the Java interpreter, the Just-In-Time compiler, and the garbage collector to manage memory.
+
+To help you visualize how these components work together, let’s look at the compilation and execution flow.
+
+First, you need to compile your source code. You do this by using the `javac` tool, which is part of the JDK. By running the command `javac MyProgram.java`, you convert your source code into a `.class` file containing bytecode.
+
+Once the code is compiled, you can execute it using the `java` application launcher, which is found in both the JDK and the JRE. By running the command `java MyProgram`, the JRE provides the necessary runtime libraries, and the JVM takes over to execute the bytecode on your system.
+
+By following this process, you can move from writing source code to running a functional application on any platform that supports the Java Virtual Machine.

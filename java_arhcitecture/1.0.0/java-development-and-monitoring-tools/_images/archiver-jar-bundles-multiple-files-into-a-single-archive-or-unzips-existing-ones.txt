@@ -1,0 +1,17 @@
+The `jar`, or Java ARchive tool, is an essential utility within the Java Development Kit. You can think of it as a zip utility specifically tailored for Java applications. It allows developers to bundle compiled Java class files, images, configuration files, and other resources into a single, portable archive file. This is vital for two main tasks: first, bundling your application components for easy distribution to others; and second, inspecting or extracting the contents of an existing archive.
+
+There are several key advantages to using JAR files. They simplify deployment by consolidating everything into one file, and they are platform-independent, supporting Java's "Write Once, Run Anywhere" philosophy. Because they are compressed, they save storage space and allow for faster downloads. From a security standpoint, JAR files can be digitally signed to verify the authenticity of the code. Furthermore, they are the standard for library management, and they can even be configured to be directly executable.
+
+To use the tool, you operate from the command line using the `jar` command followed by various options. Some of the most common options include `-c` to create a new archive, `-x` to extract files, `-t` to view the table of contents, and `-u` to update an existing archive. You will frequently use `-f` to specify the filename and `-v` for verbose output, which provides helpful details during the process. Additionally, the `-e` option lets you specify the main class for an executable JAR, while `-C` allows you to change directories during the process to better manage your file structure.
+
+Now, let's move into our hands-on lab where we will create, inspect, and run JAR files. To follow along, ensure you have a Java Development Kit installed and access to your terminal.
+
+In our first activity, we will create a basic JAR file. Start by creating a workspace directory and then a source file named `MyGreeting.java` within a `com/example` package structure. Once you have compiled that source file using `javac` to generate your `.class` file, you can create the JAR using the `jar -cvf` command. Using `-C . com` tells the tool to change to the current directory and include the `com` folder. You will see output confirming that the manifest and your class files have been successfully added.
+
+Next, we will inspect the contents of your new archive. Simply run `jar -tf` followed by the filename. This will list all files inside the JAR without the need to extract them. You will notice a `META-INF/MANIFEST.MF` file, which is automatically generated to store metadata about your archive.
+
+Moving on to activity three, we’ll create an executable JAR. By using the `-e` option followed by the fully qualified name of your class—in this case, `com.example.MyGreeting`—you set the entry point for the application. Once created, you can launch your program directly from the terminal by running `java -jar` followed by the JAR filename. You should see your greeting message printed to the console.
+
+Finally, in our fourth activity, we will extract the contents of an archive. By using the `jar -xf` command, the contents of the file are unpacked into your current directory. This is useful when you need to access specific resources or inspect individual class files within the package.
+
+By completing these exercises, you have mastered the fundamental operations for managing Java archives. These skills are essential for the professional deployment and distribution of any Java-based software project.

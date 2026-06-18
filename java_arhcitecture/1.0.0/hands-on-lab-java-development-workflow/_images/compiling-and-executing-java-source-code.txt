@@ -1,0 +1,28 @@
+Java’s "write once, run anywhere" philosophy is a cornerstone of its design, enabling applications to run across diverse operating systems and hardware. This remarkable capability is powered by a two-step process: compiling your source code into an intermediate format called bytecode, and then executing that code using a Java Virtual Machine, or JVM.
+
+Let’s begin by looking at the compilation process.
+
+The initial phase of creating a Java application involves translating your human-readable source code into a machine-agnostic format. This is handled by the Java Compiler, known as `javac`, which is a key tool included in the Java Development Kit, or JDK.
+
+When you run `javac` on a file with a `.java` extension, the compiler performs a thorough analysis of your code, checking for correct syntax and ensuring it meets all Java language specifications. If your code is correct, the compiler generates a `.class` file. This file contains Java bytecode, which is the set of instructions that the Java Virtual Machine understands. 
+
+Keep in mind that the Java Development Kit, or JDK, is a complete package for developers; it contains all the essential tools, including `javac`. You must have the JDK installed on your system to compile your source code.
+
+Once your code is compiled into bytecode, you are ready to execute it. This is where the Java Runtime Environment and the Java Virtual Machine come into play. To start your program, you use the `java` application launcher, often simply called the `java` command. This command launches an instance of the JVM, which then loads your compiled class file and prepares it for execution.
+
+The execution process follows a specific, orchestrated sequence:
+First, you write your source code. Second, the `javac` compiler translates it into bytecode. Third, you invoke the `java` command to launch the JVM. Fourth, the JVM’s ClassLoader brings your class into memory, and the Bytecode Verifier checks it for integrity. Finally, the JVM's interpreter or its Just-In-Time compiler translates that bytecode into native machine instructions that your computer can run. This entire process is why Java remains so portable—the bytecode acts as a universal language, while the JVM acts as the translator for your specific hardware.
+
+Now, let's put this into practice with a hands-on lab. To follow along, ensure you have a Java Development Kit installed and access to a terminal or command-line interface.
+
+First, set up your workspace by creating a new directory named `java-first-app` and navigate into it.
+
+Next, create a file named `Greeting.java` using your preferred text editor. Inside this file, add a class named `Greeting` that contains a `main` method, which prints two lines: "Hello from the Java Development Workflow Lab!" and "This is my first compiled and executed Java program!". Remember, the filename `Greeting.java` must match the class name `Greeting` exactly.
+
+With your file saved, move to your terminal to compile the code. Execute the command `javac Greeting.java`. If the compilation is successful, you won’t see any error messages. Instead, the compiler will create a new file in your directory called `Greeting.class`. You can verify this by listing the files in your directory; you should see both the original `.java` file and the new `.class` bytecode file. 
+
+If you encounter any errors during compilation, double-check your code for typos, missing semicolons, or casing issues. The compiler error messages are quite helpful and will usually point you to the exact line that needs attention.
+
+Finally, execute your program. In the terminal, enter the command `java Greeting`. Note that you do not include the `.class` extension here; just use the name of the class. 
+
+Once you run this command, you will see your messages appear in the terminal. You have just completed the full Java development lifecycle: you wrote the source code, compiled it into bytecode using `javac`, and executed it on the Java Virtual Machine using the `java` launcher.

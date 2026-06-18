@@ -1,0 +1,17 @@
+In this session, we will explore the critical relationship between JBoss Enterprise Application Platform—or EAP—and Java Development Kit, or JDK, versioning. Understanding these compatibility requirements is essential for the successful development, deployment, and troubleshooting of Java applications on EAP, especially when you are planning a migration or evaluating support requirements.
+
+Let’s begin by looking at JBoss EAP and JDK compatibility. JBoss EAP is an open-source application server developed by Red Hat that provides a high-performance platform for enterprise Java applications. Because the compatibility between EAP and the JDK is vital for stability, performance, and official support, it is important to know which versions work together.
+
+Starting with JBoss EAP 8, we see a significant evolution that embraces modern JDK standards. EAP 8 officially supports Long-Term Support releases, specifically JDK 11, JDK 17, and JDK 21. Conversely, it is important to note that some versions are explicitly unsupported. Unlike previous releases, JBoss EAP 8 does not support JDK 8. Additionally, JDK 25 is also not supported. Using an unsupported JDK version can lead to unpredictable behavior and performance issues, and importantly, it prevents you from receiving official support from Red Hat.
+
+Now, let’s look at JBoss EAP 7.4. This version operates under a different compatibility landscape. EAP 7.4 supports JDK 8 and JDK 11. If you are currently working with EAP 7.4, it is crucial to stay informed about its specific support lifecycle. 
+
+To summarize the comparison, while EAP 8 focuses on newer releases like 11, 17, and 21, EAP 7.4 remains anchored to JDK 8 and 11. Please keep in mind that while these major version compatibilities remain consistent, specific support details can evolve with maintenance releases. You should always consult the official Red Hat documentation for the most granular and up-to-date information.
+
+Beyond just the version numbers, it is helpful to remember that JBoss EAP is an implementation of Enterprise Java specifications. These specifications define the rules and APIs for enterprise applications, which Red Hat implements through EAP. The compatibility between your JDK and your application server is fundamentally tied to how these specifications interact with the underlying Java platform.
+
+To put this into practice, let’s walk through a common support scenario. Imagine you are a support engineer and a customer submits a ticket. They report that their application, running on JBoss EAP 7.4, is behaving unexpectedly after they upgraded their server to JDK 17, believing it would improve performance.
+
+To address this, follow these steps: First, review the customer’s setup. They are on EAP 7.4 and are running JDK 17. Second, consult the compatibility matrix. We know that for EAP 7.4, the supported versions are limited to JDK 8 and JDK 11. Third, identify the issue. Based on this, you can clearly see that running EAP 7.4 on JDK 17 is an unsupported configuration. Finally, formulate your guidance. You must explain this incompatibility to the customer and suggest the necessary steps to revert or adjust their environment.
+
+Before closing, there is one final, important caution: when working with older versions like EAP 7, always remember to verify the customer's subscription status. Customers may need a specific, separate subscription to receive full support for older EAP releases. As a support engineer, confirming this status is a vital part of your initial assessment.

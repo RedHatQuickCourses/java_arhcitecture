@@ -1,0 +1,30 @@
+Monitoring tools are essential in the Java ecosystem. They provide the deep insights needed to observe the runtime behavior of your applications, allowing you to pinpoint performance bottlenecks, diagnose issues, and ensure your Java processes remain stable and efficient. In this session, we will explore three key tools: JConsole, JVisualVM, and the Java Flight Recorder.
+
+Let’s begin with JConsole, the Java Monitoring and Management Console. 
+
+JConsole is a graphical tool included with the JDK that lets you observe how a running Java Virtual Machine—or JVM—consumes resources. Because every Java program runs as a process on your operating system with a unique Process ID, or PID, JConsole connects directly to these active processes to gather data. 
+
+It is important to remember that JConsole provides a consistent experience across different platforms. Whether you are working on Windows or Linux, the core functionality remains the same. Keep in mind, however, that some enterprise application servers may include their own wrappers around JConsole to provide additional, application-specific metrics.
+
+JConsole provides five key capabilities:
+First, Memory Management, which lets you monitor heap and non-heap usage along with garbage collection statistics. 
+Second, Thread Management, which helps you identify issues like deadlocks or thread contention by displaying thread states. 
+Third, Class Loading, which tracks the number of classes loaded or unloaded. 
+Fourth, CPU Usage, providing an overview of how much processing power the JVM is consuming. 
+And finally, the MBeans browser, which allows you to interact with Managed Beans to adjust runtime configurations or access operational data.
+
+To see this in action, we’ll run a brief activity. We have provided a Java class named MemoryEater, designed to simulate memory and CPU activity. Once you compile and run this application using the standard `javac` and `java` commands, you can open a new terminal and launch JConsole by simply typing `jconsole`. 
+
+The connection window will automatically detect your local Java processes. If you don't see your application, you can use the `jps` command in your terminal to list all running Java processes and their PIDs, then connect manually. Once connected, explore the tabs. You will see real-time graphs for memory and CPU usage, and you can even manually trigger garbage collection or inspect individual thread states. When you are finished with the activity, be sure to close JConsole and terminate your application.
+
+Next, let's look at JVisualVM. 
+
+JVisualVM is a more comprehensive diagnostic tool included with the JDK. While JConsole is excellent for basic real-time monitoring, JVisualVM integrates several command-line tools into one interface and provides advanced features for performance tuning and troubleshooting. 
+
+It covers all the basics of JConsole, but adds powerful profiling capabilities, the ability to take heap and thread dumps, and advanced snapshot comparisons. If you find that JConsole’s metrics aren't quite enough to solve a complex performance issue, JVisualVM is usually the right tool for the job. You can launch it by typing `jvisualvm` in your terminal. Once open, you can connect to your local application to access the Monitor, Thread, Sampler, and Profiler tabs to conduct a deeper investigation into your application’s performance.
+
+Finally, we have the Java Flight Recorder, or JFR. 
+
+Unlike JConsole and JVisualVM, which are used for real-time interactive monitoring, JFR is a framework designed for continuous data collection. It is built directly into the JVM and is designed to have very low overhead, meaning it has a minimal impact on your application's performance. This makes it an ideal choice for production environments. 
+
+JFR works by recording events—such as garbage collection, I/O operations, or thread activity—and saving that data to a file for offline analysis. It is an extremely powerful tool for debugging complex, intermittent issues or performance regressions that are difficult to catch while monitoring in real-time. While JFR data is typically analyzed using a tool called Java Mission Control, understanding its role as a robust, low-impact diagnostic mechanism is a critical skill for any advanced Java developer.

@@ -1,0 +1,41 @@
+Inheritance is a foundational principle of Object-Oriented Programming in Java. It allows classes to acquire properties and behaviors from other classes, which promotes code reuse and helps us build logical, hierarchical relationships in our software. In this session, we will explore how inheritance works, its benefits, and walk through a hands-on activity to see it in action.
+
+### Understanding Inheritance in Java
+
+At its core, inheritance allows one class to inherit fields and methods from another. This creates a natural "is-a" relationship. For example, a "Car" is a type of "Vehicle," and a "Motorcycle" is also a "Vehicle."
+
+In Java terminology, the class being inherited from is known as the superclass, parent class, or base class. The class that inherits those properties is called the subclass, child class, or derived class. 
+
+By using inheritance, you can extend the functionality of an existing class without rewriting its code. Once a child class inherits from a parent, it can do three main things: it can use the parent's existing methods and fields, add its own new fields and methods, or override inherited methods to provide a specialized implementation for its own needs.
+
+There are several key benefits to this approach:
+*   **Code Reusability:** You define common logic once in a superclass, which reduces redundancy and makes your codebase much easier to maintain.
+*   **Polymorphism:** Inheritance is essential for method overriding, allowing objects of different subclasses to be treated as instances of their common superclass.
+*   **Hierarchical Classification:** It allows you to organize your system into a logical structure that mirrors real-world categories.
+*   **Extensibility:** You can introduce new features by creating new subclasses without modifying the core logic of the parent class, which aligns with the Open-Closed principle.
+
+Java supports a few types of inheritance models:
+*   **Single Inheritance:** Where a class inherits from only one parent.
+*   **Multilevel Inheritance:** Where you have a chain, such as a child class inheriting from a parent, which in turn inherits from a grandparent.
+*   **Hierarchical Inheritance:** Where multiple subclasses share a single common parent.
+*   **Multiple Inheritance:** While Java does not allow a class to extend multiple classes—to avoid complexities like the diamond problem—it does allow a class to implement multiple interfaces, providing a flexible way to inherit different type behaviors.
+
+### How Inheritance Works
+
+In your code, you use the `extends` keyword to define a subclass. When class B extends class A, it gains access to all non-private fields and methods of class A. If a member is marked as `private`, it is not directly accessible, though it can still be accessed indirectly via public or protected methods.
+
+For example, when you define a `Car` class that extends `Vehicle`, you can use the `super` keyword in the constructor to initialize the parent class. If you define a method in the `Car` class with the same signature as one in the `Vehicle` class, you are "overriding" that method. Using the `@Override` annotation is considered best practice, as it tells the compiler you intend to replace the parent’s implementation with a specialized version.
+
+### Hands-on Activity: Exploring Vehicle Hierarchy
+
+Let’s apply these concepts by building a vehicle hierarchy. You will need a Java Development Kit and a text editor.
+
+First, create a `Vehicle.java` file. This will be your superclass, defining base properties like `type` and `maxSpeed`, and methods like `start`, `stop`, and `accelerate`.
+
+Next, create `Car.java` and `Motorcycle.java`. Both should use the `extends Vehicle` syntax. In these files, you will call `super()` in the constructor to pass values to the parent class. You will also override the `accelerate` method in each class to provide specialized behavior—for example, making the motorcycle "roar" while the car accelerates "smoothly."
+
+Finally, create a main class, `InheritanceLab.java`. Inside the `main` method, instantiate these objects and call their methods to observe the results. You will see that even when you call the same method name—like `accelerate`—the output differs based on whether you are interacting with a base `Vehicle`, a `Car`, or a `Motorcycle`.
+
+To finish, open your terminal, navigate to your directory, and run the command `javac Vehicle.java Car.java Motorcycle.java InheritanceLab.java` to compile your files. Once that is done, run `java InheritanceLab`.
+
+As you examine the output, you will see exactly how subclasses reuse the parent’s logic, how they provide unique features, and how polymorphism ensures that the correct, specialized version of a method is executed at runtime. This practice demonstrates the power of inheritance in creating organized, flexible, and maintainable Java applications.

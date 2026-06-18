@@ -1,0 +1,13 @@
+Welcome to this hands-on lab on the Java development workflow. In this session, we will gain practical experience with the essential tools and processes you need to build, manage, and monitor Java applications.
+
+We will cover four key areas of the development lifecycle. 
+
+First, we will focus on compiling and executing Java source code. You’ll learn how to use the `javac` command to compile your `.java` source files into bytecode, and then use the `java` command to execute that compiled code.
+
+Next, we’ll look at how to inspect that bytecode using the `javap` decompiler. This tool is invaluable for viewing the internal structure and underlying details of your `.class` files.
+
+Third, we will cover creating and managing JAR files. You will learn how to use the `jar` utility to bundle multiple compiled files into a single archive for easy distribution, as well as how to unpack existing archives.
+
+Finally, we will explore how to monitor your applications using JConsole. This will allow you to observe critical metrics, including memory usage, thread activity, and the overall performance of your Java processes. 
+
+Let's get started.

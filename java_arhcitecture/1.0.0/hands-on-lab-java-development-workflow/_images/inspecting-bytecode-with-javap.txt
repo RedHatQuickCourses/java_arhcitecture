@@ -1,0 +1,25 @@
+As Java developers, we primarily work with human-readable source code. However, the Java Virtual Machine does not directly execute this source code. Instead, it operates on a special intermediate format known as bytecode. Understanding bytecode and how to inspect it is a powerful skill for debugging, optimizing, and gaining deeper insights into how Java programs behave at a lower level.
+
+When you compile a Java source file using the `javac` compiler, the output is not machine-specific executable code. Instead, `javac` produces `.class` files, which contain Java bytecode. This bytecode is a set of instructions designed to be executed by a Java Virtual Machine, or JVM. 
+
+Java bytecode is characterized by three main concepts. First, it is platform independent; the same class file can run on any operating system that has a compatible JVM. This is the foundation of the "write once, run anywhere" philosophy. Second, it serves as an intermediate representation, acting as a layer between your source code and native machine code. Finally, it is designed for JVM execution. Modern JVMs often use Just-In-Time compilation to convert frequently executed bytecode into native machine code at runtime, which optimizes performance.
+
+While you rarely write bytecode directly, learning to read it is highly beneficial. It can help you debug complex issues that aren't apparent in source code, tune your application for better performance, and analyze the security of third-party libraries.
+
+To inspect this bytecode, we use `javap`, a command-line utility included in the Java Development Kit. It acts as a class file disassembler, taking a compiled class file and printing a human-readable representation of its fields, methods, and the underlying bytecode instructions.
+
+Let's walk through a hands-on activity to see this in action. For this lab, ensure you have the Java Development Kit, a text editor, and a command-line terminal ready.
+
+First, we will create a Java source file. Open your editor and create a file named `Calculator.java`. Populate it with the `Calculator` class provided in your materials. This class includes a private integer field, a constructor, a simple `add` method, an `incrementResult` method, and a `main` method for demonstration.
+
+Once the file is saved, open your terminal, navigate to the file's directory, and compile it by running the command: `javac Calculator.java`. This generates a `Calculator.class` file, which is your compiled bytecode.
+
+Now, let's explore this file using different `javap` options. Start by running `javap Calculator`. This provides a basic overview, showing the class name, constructors, and public methods. Note that this view does not show private fields or the actual method implementations.
+
+To see more detail, use the verbose option by running `javap -v Calculator`. This provides comprehensive information, including the constant pool—which lists string literals and references used by the class—as well as stack size, local variable tables, and full method details.
+
+If you want to see the actual disassembled instructions for each method, use the `-c` option by running `javap -c Calculator`. Looking at the `add` method, for example, you will see instructions like `iload_1` and `iload_2` to load arguments, `iadd` to perform the addition on the stack, and `ireturn` to return the result. This gives you a clear view of the low-level operations performed by the JVM.
+
+Finally, you can inspect internal type signatures using the `-s` option. Combining this with `-p` allows you to see private members as well. Run `javap -s -p Calculator.class` to see how Java represents types internally—for instance, where the letter `I` represents an integer and `V` represents a void return type.
+
+By completing these steps, you have moved beyond the surface level of Java development and gained a direct look at how your code is translated and executed by the JVM. This foundation is a critical step in mastering the Java platform.
