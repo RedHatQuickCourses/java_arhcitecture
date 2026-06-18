@@ -1,0 +1,41 @@
+Java Flight Recorder, or JFR, is an integral profiling and event collection framework embedded directly within the Java Virtual Machine. Its primary purpose is to provide deep insights for diagnosing and troubleshooting complex issues in Java applications, particularly in production environments, while maintaining an exceptionally low performance overhead.
+
+### Understanding JFR’s Capabilities
+
+JFR works by continuously collecting detailed data about both the JVM and the application itself. Unlike traditional profiling tools that can introduce significant performance penalties, JFR is engineered to operate with minimal impact, typically less than one percent overhead. This makes it an ideal solution for continuous, "always-on" data collection in live production systems.
+
+At its core, JFR uses an event-driven architecture. It captures data based on specific events that occur within the system, storing this information over predefined intervals or when certain conditions are met. This dataset, known as a "flight recording," provides a comprehensive view of your application's behavior. This includes internal JVM operations—such as garbage collection, heap usage, thread contention, and JIT compilation—as well as application-specific events like method invocations, exceptions, and I/O operations. It even captures relevant operating system interactions, such as CPU and memory consumption.
+
+This granular data is invaluable for root cause analysis, performance optimization, and debugging complex, intermittent issues that traditional debuggers might miss. Think of JFR as a "black box" flight recorder for your Java application.
+
+### Operational Characteristics
+
+JFR is highly efficient because it uses an in-memory buffer to store events before writing them to a disk file with a dot-jfr extension. Because it is built directly into the HotSpot JVM, you don't need external agents or complex setups to use it. Furthermore, it is highly configurable, giving you control over which events to record and the duration or size limits of the recording session.
+
+While other tools like `jstack`, `jmap`, or `JConsole` offer snapshots or real-time metrics, JFR’s true power lies in its ability to provide a historical, holistic view of your application. It allows you to correlate diverse events—like garbage collection pauses, CPU spikes, and method calls—on a precise timeline.
+
+### Hands-on Activity: Creating a JFR Recording
+
+Let’s look at how to run a basic JFR session. You will need a JDK 11 or later and a command-line terminal.
+
+First, create a sample application named `JfrDemoApp.java`. This simple program performs basic mathematical computations and occasionally pauses, which provides excellent data for JFR to capture. Once you have saved the code, open your terminal, navigate to your directory, and compile it by running the command: `javac JfrDemoApp.java`.
+
+To run the application with JFR enabled, use the following JVM argument:
+`java -XX:StartFlightRecording=duration=15s,filename=my_jfr_recording.jfr JfrDemoApp`
+
+In this command, the `StartFlightRecording` argument activates the recorder, `duration=15s` tells it to record for fifteen seconds, and `filename` specifies the output file. Once the application finishes, you will see `my_jfr_recording.jfr` in your folder.
+
+### Advanced Usage with `jcmd`
+
+If you need to manage a recording on an already-running application, you can use the `jcmd` utility.
+
+After starting your application, use the `jps -l` command to identify your process ID. With that ID, you can start a recording using:
+`jcmd <PID> JFR.start duration=20s filename=live_attached_recording.jfr`
+
+You can also dump the current state of a recording at any time using `JFR.dump`, or stop the recording session entirely using `JFR.stop`.
+
+### Inspecting Your Data
+
+Finally, to analyze the data you’ve collected, use Java Mission Control, or JMC. By opening your dot-jfr file in JMC, you can access powerful graphical dashboards. These tools allow you to visualize thread activity, memory usage, and garbage collection details, all correlated in a single, intuitive timeline.
+
+As a final note, keep in mind that while JFR and JMC were once proprietary commercial features, they have been open-sourced since the release of JDK 11. They are now freely available as part of the OpenJDK distribution, making them accessible to every Java developer for professional-grade troubleshooting.

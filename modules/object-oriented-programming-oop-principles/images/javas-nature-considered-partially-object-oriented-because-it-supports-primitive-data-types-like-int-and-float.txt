@@ -1,0 +1,17 @@
+Java is widely recognized as a cornerstone of object-oriented programming, yet it is technically classified as a "partially" object-oriented language rather than a purely object-oriented one. Understanding this distinction is essential to grasping Java's design philosophy and how it manages performance.
+
+In a purely object-oriented language, everything—including fundamental data types like numbers and characters—is treated as an object. Every piece of data would be an instance of a class, complete with its own internal state and methods. Java, however, chooses a different path by incorporating both powerful object-oriented features and simpler, high-performance primitive data types.
+
+Java explicitly supports primitives such as `int`, `float`, `boolean`, `char`, `byte`, `short`, `long`, and `double`. These primitives are not objects. They do not inherit from the `java.lang.Object` class, they do not possess methods, and their values are stored directly in memory rather than as references on the heap. This direct storage provides significant performance benefits for common arithmetic and logical operations.
+
+For example, when you declare `int age = 30`, the variable `age` holds the literal value thirty. Conversely, if you use the wrapper class `Integer`, the variable becomes a reference to an object on the heap that encapsulates that value and provides access to methods like `toString()`.
+
+There are three key reasons why Java uses this hybrid approach. First, it provides primitive data type support, which allows the language to handle fundamental values without the overhead of creating objects. Second, it is a critical performance optimization. Primitives are more memory-efficient and faster to process because they avoid the overhead of heap allocation and garbage collection. Finally, it promotes simplicity and readability by allowing developers to write cleaner, more concise code for basic data manipulation.
+
+Now, let’s move into a hands-on activity to see this difference in action. 
+
+First, create a new file named `DataTypeContrast.java`. In this file, you will declare an `int` primitive and an `Integer` object. You will notice that while you can call the `toString()` method on the `Integer` object, attempting to call a method on the `int` primitive will result in a compilation error. This is because the primitive is a raw value type, not an object. The program also demonstrates how Java handles operations like addition, where autounboxing and autoboxing allow you to perform calculations with objects just as easily as with primitives.
+
+To run this demonstration, save your file, then compile it by running the command `javac DataTypeContrast.java`. Once compiled, execute the program by running the command `java DataTypeContrast`. 
+
+When you run the code, you will see the output confirm the values for both the primitive and the object. The analysis of this output reinforces the core lesson: while both types hold numerical data, only the object type provides the functionality associated with class instances. This architectural choice is exactly what gives Java its unique balance, providing both the raw efficiency of primitives and the powerful modularity of object-oriented design.

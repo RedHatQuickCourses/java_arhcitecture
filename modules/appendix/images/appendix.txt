@@ -1,0 +1,3 @@
+To conclude this course, we have compiled a list of official resources to help you dive deeper into these topics and explore more advanced concepts. 
+
+For comprehensive information on the JBoss EAP 8 platform, please consult the official JBoss EAP 8 documentation. If you are looking for detailed technical specifications and guides regarding the Java platform, refer to the official Oracle Java SE documentation. Finally, for information on monitoring and troubleshooting your applications, you can visit the official VisualVM website.

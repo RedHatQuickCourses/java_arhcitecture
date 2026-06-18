@@ -1,0 +1,9 @@
+In this lesson, we are going to look at how to use collapsible blocks within your training content. These are a great tool for managing information flow, allowing you to include optional hints, deep dives, or extra details without overwhelming the learner or interrupting the main lesson.
+
+Best of all, this feature is built directly into Asciidoctor, so no additional extensions are required. You simply use the collapsible attribute to keep your content clean and accessible.
+
+Let’s start with a practical use case: providing hints. If you want to offer help for an exercise without giving the answer away immediately, you can use a collapsed hint block. This encourages learners to try the task on their own first. If they get stuck, they can open the block to check a list of troubleshooting steps, such as verifying their environment variables or reviewing the previous section on configuration.
+
+Next, consider using collapsible blocks for deep dives. This is helpful when you want to provide extra technical background that isn't strictly necessary for every student. For example, if you are explaining pipeline stages, you can provide a deep dive that outlines the relationship between the validate, compile, and package stages. You can explain that skipping a stage often results in outdated artifacts, which is why your continuous integration process always runs the full chain. You might also include a command example here, such as the "./gradlew clean build" command, to reinforce the process.
+
+Finally, there may be times when you want to provide additional context that is optional but helpful enough to be visible right away. In those cases, you can set the block to open by default using the "open" parameter. This keeps the information accessible immediately upon loading the page, but still signals to the learner that this is supplementary content. Use this sparingly, however, to ensure it doesn't distract from your primary learning objectives.

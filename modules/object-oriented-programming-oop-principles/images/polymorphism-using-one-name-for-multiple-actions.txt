@@ -1,0 +1,29 @@
+Welcome to this lesson on Polymorphism, a fundamental principle of Object-Oriented Programming. 
+
+The term polymorphism comes from the Greek words "poly," meaning many, and "morph," meaning forms. In Java, this translates to the ability to use one name to trigger multiple different actions. By allowing a single interface to represent different underlying data types, polymorphism significantly improves code flexibility, maintainability, and extensibility.
+
+Java supports two primary types of polymorphism: compile-time polymorphism, also known as method overloading, and runtime polymorphism, known as method overriding.
+
+Let’s start with Compile-time Polymorphism, or Method Overloading. This occurs when a class has multiple methods with the same name, but different method signatures. A signature is defined by the number, type, and order of the method’s parameters. It is important to note that the return type is not part of the signature, so you cannot differentiate overloaded methods based on return type alone. During compilation, the Java compiler statically determines which method to call based on the arguments provided.
+
+For example, imagine a Calculator class. You might have several versions of an "add" method: one that takes two integers, one that takes three integers, one that takes two doubles, and another that concatenates two strings. The compiler automatically selects the correct version depending on the inputs you provide in your code.
+
+Next, let's discuss Runtime Polymorphism, or Method Overriding. This happens in an inheritance hierarchy when a subclass provides its own specific implementation of a method already defined in its parent class. In this case, the decision of which method to execute is made at runtime based on the actual object type, not the reference type.
+
+When working with overriding, remember these three rules. First, the overriding method in the subclass must have the exact same signature as the method in the superclass. Second, it is best practice to use the `@Override` annotation, as it helps the compiler verify that you are actually overriding a method correctly. Finally, the access modifier of the overriding method must be just as accessible, or more accessible, than the original.
+
+A powerful aspect of this is upcasting. If you have a superclass reference variable pointing to a subclass object, calling an overridden method will execute the subclass version. This allows you to write generic code that can handle various types of objects without needing to know their specific class at compile time.
+
+Polymorphism offers several key benefits: it increases flexibility, allowing you to add new classes without breaking existing code; it promotes reusability; it makes your code cleaner and easier to read; and it helps decouple components, which simplifies both testing and maintenance.
+
+Now, it is time to put these concepts into practice with our hands-on labs.
+
+In the first activity, you will implement method overloading using a Greeter class. You will create a class with multiple versions of a "sayHello" method that accept different parameters, such as no arguments, a single name, a name and a count, or an array of names. When you compile and run this, you will see the Java compiler intelligently selecting the right method based on the arguments you pass.
+
+In the second activity, you will explore runtime polymorphism through a Vehicle hierarchy. You will create a base Vehicle class, then define Car and Motorcycle subclasses that override the "startEngine" and "drive" methods. 
+
+As you progress through this lab, pay close attention to the upcasting section. You will create an array of Vehicles and populate it with different types. When you loop through that array and call the "drive" method, you will see how Java dynamically executes the version specific to each object—whether it is a Car or a Motorcycle. This confirms that the JVM is correctly resolving the method calls at runtime.
+
+As you work through these labs, remember that while you can call overridden methods through a parent reference, you cannot call subclass-specific methods—like "honk" or "wheelie"—if they aren't part of the base class. The compiler only sees the reference type, which is an important limitation to keep in mind.
+
+Take your time with these exercises, and you will see firsthand how polymorphism makes your Java applications significantly more robust and modular. Good luck.

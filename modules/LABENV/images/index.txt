@@ -1,0 +1,1 @@
+For this training session, we will be using your local laptop as the primary environment for all lab exercises. Please ensure your machine is prepared and ready to go before we begin.

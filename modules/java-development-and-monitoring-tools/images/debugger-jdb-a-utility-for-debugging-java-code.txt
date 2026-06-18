@@ -1,0 +1,29 @@
+Welcome to this training session on the Java Debugger, commonly known as jdb. 
+
+Debugging is a fundamental skill for any software developer. It is the process of finding and resolving defects—or "bugs"—that prevent your code from operating correctly. While many developers rely on integrated development environments, or IDEs, that provide visual debugging tools, the Java Development Kit includes a powerful, command-line debugger called jdb. 
+
+Learning to use jdb is highly beneficial. It is indispensable when you are working in environments where a graphical interface isn't available, such as on remote servers or within minimal development setups. Even if you usually use an IDE, understanding jdb helps you master the underlying debugging process.
+
+With jdb, you can perform several critical tasks: you can set breakpoints to pause execution at specific lines of code; step through your program line by line or method by method; inspect the current values of local variables and object fields; modify the execution flow by changing variable values; and monitor the state of different threads in multi-threaded applications.
+
+When you use jdb, you are essentially launching the Java Virtual Machine in a special debug mode. This allows the debugger to connect to the machine, receive notifications about program events, and send commands to control execution. The standard workflow involves compiling your code with debug information, launching the application with the debugger attached, and then issuing commands from the console.
+
+Now, let’s walk through a hands-on lab to see this in action. We will use a simple program that calculates the factorial of a number.
+
+First, you need to create your source file, `FactorialCalculator.java`. This program includes a main method that calls a `calculateFactorial` method, which contains a loop. 
+
+Next, you must compile this program with debug information. This is a crucial step. When you run your compiler, use the `-g` flag. For example, run `javac -g FactorialCalculator.java`. This command ensures that the resulting class file contains the necessary symbols that the debugger needs to reference your source code accurately.
+
+Once compiled, you can launch the program in debug mode by typing `jdb FactorialCalculator`. You will see the initialization output, and the debugger will provide a command prompt, indicating it is ready for your input.
+
+Now, let’s set a breakpoint. We want to stop inside the `calculateFactorial` method, specifically on the line where we calculate the factorial. Type `stop at FactorialCalculator:19` to place that marker. 
+
+To start the program, simply type `run`. The application will execute until it hits line 19. When it pauses, you can inspect the current state of the application. Type `print n`, `print factorial`, and `print i` to see the values of those variables at that exact moment.
+
+To move through the code, use the `step` or `next` commands. `step` will follow the execution into methods, while `next` will step over a line, keeping you within the current method frame. For instance, if you type `next` after reaching your breakpoint, the debugger will execute the multiplication logic and pause at the next line. You can then print the variables again to verify that the value of the factorial has updated correctly.
+
+If you want to continue execution until the next breakpoint, use the `cont` command. This will resume the program until it either hits another breakpoint or finishes entirely.
+
+Finally, when you no longer need to pause execution, you can clear a breakpoint by typing `clear` followed by the file name and line number. Once all breakpoints are cleared, type `cont` one last time, and the program will run to completion, printing the final result to your console before the debugger exits.
+
+By mastering these steps—compiling with the `-g` flag, setting breakpoints, inspecting variables, and stepping through your logic—you gain a deep, technical understanding of how your Java applications behave under the hood. This foundation will serve you well, regardless of the tools or environments you encounter in your career.

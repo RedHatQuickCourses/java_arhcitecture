@@ -1,0 +1,15 @@
+The Java Development Kit, or JDK, provides a comprehensive suite of tools designed to assist developers throughout the entire software lifecycle, from initial development and debugging to packaging and monitoring applications. Let's take a look at the essential utilities included in this toolkit.
+
+First, we have `javac`, the compiler. This is the tool that translates your human-readable Java source code—your dot-java files—into Java bytecode, which is saved as dot-class files. Once you have compiled your code, you use the `java` application launcher to execute those class files or packaged JAR files.
+
+For developers needing to inspect the internals of their application, the `javap` decompiler is invaluable. It allows you to examine a compiled dot-class file, providing a view of its bytecode or a disassembled representation of the code.
+
+When it comes to distribution, the `jar` archiver is your go-to utility. You use this to bundle your class files and resources into a single Java Archive, or JAR file. You can also use it to extract contents from an existing archive.
+
+If you encounter issues during development, the `jdb` debugger is a powerful command-line utility. It gives you the ability to set breakpoints, step through your execution line by line, and inspect variables in real time. 
+
+For security requirements, the `keytool` utility is essential. It manages your keystores and truststores, which are critical components for implementing SSL and HTTPS security in your Java applications.
+
+Once your application is running, you need tools to ensure it remains healthy and performant. `JConsole` is a graphical tool that lets you monitor your Java application’s performance, including memory usage, thread activity, and general process health. It is particularly useful for gathering real-time data on an active Java process. For even deeper analysis, you can utilize the Java Flight Recorder, or JFR. This is a sophisticated profiling and event collection framework, ideal for troubleshooting complex performance issues by capturing detailed diagnostic data over time.
+
+To put these concepts into practice, our hands-on lab will cover the full Java development workflow. We will walk through the process of compiling and executing source code, inspecting bytecode using `javap`, creating and managing your own JAR files, and finally, using `JConsole` to monitor a running application.
